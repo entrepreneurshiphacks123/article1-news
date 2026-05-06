@@ -1,6 +1,33 @@
 ---
+import { TOPICS, RACE_LEVELS } from '../lib/topics';
+
+export interface Props {
+  active?: string;
+  activeRace?: string;
+}
+
+const { active = 'All', activeRace = 'all' } = Astro.props;
 ---
 <footer class="site-footer">
+  <div class="footer-filters">
+    <div class="footer-filter-label">Topics</div>
+    <div class="footer-pills">
+      {TOPICS.map((t) => {
+        const href = t.label === 'All' ? '/' : `/topic/${encodeURIComponent(t.label)}`;
+        const cls = 'topic-pill' + (active === t.label ? ' active' : '');
+        return <a class={cls} href={href}>{t.label}</a>;
+      })}
+    </div>
+    <div class="footer-filter-label">Races</div>
+    <div class="footer-pills">
+      {RACE_LEVELS.map((r) => {
+        const href = r.key === 'all' ? '/' : `/race/${r.key}`;
+        const cls = 'topic-pill' + (activeRace === r.key ? ' active' : '');
+        return <a class={cls} href={href}>{r.label}</a>;
+      })}
+    </div>
+  </div>
+
   <div class="colophon">
     Article I — American politics through the lens of the Constitution and the long memory.
   </div>
@@ -12,3 +39,24 @@
     article1.news
   </div>
 </footer>
+
+<style>
+  .footer-filters {
+    max-width: 720px;
+    margin: 0 auto 32px;
+    text-align: left;
+  }
+  .footer-filter-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 18px 0 10px;
+  }
+  .footer-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+</style>

@@ -9,7 +9,6 @@ export interface Props {
 
 const { post } = Astro.props;
 const slides = post.data.slides ?? [];
-const slideLabels = ['Hook', 'Context', 'The pattern', 'Why it matters', 'What to watch', 'Sources', ''];
 const total = slides.length;
 const citations = post.data.citations ?? [];
 ---
@@ -36,7 +35,6 @@ const citations = post.data.citations ?? [];
           if (slide.kind === 'sources') {
             return (
               <div class="carousel-slide sources-mini">
-                <div class="slide-num">{`Slide ${i + 1} of ${total} · Sources`}</div>
                 <ul>
                   {citations.length > 0
                     ? citations.map((c) => (
@@ -52,7 +50,6 @@ const citations = post.data.citations ?? [];
           return (
             <div class="carousel-slide">
               <span class="corner-i">I</span>
-              <div class="slide-num">{`Slide ${i + 1} of ${total} · ${slideLabels[i] || ''}`}</div>
               <p class={isHook ? 'hook' : 'slide-body'}>{slide.body}</p>
             </div>
           );

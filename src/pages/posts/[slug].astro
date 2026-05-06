@@ -27,7 +27,6 @@ const related = all
   .filter((p) => p.slug !== post.slug && p.data.tags.some((t) => post.data.tags.includes(t)))
   .slice(0, 3);
 
-const slideLabels = ['Hook', 'Context', 'The pattern', 'Why it matters', 'What to watch', 'Sources', ''];
 const isCarousel = post.data.type === 'carousel';
 const slidesCount = (post.data.slides ?? []).length;
 const citations = post.data.citations ?? [];
@@ -64,10 +63,7 @@ const absDate = fmtAbsolute(post.data.date);
 
       {isCarousel && (
         <>
-          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 24px;">
-            Stacked vertically below · Each slide is a beat.
-          </div>
-          {(post.data.slides ?? []).map((s, i) => {
+          {(post.data.slides ?? []).map((s) => {
             if (s.kind === 'cta') {
               return (
                 <div class="slide-block cta-block">
@@ -109,7 +105,6 @@ const absDate = fmtAbsolute(post.data.date);
             const isHook = s.kind === 'hook';
             return (
               <div class={'slide-block' + (isHook ? ' hook-block' : '')}>
-                <div class="slide-label-clean">{slideLabels[i] || ''}</div>
                 <p class="slide-text">{s.body}</p>
               </div>
             );

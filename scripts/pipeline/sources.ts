@@ -12,16 +12,21 @@ export interface Source {
 }
 
 export const SOURCES: Source[] = [
-  // ── Strategic / insider (Goddard register) ────────────────────────────
-  { name: 'Political Wire', url: 'https://politicalwire.com/feed/', tier: 'strategic', weight: 5 },
+  // NOTE: Political Wire is the *inspiration* for this brand and is itself an
+  // aggregator. We do NOT subscribe to it as a source — that would make us
+  // derivative-of-derivative. Instead we pull from the primary outlets Political
+  // Wire draws from (NYT, WaPo, Politico, Axios, Punchbowl, NPR, NBC, CBS, etc.)
+  // plus the institutional/historian newsletters Steven values directly.
+
+  // ── Strategic / insider (Goddard register equivalents) ────────────────
   { name: 'The Dispatch', url: 'https://thedispatch.com/feed/', tier: 'strategic', weight: 4 },
   { name: 'Punchbowl News', url: 'https://punchbowl.news/feed/', tier: 'strategic', weight: 5 },
   { name: 'Axios Politics', url: 'https://api.axios.com/feed/', tier: 'strategic', weight: 4 },
   { name: 'Politico Politics', url: 'https://rss.politico.com/politics-news.xml', tier: 'strategic', weight: 5 },
-  { name: 'Semafor', url: 'https://www.semafor.com/feed', tier: 'strategic', weight: 4 },
+  { name: 'The Hill', url: 'https://thehill.com/news/feed/', tier: 'strategic', weight: 4 },
+  { name: 'Roll Call', url: 'https://rollcall.com/feed/', tier: 'strategic', weight: 4 },
   { name: 'The Bulwark', url: 'https://www.thebulwark.com/feed', tier: 'strategic', weight: 4 },
   { name: 'Persuasion', url: 'https://www.persuasion.community/feed', tier: 'strategic', weight: 3 },
-  { name: 'Public (Bari Weiss)', url: 'https://www.thefp.com/feed', tier: 'strategic', weight: 3, notes: 'Use cautiously; flag bias when relevant.' },
 
   // ── Historian register (HCR-style) ────────────────────────────────────
   { name: 'Heather Cox Richardson', url: 'https://heathercoxrichardson.substack.com/feed', tier: 'historian', weight: 5 },
@@ -29,12 +34,16 @@ export const SOURCES: Source[] = [
   { name: 'Jamelle Bouie', url: 'https://www.jamellebouie.net/?format=rss', tier: 'historian', weight: 4 },
   { name: 'Popehat (Ken White)', url: 'https://popehat.substack.com/feed', tier: 'historian', weight: 4, notes: 'Legal/constitutional commentary.' },
 
-  // ── Hard news ground truth ────────────────────────────────────────────
+  // ── Hard news primary sources (the wire / national papers / networks) ─
   { name: 'NYT Politics', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml', tier: 'hard-news', weight: 5 },
   { name: 'Washington Post Politics', url: 'https://feeds.washingtonpost.com/rss/politics', tier: 'hard-news', weight: 5 },
-  { name: 'Reuters World', url: 'https://www.reuters.com/arc/outboundfeeds/v3/category/world/us/?outputType=xml', tier: 'hard-news', weight: 5 },
+  { name: 'NPR Politics', url: 'https://feeds.npr.org/1014/rss.xml', tier: 'hard-news', weight: 5 },
+  { name: 'NBC News Politics', url: 'https://feeds.nbcnews.com/nbcnews/public/politics', tier: 'hard-news', weight: 4 },
+  { name: 'CBS News Politics', url: 'https://www.cbsnews.com/latest/rss/politics', tier: 'hard-news', weight: 4 },
+  { name: 'CNN Politics', url: 'http://rss.cnn.com/rss/cnn_allpolitics.rss', tier: 'hard-news', weight: 4 },
   { name: 'Bloomberg Politics', url: 'https://feeds.bloomberg.com/politics/news.rss', tier: 'hard-news', weight: 4 },
   { name: 'The Atlantic', url: 'https://www.theatlantic.com/feed/channel/politics/', tier: 'hard-news', weight: 4 },
+  { name: 'The New Yorker Politics', url: 'https://www.newyorker.com/feed/news', tier: 'hard-news', weight: 4 },
 
   // ── Polling / data ────────────────────────────────────────────────────
   { name: 'Cook Political Report', url: 'https://www.cookpolitical.com/rss.xml', tier: 'polling', weight: 4 },

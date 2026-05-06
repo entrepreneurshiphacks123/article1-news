@@ -25,9 +25,7 @@ const topStories = [...carousels, ...briefs.slice(0, Math.max(0, 5 - carousels.l
     <div class="feed">
       {topStories.length > 0 && <TopStories posts={topStories} />}
 
-      <div class="feed-sep">
-        <span class="rule"></span>
-        <span class="label">Today's Feed · Most recent</span>
+      <div class="feed-sep" style="padding: 40px 0 12px;">
         <span class="rule"></span>
       </div>
 
@@ -46,7 +44,7 @@ const topStories = [...carousels, ...briefs.slice(0, Math.max(0, 5 - carousels.l
       })}
     </div>
 
-    <Footer />
+    <Footer active="All" activeRace="all" />
   </div>
 
   <SearchOverlay />
