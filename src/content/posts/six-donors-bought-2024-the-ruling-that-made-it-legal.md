@@ -2,7 +2,7 @@
 id: 16
 type: carousel
 date: '2026-05-06T11:13:00-04:00'
-headline: "How the Court Handed Billionaires the Right to Buy Elections"
+headline: "Six Donors Bought 2024. The Court Ruling That Made It Legal."
 tags: ['Constitution', 'Citizens United', 'Long Memory', 'Supreme Court']
 source:
   outlet: New York Times

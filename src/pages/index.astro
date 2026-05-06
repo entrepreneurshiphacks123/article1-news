@@ -14,10 +14,17 @@ import { paginate, INITIAL_VISIBLE } from '../lib/feed';
 const posts = await getCollection('posts');
 const sorted = [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Top stories: prefer carousels, fill rest with most recent briefs, max 5
-const carousels = sorted.filter((p) => p.data.type === 'carousel');
-const briefs = sorted.filter((p) => p.data.type === 'static');
-const topStories = [...carousels, ...briefs.slice(0, Math.max(0, 5 - carousels.length))].slice(0, 5);
+// Top Stories rail: today's most recent NEWS items.
+// - Exclude cartoons (visual breaks, not news of the day).
+// - Drop the "promote all carousels" rule — a carousel can be a top story
+//   only if it's recent and news-anchored, judged the same way as briefs.
+// - Limit to last 36h so the rail rotates as the day progresses.
+const TOP_STORIES_WINDOW_MS = 36 * 60 * 60 * 1000;
+const now = Date.now();
+const topStories = sorted
+  .filter((p) => p.data.type !== 'cartoon')
+  .filter((p) => now - p.data.date.getTime() < TOP_STORIES_WINDOW_MS)
+  .slice(0, 5);
 
 const { page: pageItems, hasNext } = paginate(sorted, 1);
 const nextPageHref = hasNext ? '/page/2' : null;
