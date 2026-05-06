@@ -4,7 +4,9 @@ name: Article I Pipeline
 # generator halts when daily budget cap is hit.
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    # Off-hour minutes (15 / 45) to dodge GitHub Actions' on-the-hour load,
+    # which routinely delays or drops scheduled runs that target :00 / :30.
+    - cron: '15,45 * * * *'
   workflow_dispatch:
     inputs:
       dry:
