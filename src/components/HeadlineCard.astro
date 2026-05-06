@@ -1,0 +1,64 @@
+---
+import MetaBottom from './MetaBottom.astro';
+import { fmtRelative } from '../lib/topics';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const h = post.data.headline_card;
+const relative = fmtRelative(post.data.date);
+---
+<article class="card headline-card" data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
+  <div class="card-meta-top">
+    <span class="format-tag headline-fmt">Headline of the Day</span>
+    <span class="dot"></span>
+    <span>{relative}</span>
+  </div>
+
+  {h && (
+    h.url ? (
+      <a href={h.url} target="_blank" rel="noopener" class="headline-link">
+        <p class="headline-orig">"{h.text}"</p>
+        <p class="headline-source">— {h.outlet}</p>
+      </a>
+    ) : (
+      <div class="headline-link">
+        <p class="headline-orig">"{h.text}"</p>
+        <p class="headline-source">— {h.outlet}</p>
+      </div>
+    )
+  )}
+
+  <MetaBottom outlet={post.data.source.outlet} tags={post.data.tags} />
+</article>
+
+<style>
+  .headline-card { padding-top: 32px; }
+  .headline-link { display: block; text-decoration: none; color: inherit; }
+  .headline-orig {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.18;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    margin: 14px 0 8px;
+    text-wrap: balance;
+  }
+  a.headline-link:hover .headline-orig { color: var(--navy); }
+  .headline-source {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-2);
+    font-size: 15px;
+    margin: 0 0 22px;
+  }
+  .format-tag.headline-fmt { color: var(--ink); font-weight: 600; }
+
+  @media (min-width: 720px) {
+    .headline-orig { font-size: 36px; }
+  }
+</style>

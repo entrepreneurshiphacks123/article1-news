@@ -28,9 +28,23 @@ const related = all
   .slice(0, 3);
 
 const isCarousel = post.data.type === 'carousel';
+const isQuote = post.data.type === 'quote';
+const isNumbers = post.data.type === 'numbers';
+const isHeadlineCard = post.data.type === 'headline';
 const slidesCount = (post.data.slides ?? []).length;
 const citations = post.data.citations ?? [];
 const absDate = fmtAbsolute(post.data.date);
+
+const formatLabel = isCarousel
+  ? `${slidesCount} slides`
+  : isQuote
+  ? 'Quote of the Day'
+  : isNumbers
+  ? 'Numbers of the Day'
+  : isHeadlineCard
+  ? 'Headline of the Day'
+  : 'Brief';
+const formatClass = isCarousel ? 'carousel' : isQuote ? 'quote' : isNumbers ? 'numbers' : isHeadlineCard ? 'headline-fmt' : '';
 ---
 <Base
   title={`${post.data.headline} — Article I`}
@@ -44,9 +58,7 @@ const absDate = fmtAbsolute(post.data.date);
       <a class="detail-back" href="/">← Back to the Feed</a>
 
       <div class="detail-meta-top">
-        <span class={'format-tag' + (isCarousel ? ' carousel' : '')}>
-          {isCarousel ? `${slidesCount} slides` : 'Brief'}
-        </span>
+        <span class={'format-tag ' + formatClass}>{formatLabel}</span>
         <span class="dot" style="width:3px;height:3px;border-radius:999px;background:var(--ink-3)"></span>
         <span>{absDate}</span>
         <span class="dot" style="width:3px;height:3px;border-radius:999px;background:var(--ink-3)"></span>
@@ -55,9 +67,40 @@ const absDate = fmtAbsolute(post.data.date);
 
       <h1 class="detail-h1">{post.data.headline}</h1>
 
-      {!isCarousel && (
+      {post.data.type === 'static' && (
         <div class="detail-body">
           {(post.data.body ?? '').split(/\n+/).filter(Boolean).map((p) => <p>{p}</p>)}
+        </div>
+      )}
+
+      {isQuote && post.data.quote && (
+        <blockquote class="detail-quote">
+          <p class="detail-quote-text">"{post.data.quote.text}"</p>
+          <footer class="detail-quote-attrib">
+            <div class="detail-quote-speaker">— {post.data.quote.speaker}</div>
+            {post.data.quote.speaker_title && <div class="detail-quote-title">{post.data.quote.speaker_title}</div>}
+            {post.data.quote.via && <div class="detail-quote-via">{post.data.quote.via}</div>}
+          </footer>
+        </blockquote>
+      )}
+
+      {isNumbers && post.data.numbers && (
+        <div class="detail-numbers">
+          <div class="detail-numbers-value">{post.data.numbers.value}</div>
+          {post.data.numbers.unit && <div class="detail-numbers-unit">{post.data.numbers.unit}</div>}
+          <p class="detail-numbers-body">{post.data.numbers.body}</p>
+        </div>
+      )}
+
+      {isHeadlineCard && post.data.headline_card && (
+        <div class="detail-headline">
+          <p class="detail-headline-orig">"{post.data.headline_card.text}"</p>
+          <p class="detail-headline-source">— {post.data.headline_card.outlet}</p>
+          {post.data.headline_card.url && (
+            <p style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-top: 12px;">
+              <a href={post.data.headline_card.url} target="_blank" rel="noopener" style="color: var(--navy);">Read at source →</a>
+            </p>
+          )}
         </div>
       )}
 

@@ -1,0 +1,83 @@
+---
+import MetaBottom from './MetaBottom.astro';
+import { fmtRelative } from '../lib/topics';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const q = post.data.quote;
+const relative = fmtRelative(post.data.date);
+---
+<article class="card quote-card" data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
+  <div class="card-meta-top">
+    <span class="format-tag quote">Quote of the Day</span>
+    <span class="dot"></span>
+    <span>{relative}</span>
+  </div>
+
+  {q && (
+    <a href={`/posts/${post.slug}`} class="quote-link">
+      <blockquote class="quote-block">
+        <p class="quote-text">"{q.text}"</p>
+        <footer class="quote-attrib">
+          <div class="quote-speaker">— {q.speaker}</div>
+          {q.speaker_title && <div class="quote-title">{q.speaker_title}</div>}
+          {q.via && <div class="quote-via">{q.via}</div>}
+        </footer>
+      </blockquote>
+    </a>
+  )}
+
+  <MetaBottom outlet={post.data.source.outlet} tags={post.data.tags} />
+</article>
+
+<style>
+  .quote-card { padding-top: 32px; }
+  .quote-link { display: block; text-decoration: none; color: inherit; }
+  .quote-link:hover .quote-text { color: var(--ink); }
+  .quote-block {
+    margin: 14px 0 22px;
+    padding: 0 0 0 24px;
+    border-left: 2px solid var(--red);
+  }
+  .quote-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin: 0 0 18px;
+    text-wrap: pretty;
+  }
+  .quote-attrib {
+    font-family: var(--serif);
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .quote-speaker {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .quote-title {
+    font-style: italic;
+    color: var(--ink-2);
+  }
+  .quote-via {
+    font-style: italic;
+    color: var(--ink-3);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .format-tag.quote { color: var(--red); font-weight: 600; }
+
+  @media (min-width: 720px) {
+    .quote-text { font-size: 30px; }
+  }
+</style>

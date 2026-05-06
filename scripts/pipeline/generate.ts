@@ -38,6 +38,57 @@ function staticPostSchemaText(): string {
 }`;
 }
 
+function quotePostSchemaText(): string {
+  return `For quote posts (Quote of the Day), return:
+{
+  "type": "quote",
+  "headline": "<≤10 words, an editorial label like 'Obama on the Politicization of Justice' — used for slug + meta. NOT the quote itself.>",
+  "quote": {
+    "text": "<the verbatim quote — 3-5 sentences typical, a SUBSTANTIVE SNIPPET. NOT a one-liner. Drawn faithfully from the source story. Do NOT invent or paraphrase. If the source paraphrases the speaker, use the source's exact paraphrase wording. If the source provides only a brief quote, this format may not be appropriate — pick a different format.>",
+    "speaker": "<full name, e.g. 'Barack Obama'>",
+    "speaker_title": "<role/title, e.g. 'Former President of the United States'>",
+    "via": "<source/context line, e.g. 'in an interview with Stephen Colbert'>"
+  },
+  "tags": ["<2-4 tags from taxonomy>"],
+  "hashtags": ["<1-3>"],
+  "race_level": "national" | "state" | "local" | "none"
+}`;
+}
+
+function numbersPostSchemaText(): string {
+  return `For numbers posts (Numbers of the Day), return:
+{
+  "type": "numbers",
+  "headline": "<≤10 words editorial label, e.g. 'Six Billionaires, $100M Each, to Elect Trump'>",
+  "numbers": {
+    "value": "<the headline number, short — '$100M', '87%', '46-year high', '$4.54'>",
+    "unit": "<optional 1-line caption under the number, e.g. 'each, from six donors' or 'national gas average'>",
+    "body": "<2-3 sentences of context: what the number means, why it matters, what the strategic/historical read is.>"
+  },
+  "tags": ["<2-4 tags>"],
+  "hashtags": ["<1-3>"],
+  "race_level": "national" | "state" | "local" | "none"
+}`;
+}
+
+function headlinePostSchemaText(): string {
+  return `For headline posts (Headline of the Day), return:
+{
+  "type": "headline",
+  "headline": "<≤10 words editorial label, e.g. 'Headline of the Day — DOJ Closes Ogles Probe'>",
+  "headline_card": {
+    "text": "<the verbatim original headline from another outlet that you're elevating>",
+    "outlet": "<who published it, with date — e.g. 'WTVF Nashville · May 6, 2026'>",
+    "url": "<direct link to the original story>"
+  },
+  "tags": ["<2-4 tags>"],
+  "hashtags": ["<1-3>"],
+  "race_level": "national" | "state" | "local" | "none"
+}
+
+IMPORTANT: Headline of the Day is PURE CURATION. We point at another outlet's headline; we do NOT add a take or any editorial commentary. The choice of which headline to elevate IS the editorial. If you have something you want to argue about the story, generate a "static" brief or "carousel" instead. Headline format = no opinion text.`;
+}
+
 function carouselPostSchemaText(): string {
   return `For carousel posts, return:
 {
@@ -78,7 +129,15 @@ export async function generatePost(
   ctx: CycleContext,
 ): Promise<GeneratedPost> {
   const editorial = await getEditorial();
-  const schemaText = selection.format === 'carousel' ? carouselPostSchemaText() : staticPostSchemaText();
+  const schemaText = selection.format === 'carousel'
+    ? carouselPostSchemaText()
+    : selection.format === 'quote'
+    ? quotePostSchemaText()
+    : selection.format === 'numbers'
+    ? numbersPostSchemaText()
+    : selection.format === 'headline'
+    ? headlinePostSchemaText()
+    : staticPostSchemaText();
 
   const userMessage = [
     `Write a ${selection.format} post in the **${selection.voice}** voice.`,
@@ -104,9 +163,15 @@ export async function generatePost(
     `Return strict JSON only. No commentary, no markdown fences.`,
   ].join('\n');
 
+  const maxTokens = selection.format === 'carousel' ? 2500
+    : selection.format === 'quote' ? 600
+    : selection.format === 'numbers' ? 600
+    : selection.format === 'headline' ? 500
+    : 800;
+
   const resp = await client.messages.create({
     model: MODEL,
-    max_tokens: selection.format === 'carousel' ? 2500 : 800,
+    max_tokens: maxTokens,
     system: [
       {
         type: 'text',

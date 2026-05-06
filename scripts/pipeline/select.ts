@@ -40,8 +40,13 @@ We apply the **symmetric-criticism principle**: same standard for left and right
 
 # Format routing
 
-- **static** (single brief): breaking, narrow tactical implication, fast turnaround. ~70-90% of posts.
-- **carousel** (5-8 slides, structural unpacking): ≥3 sources covering it OR maps to historical pattern OR has institutional implications worth depth. ~10-30% of posts.
+Pick the format that best fits the story:
+
+- **static** (single brief): breaking, narrow tactical implication, fast turnaround. The default. ~50-65% of posts.
+- **carousel** (5-8 slides, structural unpacking): ≥3 sources covering it OR maps to historical pattern OR has institutional implications worth depth. ~10-20% of posts.
+- **quote** (Quote of the Day): the source contains a substantive direct quote (3-5 sentences) from a public figure that lands powerfully on its own — operator's quote, a senator's stem-winder, an ex-president's reflection. The quote IS the post. ~10-15% of posts.
+- **numbers** (Numbers of the Day): a single striking statistic that anchors the story — "$100M each from six donors", "87% reject Trump's Jesus post", "46-year high". Use when the number itself is the hook. ~5-10% of posts.
+- **headline** (Headline of the Day): another outlet's framing is itself the news — a striking newspaper headline you want to elevate with one line of editorial take. Rare. ~2-5% of posts.
 
 # Voice routing
 

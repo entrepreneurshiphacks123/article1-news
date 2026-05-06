@@ -64,11 +64,17 @@ export async function writePostMarkdown(opts: WriteOpts): Promise<string> {
 
   if (opts.post.type === 'static') {
     fm.body = opts.post.body ?? '';
-  } else {
+  } else if (opts.post.type === 'carousel') {
     fm.slides = opts.post.slides ?? [];
     if (opts.post.citations && opts.post.citations.length > 0) {
       fm.citations = opts.post.citations;
     }
+  } else if (opts.post.type === 'quote' && opts.post.quote) {
+    fm.quote = opts.post.quote;
+  } else if (opts.post.type === 'numbers' && opts.post.numbers) {
+    fm.numbers = opts.post.numbers;
+  } else if (opts.post.type === 'headline' && opts.post.headline_card) {
+    fm.headline_card = opts.post.headline_card;
   }
 
   // gray-matter stringify writes YAML frontmatter + body. For posts where body

@@ -1,0 +1,22 @@
+---
+// Polymorphic card renderer — picks the right component based on post.type.
+import StaticCard from './StaticCard.astro';
+import CarouselCard from './CarouselCard.astro';
+import QuoteCard from './QuoteCard.astro';
+import NumbersCard from './NumbersCard.astro';
+import HeadlineCard from './HeadlineCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+  lede?: boolean;
+}
+
+const { post, lede = false } = Astro.props;
+const t = post.data.type;
+---
+{t === 'carousel' && <CarouselCard post={post} />}
+{t === 'quote' && <QuoteCard post={post} />}
+{t === 'numbers' && <NumbersCard post={post} />}
+{t === 'headline' && <HeadlineCard post={post} />}
+{t === 'static' && <StaticCard post={post} lede={lede} />}

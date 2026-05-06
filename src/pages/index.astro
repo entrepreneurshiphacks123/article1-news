@@ -3,8 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import StaticCard from '../components/StaticCard.astro';
-import CarouselCard from '../components/CarouselCard.astro';
+import RenderCard from '../components/RenderCard.astro';
 import TopStories from '../components/TopStories.astro';
 import Fleuron from '../components/Fleuron.astro';
 import Carousels from '../components/Carousels.client.astro';
@@ -38,13 +37,12 @@ const nextPageHref = hasNext ? '/page/2' : null;
         {pageItems.map((p, i) => {
           const isLede = i === 0 && p.data.type === 'static';
           const hiddenClass = i >= INITIAL_VISIBLE ? ' is-hidden' : '';
-          const card = p.data.type === 'carousel'
-            ? <div class={'card-slot' + hiddenClass} data-card><CarouselCard post={p} /></div>
-            : <div class={'card-slot' + hiddenClass} data-card><StaticCard post={p} lede={isLede} /></div>;
           const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < pageItems.length - 1;
           return (
             <>
-              {card}
+              <div class={'card-slot' + hiddenClass} data-card>
+                <RenderCard post={p} lede={isLede} />
+              </div>
               {showFleuron && <div class={'card-slot' + hiddenClass} data-card><Fleuron /></div>}
             </>
           );

@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 
-export type FormatType = 'static' | 'carousel';
+export type FormatType = 'static' | 'carousel' | 'quote' | 'numbers' | 'headline';
 export type Voice = 'strategist' | 'historian';
 export type RaceLevel = 'national' | 'state' | 'local' | 'none';
 
@@ -23,7 +23,7 @@ export const SelectionItem = z.object({
   score: z.number().min(0).max(100),
   reason: z.string(),
   voice: z.enum(['strategist', 'historian']).optional(),
-  format: z.enum(['static', 'carousel']).optional(),
+  format: z.enum(['static', 'carousel', 'quote', 'numbers', 'headline']).optional(),
   race_level: z.enum(['national', 'state', 'local', 'none']).optional(),
   topic_tags: z.array(z.string()).optional(),
 });
@@ -39,7 +39,7 @@ export type SelectorOutput = z.infer<typeof SelectorOutput>;
 const SlideKind = z.enum(['hook', 'context', 'pattern', 'stakes', 'watch', 'sources', 'cta']);
 
 export const GeneratedPost = z.object({
-  type: z.enum(['static', 'carousel']),
+  type: z.enum(['static', 'carousel', 'quote', 'numbers', 'headline']),
   headline: z.string(),
   body: z.string().optional(),
   slides: z.array(z.object({
@@ -55,6 +55,24 @@ export const GeneratedPost = z.object({
   tags: z.array(z.string()).default([]),
   hashtags: z.array(z.string()).default([]),
   race_level: z.enum(['national', 'state', 'local', 'none']).default('none'),
+
+  // Format-specific payloads (only one applies based on `type`).
+  quote: z.object({
+    text: z.string(),
+    speaker: z.string(),
+    speaker_title: z.string().optional(),
+    via: z.string().optional(),
+  }).optional(),
+  numbers: z.object({
+    value: z.string(),
+    unit: z.string().optional(),
+    body: z.string(),
+  }).optional(),
+  headline_card: z.object({
+    text: z.string(),
+    outlet: z.string(),
+    url: z.string().optional(),
+  }).optional(),
 });
 export type GeneratedPost = z.infer<typeof GeneratedPost>;
 
