@@ -9,11 +9,24 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pipeline": "tsx scripts/pipeline/run.ts",
+    "pipeline:dry": "tsx scripts/pipeline/run.ts --dry",
+    "pipeline:check": "tsx scripts/pipeline/check-feeds.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.0",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^5.1.1"
+    "astro": "^5.1.1",
+    "dotenv": "^17.4.2",
+    "gray-matter": "^4.0.3",
+    "rss-parser": "^3.13.0",
+    "slugify": "^1.6.9",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0"
   }
 }

@@ -6,3 +6,7 @@ dist/
 .DS_Store
 *.log
 .wrangler/
+# Pipeline state — checked-in only when produced by GitHub Actions,
+# not by local dev runs. Local state stays ignored.
+state/last-selector-error.json
+src/content/drafts/

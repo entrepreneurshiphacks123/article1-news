@@ -8,12 +8,26 @@ export const TOPICS: Topic[] = [
   { label: 'All', tags: [] },
   { label: 'Constitution', tags: ['Constitution', 'ArticleI', 'Article I', 'Rule of Law'] },
   { label: 'Economy', tags: ['Economy'] },
-  { label: 'Foreign Policy', tags: ['Foreign Policy', 'Iran'] },
+  { label: 'Foreign Policy', tags: ['Foreign Policy', 'Iran', 'Israel', 'Netanyahu', 'NATO', 'Ukraine', 'China'] },
   { label: 'Antisemitism', tags: ['Antisemitism'] },
   { label: 'Polling', tags: ['Polling'] },
   { label: '2026 Midterms', tags: ['2026 Midterms', 'Michigan'] },
   { label: '2028', tags: ['2028'] },
 ];
+
+export type RaceLevel = 'all' | 'national' | 'state' | 'local';
+
+export const RACE_LEVELS: { label: string; key: RaceLevel }[] = [
+  { label: 'All Races', key: 'all' },
+  { label: 'National', key: 'national' },
+  { label: 'State', key: 'state' },
+  { label: 'Local', key: 'local' },
+];
+
+export function postMatchesRaceLevel(post: { data: { race_level?: string } }, key: RaceLevel): boolean {
+  if (key === 'all') return true;
+  return (post.data.race_level ?? 'none') === key;
+}
 
 export function postMatchesTopic(post: { data: { tags: string[] } }, topic: Topic): boolean {
   if (topic.label === 'All') return true;

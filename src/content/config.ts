@@ -28,6 +28,7 @@ const posts = defineCollection({
     slides: z.array(slideSchema).optional(),
     citations: z.array(sourceCitation).optional(),
     hashtags: z.array(z.string()).default([]),
+    race_level: z.enum(['national', 'state', 'local', 'none']).default('none'),
   }),
 });
 

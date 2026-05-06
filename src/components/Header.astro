@@ -1,9 +1,10 @@
 ---
 import BrandMark from './BrandMark.astro';
-import { TOPICS, fmtDateline } from '../lib/topics';
+import { TOPICS, RACE_LEVELS, fmtDateline } from '../lib/topics';
 
 export interface Props {
   active?: string;
+  activeRace?: string;
   volume?: number;
   issue?: number;
   date?: Date;
@@ -11,6 +12,7 @@ export interface Props {
 
 const {
   active = 'All',
+  activeRace = 'all',
   volume = 1,
   issue = 127,
   date = new Date('2026-05-06T12:00:00-04:00'),
@@ -54,10 +56,19 @@ const volumeRoman = ['I', 'II', 'III', 'IV', 'V'][volume - 1] ?? String(volume);
   <div style="padding: 0 24px;">
     <div class="topic-pills">
       {TOPICS.map((t) => {
-        const href = t.label === 'All' ? '/' : `/?topic=${encodeURIComponent(t.label)}`;
+        const href = t.label === 'All' ? '/' : `/topic/${encodeURIComponent(t.label)}`;
         const cls = 'topic-pill' + (active === t.label ? ' active' : '');
         return (
           <a class={cls} href={href} data-topic={t.label}>{t.label}</a>
+        );
+      })}
+    </div>
+    <div class="topic-pills" style="padding-top: 0; padding-bottom: 18px;">
+      {RACE_LEVELS.map((r) => {
+        const href = r.key === 'all' ? '/' : `/race/${r.key}`;
+        const cls = 'topic-pill race-pill' + (activeRace === r.key ? ' active' : '');
+        return (
+          <a class={cls} href={href} data-race={r.key}>{r.label}</a>
         );
       })}
     </div>

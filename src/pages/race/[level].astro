@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import StaticCard from '../../components/StaticCard.astro';
+import CarouselCard from '../../components/CarouselCard.astro';
+import Fleuron from '../../components/Fleuron.astro';
+import Carousels from '../../components/Carousels.client.astro';
+import SearchOverlay from '../../components/SearchOverlay.astro';
+import { RACE_LEVELS, postMatchesRaceLevel, type RaceLevel } from '../../lib/topics';
+
+export async function getStaticPaths() {
+  return RACE_LEVELS.filter((r) => r.key !== 'all').map((r) => ({
+    params: { level: r.key },
+    props: { race: r },
+  }));
+}
+
+const { race } = Astro.props as { race: { label: string; key: RaceLevel } };
+const allPosts = await getCollection('posts');
+const filtered = allPosts
+  .filter((p) => postMatchesRaceLevel(p, race.key))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base
+  title={`${race.label} races — Article I`}
+  description={`Article I coverage of ${race.label.toLowerCase()} races.`}
+>
+  <div style="background: var(--parchment); min-height: 100%;">
+    <Header active="All" activeRace={race.key} />
+
+    <div class="feed">
+      <div class="feed-sep">
+        <span class="rule"></span>
+        <span class="label">{race.label} · {filtered.length} {filtered.length === 1 ? 'post' : 'posts'}</span>
+        <span class="rule"></span>
+      </div>
+
+      {filtered.length === 0 ? (
+        <div class="ts-empty">
+          <p>No posts at this level yet.</p>
+        </div>
+      ) : (
+        filtered.map((p, i) => {
+          const isLede = i === 0 && p.data.type === 'static';
+          const card = p.data.type === 'carousel'
+            ? <CarouselCard post={p} />
+            : <StaticCard post={p} lede={isLede} />;
+          const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < filtered.length - 1;
+          return (
+            <>
+              {card}
+              {showFleuron && <Fleuron />}
+            </>
+          );
+        })
+      )}
+    </div>
+
+    <Footer />
+  </div>
+
+  <SearchOverlay />
+  <Carousels />
+</Base>

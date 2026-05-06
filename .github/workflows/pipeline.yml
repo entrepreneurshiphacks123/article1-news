@@ -1,0 +1,71 @@
+name: Article I Pipeline
+
+# Runs every 30 min, 24/7. Selector quality threshold floats by hour;
+# generator halts when daily budget cap is hit.
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Dry run (selector only, no generation)'
+        required: false
+        default: 'false'
+      draft:
+        description: 'Write to drafts/ instead of posts/'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Run pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PIPELINE_DRAFT_MODE: ${{ inputs.draft == 'true' && '1' || '0' }}
+        run: |
+          if [ "${{ inputs.dry }}" = "true" ]; then
+            npm run pipeline:dry
+          else
+            npm run pipeline
+          fi
+
+      - name: Commit and push (if anything changed)
+        run: |
+          git config user.name "article1-bot"
+          git config user.email "bot@article1.news"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes — nothing to commit."
+            exit 0
+          fi
+          # Count new posts for commit message
+          NEW_POSTS=$(git diff --cached --name-only --diff-filter=A | grep -c "src/content/posts/" || true)
+          DRAFTS=$(git diff --cached --name-only --diff-filter=A | grep -c "src/content/drafts/" || true)
+          MSG="[bot] $NEW_POSTS posts, $DRAFTS drafts ($(date -u +%Y-%m-%dT%H:%M))"
+          git -c commit.gpgsign=false commit -m "$MSG"
+          git push
