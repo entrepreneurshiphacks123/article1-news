@@ -10,10 +10,19 @@ export interface Props {
 
 const { post, lede = false } = Astro.props;
 const cls = 'card' + (lede ? ' lede' : '');
+
+// Break the lede body into short paragraphs (Political Wire style).
+// Split on blank lines; if no blank lines, fall back to one block.
+const paragraphs = (post.data.body ?? '')
+  .split(/\n{2,}/)
+  .map((p) => p.trim())
+  .filter(Boolean);
 ---
 <article class={cls} data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
   <MetaTop type="static" date={post.data.date} lede={lede} />
   <h2><a href={`/posts/${post.slug}`} style="color: inherit; text-decoration: none;">{post.data.headline}</a></h2>
-  <p class="body">{post.data.body}</p>
+  <div class="body">
+    {paragraphs.map((p) => <p>{p}</p>)}
+  </div>
   <MetaBottom outlet={post.data.source.outlet} tags={post.data.tags} />
 </article>

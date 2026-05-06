@@ -90,7 +90,6 @@
     <span class="brand-mark"><span>Article</span><span class="roman">I</span></span>
   </a>
   <div class="kicker" style="margin-top: 18px;">RSS Feed</div>
-  <h1><xsl:value-of select="/rss/channel/title"/></h1>
   <p class="deck"><xsl:value-of select="/rss/channel/description"/></p>
 
   <div class="info">
