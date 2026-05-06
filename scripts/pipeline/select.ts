@@ -83,7 +83,7 @@ Return ONLY a JSON object matching this schema:
 Include ALL items in selections (with decision: "skip" or "select"). Be ruthless: most items should be skipped. Return strict JSON only — no commentary, no markdown fences.`;
 
 const TOPIC_TAXONOMY = [
-  'Constitution', 'ArticleI', 'Citizens United', 'Long Memory',
+  'Constitution', 'ArticleI', 'Citizens United', 'Long Memory', 'Supreme Court',
   'Economy', 'Polling',
   'Foreign Policy', 'Iran', 'Israel', 'Netanyahu', 'Ukraine', 'NATO', 'China',
   'Antisemitism',

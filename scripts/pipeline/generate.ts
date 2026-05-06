@@ -30,12 +30,21 @@ function staticPostSchemaText(): string {
 {
   "type": "static",
   "headline": "<≤12 words, no questions, no 'BREAKING:'>",
-  "body": "<2-4 sentence body in Article I voice. Sentence 1 = what happened (with a number or quote). Sentence 2-3 = strategist or historian read. Sentence 4 (optional) = forward implication.>",
+  "body": "<2-4 sentence LEDE that appears on the card. Sentence 1 = what happened (with a number or quote). Sentence 2-3 = strategist or historian framing. This is the hook — it doesn't carry the full argument.>",
+  "article_md": "<300-700 word LONGFORM MARKDOWN article that appears on the detail page. This is where the actual argument lives — receipts, sources, historical/structural context, implications. Use markdown: paragraphs separated by blank lines, [inline links](url) to sources where you can, blockquotes (>) for pull quotes, ## for section headings if it helps. NEVER make a claim in the lede that isn't backed up here. NEVER write the article with the lede repeated; the lede is a hook, the article picks up from there.>",
   "tags": ["<from taxonomy>", "<2-4 tags>"],
   "hashtags": ["<2-3 brand-style hashtags, no spaces, no #>"],
   "race_level": "national" | "state" | "local" | "none",
   "citations": [{ "outlet": "...", "url": "...", "date": "..." }]
-}`;
+}
+
+Longform article rules (very important):
+- Receipts discipline: every claim ties to a source above or to a well-known public fact a reader can verify. Never invent quotes, votes, polls, or statistics. If a source paraphrases, use the source's paraphrase verbatim.
+- Voice: same as the lede — strategist (Goddard register) or historian (HCR register), as instructed. Don't switch.
+- Symmetric-criticism principle applies fully: when calling out an actor, hold them to the same standard you'd apply to the other side.
+- Length: 300-700 words. Tight. Don't pad. End when the argument lands.
+- Structure: hook → context (what happened, with sources) → pattern or stakes (the structural read) → what to watch.
+- Never a "What this means for [demographic]" finishing line. End with a concrete observation.`;
 }
 
 function quotePostSchemaText(): string {
@@ -167,7 +176,7 @@ export async function generatePost(
     : selection.format === 'quote' ? 600
     : selection.format === 'numbers' ? 600
     : selection.format === 'headline' ? 500
-    : 800;
+    : 2200;  // static brief now includes 300-700 word article_md
 
   const resp = await client.messages.create({
     model: MODEL,

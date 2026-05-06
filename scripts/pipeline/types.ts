@@ -73,6 +73,12 @@ export const GeneratedPost = z.object({
     outlet: z.string(),
     url: z.string().optional(),
   }).optional(),
+
+  // Longform article — Markdown body. Required for static briefs (the lede on
+  // the card opens to a full argument on the detail page). Optional for
+  // carousels (the slides already do the work). Never set for quote/numbers/
+  // headline (those are pure curation or single-stat cards, no argument).
+  article_md: z.string().optional(),
 });
 export type GeneratedPost = z.infer<typeof GeneratedPost>;
 

@@ -22,6 +22,10 @@ interface Props {
 }
 
 const { post } = Astro.props;
+// Markdown body of the .md file (below the frontmatter) — used for longform
+// articles on static briefs. Empty string for posts that don't have one.
+const { Content } = await post.render();
+const hasLongform = (post.body ?? '').trim().length > 0;
 const all = await getCollection('posts');
 const related = all
   .filter((p) => p.slug !== post.slug && p.data.tags.some((t) => post.data.tags.includes(t)))
@@ -68,9 +72,19 @@ const formatClass = isCarousel ? 'carousel' : isQuote ? 'quote' : isNumbers ? 'n
       <h1 class="detail-h1">{post.data.headline}</h1>
 
       {post.data.type === 'static' && (
-        <div class="detail-body">
-          {(post.data.body ?? '').split(/\n+/).filter(Boolean).map((p) => <p>{p}</p>)}
-        </div>
+        <>
+          <div class="detail-lede">
+            {(post.data.body ?? '').split(/\n+/).filter(Boolean).map((p) => <p>{p}</p>)}
+          </div>
+          {hasLongform && (
+            <>
+              <div class="detail-rule" style="margin: 36px 0 28px;"></div>
+              <div class="detail-article">
+                <Content />
+              </div>
+            </>
+          )}
+        </>
       )}
 
       {isQuote && post.data.quote && (

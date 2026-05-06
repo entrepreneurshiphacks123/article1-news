@@ -77,9 +77,11 @@ export async function writePostMarkdown(opts: WriteOpts): Promise<string> {
     fm.headline_card = opts.post.headline_card;
   }
 
-  // gray-matter stringify writes YAML frontmatter + body. For posts where body
-  // lives in frontmatter (per our schema), the body section is empty.
-  const yaml = matter.stringify('', fm);
-  await fs.writeFile(filePath, yaml);
+  // gray-matter stringify writes YAML frontmatter + body. For static briefs,
+  // the markdown body holds the longform article (article_md). Other formats
+  // leave the body empty (their content lives in frontmatter).
+  const articleBody = opts.post.type === 'static' ? (opts.post.article_md ?? '') : '';
+  const out = matter.stringify(articleBody, fm);
+  await fs.writeFile(filePath, out);
   return filePath;
 }

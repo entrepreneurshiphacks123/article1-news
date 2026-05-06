@@ -3,7 +3,7 @@ id: 21
 type: numbers
 date: '2026-05-06T13:30:00-04:00'
 headline: "Six Billionaires, $100M Each, to Elect Trump"
-tags: ['Citizens United', 'Money in Politics', 'Constitution']
+tags: ['Citizens United', 'Money in Politics', 'Constitution', 'Supreme Court']
 source:
   outlet: New York Times
 numbers:
