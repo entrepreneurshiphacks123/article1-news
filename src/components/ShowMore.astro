@@ -1,0 +1,92 @@
+---
+// Vanilla-JS Show More button. Reveals the next batch of cards by removing the
+// `is-hidden` class. When all locally-rendered cards are visible, swaps text +
+// link to point to the next paginated page (if one exists).
+export interface Props {
+  batchSize?: number;
+  nextPageHref?: string | null;
+}
+
+const { batchSize = 10, nextPageHref = null } = Astro.props;
+---
+<div class="show-more-wrap" data-show-more-wrap data-batch={batchSize} data-next-page={nextPageHref ?? ''}>
+  <button class="show-more" type="button" data-show-more>
+    <span data-show-more-label>Show more</span>
+    <span class="arrow">↓</span>
+  </button>
+</div>
+
+<script is:inline>
+(function () {
+  const wraps = document.querySelectorAll('[data-show-more-wrap]');
+  wraps.forEach((wrap) => {
+    const batch = Number(wrap.getAttribute('data-batch')) || 10;
+    const nextPage = wrap.getAttribute('data-next-page') || '';
+    const button = wrap.querySelector('[data-show-more]');
+    const label = wrap.querySelector('[data-show-more-label]');
+    if (!button || !label) return;
+
+    const feed = document.querySelector('[data-feed]');
+    if (!feed) return;
+    const hidden = () => Array.from(feed.querySelectorAll('[data-card].is-hidden'));
+
+    const sync = () => {
+      const remaining = hidden();
+      if (remaining.length > 0) {
+        label.textContent = `Show ${Math.min(batch, remaining.length)} more`;
+        button.style.display = '';
+      } else if (nextPage) {
+        label.textContent = 'Older posts';
+        button.dataset.go = nextPage;
+        button.style.display = '';
+      } else {
+        button.style.display = 'none';
+      }
+    };
+
+    button.addEventListener('click', () => {
+      if (button.dataset.go) {
+        window.location.href = button.dataset.go;
+        return;
+      }
+      hidden().slice(0, batch).forEach((el) => el.classList.remove('is-hidden'));
+      sync();
+    });
+
+    sync();
+  });
+})();
+</script>
+
+<style>
+  .show-more-wrap {
+    text-align: center;
+    padding: 24px 0 8px;
+  }
+  .show-more {
+    background: transparent;
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.12s, color 0.12s;
+  }
+  .show-more:hover {
+    border-color: var(--navy);
+    color: var(--navy);
+  }
+  .show-more .arrow {
+    font-size: 14px;
+    line-height: 1;
+  }
+  [data-card].is-hidden {
+    display: none;
+  }
+</style>

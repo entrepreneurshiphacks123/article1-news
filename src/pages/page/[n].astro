@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import StaticCard from '../../components/StaticCard.astro';
+import CarouselCard from '../../components/CarouselCard.astro';
+import Fleuron from '../../components/Fleuron.astro';
+import Carousels from '../../components/Carousels.client.astro';
+import SearchOverlay from '../../components/SearchOverlay.astro';
+import ShowMore from '../../components/ShowMore.astro';
+import { paginate, PAGE_SIZE, INITIAL_VISIBLE } from '../../lib/feed';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const totalPages = Math.ceil(posts.length / PAGE_SIZE);
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
+    params: { n: String(i + 2) },  // page 2, 3, 4...
+  }));
+}
+
+const pageNum = Number(Astro.params.n);
+const posts = await getCollection('posts');
+const sorted = [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const { page: pageItems, hasNext } = paginate(sorted, pageNum);
+const nextPageHref = hasNext ? `/page/${pageNum + 1}` : null;
+const prevPageHref = pageNum > 2 ? `/page/${pageNum - 1}` : '/';
+---
+<Base title={`Page ${pageNum} — Article I`}>
+  <div style="background: var(--parchment); min-height: 100%;">
+    <Header active="All" />
+
+    <div class="feed">
+      <div class="feed-sep" style="padding: 24px 0 12px;">
+        <span class="rule"></span>
+        <span class="label">Page {pageNum}</span>
+        <span class="rule"></span>
+      </div>
+
+      <div data-feed>
+        {pageItems.map((p, i) => {
+          const hiddenClass = i >= INITIAL_VISIBLE ? ' is-hidden' : '';
+          const card = p.data.type === 'carousel'
+            ? <div class={'card-slot' + hiddenClass} data-card><CarouselCard post={p} /></div>
+            : <div class={'card-slot' + hiddenClass} data-card><StaticCard post={p} /></div>;
+          const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < pageItems.length - 1;
+          return (
+            <>
+              {card}
+              {showFleuron && <div class={'card-slot' + hiddenClass} data-card><Fleuron /></div>}
+            </>
+          );
+        })}
+      </div>
+
+      <ShowMore nextPageHref={nextPageHref} />
+
+      <div style="text-align: center; padding: 24px 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);">
+        <a href={prevPageHref} style="color: var(--navy);">← {prevPageHref === '/' ? 'Home' : `Page ${pageNum - 1}`}</a>
+      </div>
+    </div>
+
+    <Footer activeRace="all" />
+  </div>
+
+  <SearchOverlay />
+  <Carousels />
+</Base>

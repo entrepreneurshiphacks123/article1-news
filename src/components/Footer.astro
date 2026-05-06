@@ -1,24 +1,15 @@
 ---
-import { TOPICS, RACE_LEVELS } from '../lib/topics';
+import { RACE_LEVELS } from '../lib/topics';
 
 export interface Props {
-  active?: string;
   activeRace?: string;
 }
 
-const { active = 'All', activeRace = 'all' } = Astro.props;
+const { activeRace = 'all' } = Astro.props;
 ---
 <footer class="site-footer">
   <div class="footer-filters">
-    <div class="footer-filter-label">Topics</div>
-    <div class="footer-pills">
-      {TOPICS.map((t) => {
-        const href = t.label === 'All' ? '/' : `/topic/${encodeURIComponent(t.label)}`;
-        const cls = 'topic-pill' + (active === t.label ? ' active' : '');
-        return <a class={cls} href={href}>{t.label}</a>;
-      })}
-    </div>
-    <div class="footer-filter-label">Races</div>
+    <div class="footer-filter-label">Filter by race level</div>
     <div class="footer-pills">
       {RACE_LEVELS.map((r) => {
         const href = r.key === 'all' ? '/' : `/race/${r.key}`;

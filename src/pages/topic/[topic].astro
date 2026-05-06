@@ -8,19 +8,22 @@ import CarouselCard from '../../components/CarouselCard.astro';
 import Fleuron from '../../components/Fleuron.astro';
 import Carousels from '../../components/Carousels.client.astro';
 import SearchOverlay from '../../components/SearchOverlay.astro';
-import { TOPICS, postMatchesTopic } from '../../lib/topics';
-
+import ShowMore from '../../components/ShowMore.astro';
+import { INITIAL_VISIBLE } from '../../lib/feed';
 export async function getStaticPaths() {
-  return TOPICS.filter((t) => t.label !== 'All').map((t) => ({
-    params: { topic: encodeURIComponent(t.label) },
-    props: { topic: t },
+  const allPosts = await getCollection('posts');
+  const tagSet = new Set<string>();
+  for (const p of allPosts) for (const t of p.data.tags) tagSet.add(t);
+  return Array.from(tagSet).map((tag) => ({
+    params: { topic: tag },
+    props: { topic: { label: tag } },
   }));
 }
 
-const { topic } = Astro.props;
+const { topic } = Astro.props as { topic: { label: string } };
 const allPosts = await getCollection('posts');
 const filtered = allPosts
-  .filter((p) => postMatchesTopic(p, topic))
+  .filter((p) => p.data.tags.includes(topic.label))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 <Base
@@ -42,23 +45,29 @@ const filtered = allPosts
           <p>No posts in this topic yet.</p>
         </div>
       ) : (
-        filtered.map((p, i) => {
-          const isLede = i === 0 && p.data.type === 'static';
-          const card = p.data.type === 'carousel'
-            ? <CarouselCard post={p} />
-            : <StaticCard post={p} lede={isLede} />;
-          const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < filtered.length - 1;
-          return (
-            <>
-              {card}
-              {showFleuron && <Fleuron />}
-            </>
-          );
-        })
+        <>
+          <div data-feed>
+            {filtered.map((p, i) => {
+              const isLede = i === 0 && p.data.type === 'static';
+              const hiddenClass = i >= INITIAL_VISIBLE ? ' is-hidden' : '';
+              const card = p.data.type === 'carousel'
+                ? <div class={'card-slot' + hiddenClass} data-card><CarouselCard post={p} /></div>
+                : <div class={'card-slot' + hiddenClass} data-card><StaticCard post={p} lede={isLede} /></div>;
+              const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < filtered.length - 1;
+              return (
+                <>
+                  {card}
+                  {showFleuron && <div class={'card-slot' + hiddenClass} data-card><Fleuron /></div>}
+                </>
+              );
+            })}
+          </div>
+          {filtered.length > INITIAL_VISIBLE && <ShowMore />}
+        </>
       )}
     </div>
 
-    <Footer active={topic.label} activeRace="all" />
+    <Footer activeRace="all" />
   </div>
 
   <SearchOverlay />

@@ -8,7 +8,9 @@ import CarouselCard from '../../components/CarouselCard.astro';
 import Fleuron from '../../components/Fleuron.astro';
 import Carousels from '../../components/Carousels.client.astro';
 import SearchOverlay from '../../components/SearchOverlay.astro';
+import ShowMore from '../../components/ShowMore.astro';
 import { RACE_LEVELS, postMatchesRaceLevel, type RaceLevel } from '../../lib/topics';
+import { INITIAL_VISIBLE } from '../../lib/feed';
 
 export async function getStaticPaths() {
   return RACE_LEVELS.filter((r) => r.key !== 'all').map((r) => ({
@@ -42,23 +44,29 @@ const filtered = allPosts
           <p>No posts at this level yet.</p>
         </div>
       ) : (
-        filtered.map((p, i) => {
-          const isLede = i === 0 && p.data.type === 'static';
-          const card = p.data.type === 'carousel'
-            ? <CarouselCard post={p} />
-            : <StaticCard post={p} lede={isLede} />;
-          const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < filtered.length - 1;
-          return (
-            <>
-              {card}
-              {showFleuron && <Fleuron />}
-            </>
-          );
-        })
+        <>
+          <div data-feed>
+            {filtered.map((p, i) => {
+              const isLede = i === 0 && p.data.type === 'static';
+              const hiddenClass = i >= INITIAL_VISIBLE ? ' is-hidden' : '';
+              const card = p.data.type === 'carousel'
+                ? <div class={'card-slot' + hiddenClass} data-card><CarouselCard post={p} /></div>
+                : <div class={'card-slot' + hiddenClass} data-card><StaticCard post={p} lede={isLede} /></div>;
+              const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < filtered.length - 1;
+              return (
+                <>
+                  {card}
+                  {showFleuron && <div class={'card-slot' + hiddenClass} data-card><Fleuron /></div>}
+                </>
+              );
+            })}
+          </div>
+          {filtered.length > INITIAL_VISIBLE && <ShowMore />}
+        </>
       )}
     </div>
 
-    <Footer active="All" activeRace={race.key} />
+    <Footer activeRace={race.key} />
   </div>
 
   <SearchOverlay />

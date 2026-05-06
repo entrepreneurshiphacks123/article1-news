@@ -9,6 +9,8 @@ import TopStories from '../components/TopStories.astro';
 import Fleuron from '../components/Fleuron.astro';
 import Carousels from '../components/Carousels.client.astro';
 import SearchOverlay from '../components/SearchOverlay.astro';
+import ShowMore from '../components/ShowMore.astro';
+import { paginate, INITIAL_VISIBLE } from '../lib/feed';
 
 const posts = await getCollection('posts');
 const sorted = [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -17,6 +19,9 @@ const sorted = [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.get
 const carousels = sorted.filter((p) => p.data.type === 'carousel');
 const briefs = sorted.filter((p) => p.data.type === 'static');
 const topStories = [...carousels, ...briefs.slice(0, Math.max(0, 5 - carousels.length))].slice(0, 5);
+
+const { page: pageItems, hasNext } = paginate(sorted, 1);
+const nextPageHref = hasNext ? '/page/2' : null;
 ---
 <Base title="Article I — American politics through the lens of the Constitution and the long memory.">
   <div style="background: var(--parchment); min-height: 100%;">
@@ -29,22 +34,27 @@ const topStories = [...carousels, ...briefs.slice(0, Math.max(0, 5 - carousels.l
         <span class="rule"></span>
       </div>
 
-      {sorted.map((p, i) => {
-        const isLede = i === 0 && p.data.type === 'static';
-        const card = p.data.type === 'carousel'
-          ? <CarouselCard post={p} />
-          : <StaticCard post={p} lede={isLede} />;
-        const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < sorted.length - 1;
-        return (
-          <>
-            {card}
-            {showFleuron && <Fleuron />}
-          </>
-        );
-      })}
+      <div data-feed>
+        {pageItems.map((p, i) => {
+          const isLede = i === 0 && p.data.type === 'static';
+          const hiddenClass = i >= INITIAL_VISIBLE ? ' is-hidden' : '';
+          const card = p.data.type === 'carousel'
+            ? <div class={'card-slot' + hiddenClass} data-card><CarouselCard post={p} /></div>
+            : <div class={'card-slot' + hiddenClass} data-card><StaticCard post={p} lede={isLede} /></div>;
+          const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < pageItems.length - 1;
+          return (
+            <>
+              {card}
+              {showFleuron && <div class={'card-slot' + hiddenClass} data-card><Fleuron /></div>}
+            </>
+          );
+        })}
+      </div>
+
+      <ShowMore nextPageHref={nextPageHref} />
     </div>
 
-    <Footer active="All" activeRace="all" />
+    <Footer activeRace="all" />
   </div>
 
   <SearchOverlay />

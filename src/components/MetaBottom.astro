@@ -10,5 +10,7 @@ const display = tags.slice(0, 3);
 <div class="card-meta-bottom">
   <span class="source">Source: {outlet}</span>
   <span class="dot"></span>
-  {display.map((t) => <span class="tag">{t.replace(/\s+/g, '')}</span>)}
+  {display.map((t) => (
+    <a class="tag" href={`/topic/${encodeURIComponent(t)}`} onclick="event.stopPropagation();">{t.replace(/\s+/g, '')}</a>
+  ))}
 </div>
