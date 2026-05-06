@@ -10,6 +10,7 @@ export async function GET(context: APIContext) {
     title: 'Article I',
     description: 'American politics through the lens of the Constitution and the long memory.',
     site: context.site!,
+    stylesheet: '/rss-styles.xsl',
     items: sorted.map((p) => ({
       title: p.data.headline,
       link: `/posts/${p.slug}`,

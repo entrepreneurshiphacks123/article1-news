@@ -31,11 +31,20 @@ const headlineSchema = z.object({
   url: z.string().optional(),        // direct link to the original story
 });
 
+const cartoonSchema = z.object({
+  image_url: z.string(),             // direct image URL (Wikimedia / LOC)
+  alt: z.string(),                   // accessible alt text describing the cartoon
+  artist: z.string(),                // "Thomas Nast"
+  year: z.string(),                  // "1871"
+  publication: z.string(),           // "Harper's Weekly"
+  source_url: z.string().optional(), // catalog page (LOC, Wikimedia Commons)
+});
+
 const posts = defineCollection({
   type: 'content',
   schema: z.object({
     id: z.number(),
-    type: z.enum(['static', 'carousel', 'quote', 'numbers', 'headline']),
+    type: z.enum(['static', 'carousel', 'quote', 'numbers', 'headline', 'cartoon']),
     date: z.string().transform((s) => new Date(s)),
     headline: z.string(),
     tags: z.array(z.string()).default([]),
@@ -53,6 +62,7 @@ const posts = defineCollection({
     quote: quoteSchema.optional(),
     numbers: numbersSchema.optional(),
     headline_card: headlineSchema.optional(),
+    cartoon: cartoonSchema.optional(),
   }),
 });
 

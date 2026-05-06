@@ -5,6 +5,7 @@ import CarouselCard from './CarouselCard.astro';
 import QuoteCard from './QuoteCard.astro';
 import NumbersCard from './NumbersCard.astro';
 import HeadlineCard from './HeadlineCard.astro';
+import CartoonCard from './CartoonCard.astro';
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
@@ -19,4 +20,5 @@ const t = post.data.type;
 {t === 'quote' && <QuoteCard post={post} />}
 {t === 'numbers' && <NumbersCard post={post} />}
 {t === 'headline' && <HeadlineCard post={post} />}
+{t === 'cartoon' && <CartoonCard post={post} />}
 {t === 'static' && <StaticCard post={post} lede={lede} />}

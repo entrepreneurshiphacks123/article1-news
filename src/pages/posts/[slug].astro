@@ -35,6 +35,7 @@ const isCarousel = post.data.type === 'carousel';
 const isQuote = post.data.type === 'quote';
 const isNumbers = post.data.type === 'numbers';
 const isHeadlineCard = post.data.type === 'headline';
+const isCartoon = post.data.type === 'cartoon';
 const slidesCount = (post.data.slides ?? []).length;
 const citations = post.data.citations ?? [];
 const absDate = fmtAbsolute(post.data.date);
@@ -47,8 +48,10 @@ const formatLabel = isCarousel
   ? 'Numbers of the Day'
   : isHeadlineCard
   ? 'Headline of the Day'
+  : isCartoon
+  ? 'Cartoon of the Day'
   : 'Brief';
-const formatClass = isCarousel ? 'carousel' : isQuote ? 'quote' : isNumbers ? 'numbers' : isHeadlineCard ? 'headline-fmt' : '';
+const formatClass = isCarousel ? 'carousel' : isQuote ? 'quote' : isNumbers ? 'numbers' : isHeadlineCard ? 'headline-fmt' : isCartoon ? 'cartoon-fmt' : '';
 ---
 <Base
   title={`${post.data.headline} — Article I`}
@@ -116,6 +119,26 @@ const formatClass = isCarousel ? 'carousel' : isQuote ? 'quote' : isNumbers ? 'n
             </p>
           )}
         </div>
+      )}
+
+      {isCartoon && post.data.cartoon && (
+        <figure class="detail-cartoon">
+          <img src={post.data.cartoon.image_url} alt={post.data.cartoon.alt} />
+          <figcaption>
+            <div class="detail-cartoon-attrib">
+              <span><strong>{post.data.cartoon.artist}</strong></span>
+              <span>·</span>
+              <span>{post.data.cartoon.year}</span>
+              <span>·</span>
+              <span>{post.data.cartoon.publication}</span>
+            </div>
+            {post.data.cartoon.source_url && (
+              <p style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-top: 14px;">
+                <a href={post.data.cartoon.source_url} target="_blank" rel="noopener" style="color: var(--navy);">View at source →</a>
+              </p>
+            )}
+          </figcaption>
+        </figure>
       )}
 
       {isCarousel && (

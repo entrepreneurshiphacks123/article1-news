@@ -1,0 +1,75 @@
+---
+import MetaBottom from './MetaBottom.astro';
+import { fmtRelative } from '../lib/topics';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const c = post.data.cartoon;
+const relative = fmtRelative(post.data.date);
+---
+<article class="card cartoon-card" data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
+  <div class="card-meta-top">
+    <span class="format-tag cartoon-fmt">Cartoon of the Day</span>
+    <span class="dot"></span>
+    <span>{relative}</span>
+  </div>
+
+  {c && (
+    <a href={`/posts/${post.slug}`} class="cartoon-link">
+      <figure class="cartoon-figure">
+        <img
+          src={c.image_url}
+          alt={c.alt}
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="cartoon-attrib">
+          <span class="cartoon-artist">{c.artist}</span>
+          <span class="cartoon-divider">·</span>
+          <span class="cartoon-year">{c.year}</span>
+          <span class="cartoon-divider">·</span>
+          <span class="cartoon-publication">{c.publication}</span>
+        </figcaption>
+      </figure>
+    </a>
+  )}
+
+  <MetaBottom outlet={post.data.source.outlet} tags={post.data.tags} />
+</article>
+
+<style>
+  .cartoon-card { padding-top: 32px; }
+  .cartoon-link { display: block; text-decoration: none; color: inherit; }
+  .cartoon-figure {
+    margin: 14px 0 22px;
+    border: 1px solid var(--hairline);
+    background: var(--parchment-2);
+  }
+  .cartoon-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Slight desaturation for editorial cohesion with parchment palette */
+  }
+  .cartoon-attrib {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: 12px 16px;
+    border-top: 1px solid var(--hairline);
+    background: var(--parchment);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .cartoon-artist { color: var(--ink-2); font-weight: 600; }
+  .cartoon-divider { opacity: 0.5; }
+  .format-tag.cartoon-fmt { color: var(--navy); font-weight: 600; }
+</style>

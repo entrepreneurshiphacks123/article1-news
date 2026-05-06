@@ -1275,6 +1275,30 @@ a:hover { color: var(--navy); text-decoration-color: var(--navy); }
 .format-tag.quote { color: var(--red); font-weight: 600; }
 .format-tag.numbers { color: var(--navy); font-weight: 600; }
 .format-tag.headline-fmt { color: var(--ink); font-weight: 600; }
+.format-tag.cartoon-fmt { color: var(--navy); font-weight: 600; }
+
+.detail-cartoon {
+  margin: 8px 0 28px;
+  border: 1px solid var(--hairline);
+  background: var(--parchment-2);
+}
+.detail-cartoon img { display: block; width: 100%; height: auto; }
+.detail-cartoon figcaption {
+  padding: 18px 22px 22px;
+  background: var(--parchment);
+  border-top: 1px solid var(--hairline);
+}
+.detail-cartoon-attrib {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
 
 /* ── 404 ───────────────────────────────────────────────── */
 .not-found {
