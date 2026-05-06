@@ -38,14 +38,19 @@ const relative = fmtRelative(post.data.date);
     </a>
   )}
 
+  <a class="read-all" href={`/posts/${post.slug}`}>
+    <span>Read why this matters</span>
+    <span class="arrow">→</span>
+  </a>
+
   <MetaBottom outlet={post.data.source.outlet} tags={post.data.tags} />
 </article>
 
 <style>
-  .cartoon-card { padding-top: 32px; }
+  .cartoon-card { padding-top: 22px; }
   .cartoon-link { display: block; text-decoration: none; color: inherit; }
   .cartoon-figure {
-    margin: 14px 0 22px;
+    margin: 8px 0 14px;
     border: 1px solid var(--hairline);
     background: var(--parchment-2);
   }

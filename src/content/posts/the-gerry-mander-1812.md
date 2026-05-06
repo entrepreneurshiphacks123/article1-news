@@ -17,3 +17,13 @@ cartoon:
 hashtags: ['Redistricting', 'TheLongMemory']
 race_level: state
 ---
+
+Massachusetts redistricted in 1812. Governor Elbridge Gerry's Democratic-Republican party redrew the state Senate map to pack Federalist voters into a few grotesquely-shaped districts. One district in Essex County resembled a salamander.
+
+The *Boston Gazette* artist Elkanah Tisdale added wings, claws, and a forked tongue, named it **"The Gerry-Mander,"** and ran it on March 26, 1812. The word entered the language.
+
+The map worked. Federalists won a majority of the *popular vote* in the 1812 state senate elections but were reduced to 11 of 40 seats. Gerry himself lost his re-election bid that year — and was promptly elected James Madison's Vice President, dying in office.
+
+**Article I, Section 4** gives state legislatures the power to set the "Times, Places and Manner" of congressional elections. The Founders located that power there to keep the federal executive out of the business of choosing his own congressmen.
+
+On May 5, 2026, Indiana Republican primary voters defeated state senators whose only offense was refusing to redraw the state's congressional map mid-cycle to add Trump-friendly seats. The president picked the legislators who will pick his congressmen. The salamander now has feathers.

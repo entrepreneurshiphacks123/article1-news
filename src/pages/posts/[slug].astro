@@ -122,23 +122,30 @@ const formatClass = isCarousel ? 'carousel' : isQuote ? 'quote' : isNumbers ? 'n
       )}
 
       {isCartoon && post.data.cartoon && (
-        <figure class="detail-cartoon">
-          <img src={post.data.cartoon.image_url} alt={post.data.cartoon.alt} />
-          <figcaption>
-            <div class="detail-cartoon-attrib">
-              <span><strong>{post.data.cartoon.artist}</strong></span>
-              <span>·</span>
-              <span>{post.data.cartoon.year}</span>
-              <span>·</span>
-              <span>{post.data.cartoon.publication}</span>
+        <>
+          <figure class="detail-cartoon">
+            <img src={post.data.cartoon.image_url} alt={post.data.cartoon.alt} />
+            <figcaption>
+              <div class="detail-cartoon-attrib">
+                <span><strong>{post.data.cartoon.artist}</strong></span>
+                <span>·</span>
+                <span>{post.data.cartoon.year}</span>
+                <span>·</span>
+                <span>{post.data.cartoon.publication}</span>
+              </div>
+              {post.data.cartoon.source_url && (
+                <p style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-top: 14px;">
+                  <a href={post.data.cartoon.source_url} target="_blank" rel="noopener" style="color: var(--navy);">View at source →</a>
+                </p>
+              )}
+            </figcaption>
+          </figure>
+          {hasLongform && (
+            <div class="detail-article" style="margin-top: 14px;">
+              <Content />
             </div>
-            {post.data.cartoon.source_url && (
-              <p style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-top: 14px;">
-                <a href={post.data.cartoon.source_url} target="_blank" rel="noopener" style="color: var(--navy);">View at source →</a>
-              </p>
-            )}
-          </figcaption>
-        </figure>
+          )}
+        </>
       )}
 
       {isCarousel && (
