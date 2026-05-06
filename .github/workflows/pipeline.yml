@@ -70,4 +70,18 @@ jobs:
           DRAFTS=$(git diff --cached --name-only --diff-filter=A | grep -c "src/content/drafts/" || true)
           MSG="[bot] $NEW_POSTS posts, $DRAFTS drafts ($(date -u +%Y-%m-%dT%H:%M))"
           git -c commit.gpgsign=false commit -m "$MSG"
-          git push
+          # Pull-rebase + retry to handle races with human pushes during the
+          # ~3-minute generation window. The bot's commit replays on top of
+          # any newly-arrived main.
+          for attempt in 1 2 3; do
+            if git -c rebase.autoStash=true pull --rebase origin main; then
+              if git push; then
+                echo "Push succeeded on attempt $attempt."
+                exit 0
+              fi
+            fi
+            echo "Attempt $attempt failed, retrying in 3s..."
+            sleep 3
+          done
+          echo "All push attempts failed."
+          exit 1
