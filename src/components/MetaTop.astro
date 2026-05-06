@@ -9,7 +9,7 @@ export interface Props {
 }
 
 const { type, date, slidesCount, lede = false } = Astro.props;
-const formatLabel = type === 'carousel' ? `Carousel · ${slidesCount} slides` : 'Brief';
+const formatLabel = type === 'carousel' ? `${slidesCount} slides` : 'Brief';
 const formatClass = 'format-tag' + (type === 'carousel' ? ' carousel' : '');
 const relative = fmtRelative(date);
 ---

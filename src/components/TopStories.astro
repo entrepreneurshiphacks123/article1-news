@@ -22,7 +22,7 @@ const { posts } = Astro.props;
           <div class="ts-meta">
             <span class="ts-num">{String(i + 1).padStart(2, '0')}</span>
             <span class={'ts-fmt' + (p.data.type === 'carousel' ? ' carousel' : '')}>
-              {p.data.type === 'carousel' ? `Carousel · ${(p.data.slides ?? []).length} slides` : 'Brief'}
+              {p.data.type === 'carousel' ? `${(p.data.slides ?? []).length} slides` : 'Brief'}
             </span>
             <span class="ts-src">{p.data.source.outlet}</span>
           </div>
