@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SearchOverlay from '../components/SearchOverlay.astro';
+---
+<Base title="Article I, Section 404 — Not Found">
+  <div style="background: var(--parchment); min-height: 100%; display: flex; flex-direction: column;">
+    <Header active="All" />
+
+    <div class="not-found" style="flex: 1;">
+      <div class="seal">I</div>
+      <div class="section-label">Article I · Section 404 · Not Found</div>
+      <p class="clause">
+        "No page by this name has been enumerated herein. The Editor shall, on rare occasion, retire a post; broken links shall be redressed by return to the Feed."
+      </p>
+      <div class="attribution">— Article I, Section 404</div>
+      <a class="return-link" href="/">← Return to the Feed</a>
+      <div class="archive-line">
+        If you followed a link from elsewhere, the post may have been moved.
+        <button type="button" data-search-trigger style="background: none; border: 0; color: var(--navy); font-style: normal; cursor: pointer; font-family: inherit; font-size: inherit;">Search the archive →</button>
+      </div>
+    </div>
+
+    <Footer />
+  </div>
+
+  <SearchOverlay />
+</Base>

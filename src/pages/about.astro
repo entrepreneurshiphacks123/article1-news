@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SearchOverlay from '../components/SearchOverlay.astro';
+---
+<Base
+  title="About — Article I"
+  description="Article I is a daily political feed that covers American politics through the lens of constitutional principle and historical pattern."
+>
+  <div style="background: var(--parchment); min-height: 100%;">
+    <Header active="All" />
+
+    <div class="about-wrap">
+      <div class="about-kicker">Colophon · About this publication</div>
+      <h1 class="about-h1">
+        About <span class="about-mark">Article<span class="about-i">I</span></span>
+      </h1>
+      <p class="about-deck">
+        American politics through the lens of constitutional principle and historical pattern.
+      </p>
+
+      <div class="about-rule"></div>
+
+      <h2 class="about-h2">What we are</h2>
+      <p class="about-p">
+        Article I is a daily political feed that covers American politics through the lens of constitutional principle, institutional integrity, and the postwar liberal consensus. We are named after Article I of the Constitution — the article that establishes Congress, the First Branch, the people's branch — because most of what is broken in American politics right now is a consequence of executive overreach, billionaire capture of elections, and a Congress that has surrendered its own powers.
+      </p>
+      <p class="about-p">
+        We are not a wire service. We curate what is happening, but our value is the strategic and historical interpretation layer. What does this move mean? Who benefits? What does it signal about 2026, 2028, and the long arc of American self-government?
+      </p>
+
+      <h2 class="about-h2">The symmetric-criticism principle</h2>
+      <p class="about-p">
+        You can criticize a leader without smearing the people they lead. Criticize Trump without attacking all Americans. Criticize Netanyahu without attacking all Jews or Israelis. Criticize Biden, AOC, Tlaib, or Mamdani when warranted, by the same standard you apply to the right. Anyone who can't make those distinctions is the actual problem.
+      </p>
+      <p class="about-p">
+        We call out antisemitism by name when it appears, regardless of who is saying it — left or right. Same standard, same receipts.
+      </p>
+
+      <h2 class="about-h2">What we are not</h2>
+      <p class="about-p">
+        We are not a both-sides account. We have a clear point of view; the symmetric-criticism principle is about <em>standards</em>, not equivalence. We are not a Resistance™ account — we don't dunk for engagement, we argue. We are not a left-wing account. We are a small-r republican account that currently votes Democratic because the GOP has stopped being a small-r republican party.
+      </p>
+
+      <div class="about-rule double"></div>
+
+      <div class="about-colophon">
+        <div class="about-colophon-i">I</div>
+        <p class="about-colophon-line">
+          Article I — American politics through the lens of the Constitution and the long memory.
+        </p>
+        <dl class="about-meta">
+          <dt>Set in</dt>
+          <dd>Source Serif 4 · Inter · JetBrains Mono</dd>
+          <dt>Published</dt>
+          <dd>Daily, from a small newsroom</dd>
+          <dt>Contact</dt>
+          <dd><a href="mailto:editor@article1.news">editor@article1.news</a></dd>
+          <dt>RSS</dt>
+          <dd><a href="/rss.xml">/rss.xml</a></dd>
+        </dl>
+      </div>
+    </div>
+
+    <Footer />
+  </div>
+
+  <SearchOverlay />
+</Base>

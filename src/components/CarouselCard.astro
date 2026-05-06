@@ -1,0 +1,80 @@
+---
+import MetaTop from './MetaTop.astro';
+import MetaBottom from './MetaBottom.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const slides = post.data.slides ?? [];
+const slideLabels = ['Hook', 'Context', 'The pattern', 'Why it matters', 'What to watch', 'Sources', ''];
+const total = slides.length;
+const citations = post.data.citations ?? [];
+---
+<article class="card carousel-card" data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
+  <MetaTop type="carousel" date={post.data.date} slidesCount={total} />
+
+  <div class="carousel-stack">
+    <div class="stack-leaf leaf-2"></div>
+    <div class="stack-leaf leaf-1"></div>
+    <div class="carousel-viewport" data-carousel data-total={total}>
+      <div class="carousel-track">
+        {slides.map((slide, i) => {
+          if (slide.kind === 'cta') {
+            return (
+              <div class="carousel-slide cta-mini">
+                <div class="rule-thin"></div>
+                <span class="I-mini">I</span>
+                <p class="colophon-text">Article I</p>
+                <p class="colophon-sub">American politics through the lens of the Constitution and the long memory.</p>
+                <div class="rule-thin"></div>
+              </div>
+            );
+          }
+          if (slide.kind === 'sources') {
+            return (
+              <div class="carousel-slide sources-mini">
+                <div class="slide-num">{`Slide ${i + 1} of ${total} · Sources`}</div>
+                <ul>
+                  {citations.length > 0
+                    ? citations.map((c) => (
+                        <li>{c.outlet}{c.date ? ` — ${c.date}` : ''}</li>
+                      ))
+                    : <li>{post.data.source.outlet}</li>
+                  }
+                </ul>
+              </div>
+            );
+          }
+          const isHook = i === 0;
+          return (
+            <div class="carousel-slide">
+              <span class="corner-i">I</span>
+              <div class="slide-num">{`Slide ${i + 1} of ${total} · ${slideLabels[i] || ''}`}</div>
+              <p class={isHook ? 'hook' : 'slide-body'}>{slide.body}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+
+  <div class="dots" data-carousel-dots>
+    {Array.from({ length: total }).map((_, i) => (
+      <button class={'dot' + (i === 0 ? ' active' : '')} data-slide-index={i} aria-label={`Go to slide ${i + 1}`}></button>
+    ))}
+  </div>
+
+  <h2 style="font-size: 22px; margin-bottom: 10px;">
+    <a href={`/posts/${post.slug}`} style="color: inherit; text-decoration: none;">{post.data.headline}</a>
+  </h2>
+
+  <a class="read-all" href={`/posts/${post.slug}`}>
+    <span>Open the full carousel</span>
+    <span class="arrow">→</span>
+  </a>
+
+  <MetaBottom outlet={post.data.source.outlet} tags={post.data.tags} />
+</article>

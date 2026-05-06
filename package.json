@@ -1,0 +1,19 @@
+{
+  "name": "article1-news",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Article I — American politics through the lens of the Constitution and the long memory.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.1.1"
+  }
+}

@@ -1,0 +1,14 @@
+/* TEAM */
+  Editor: Article I
+  Contact: editor@article1.news
+  Site: article1.news
+
+/* COLOPHON */
+  Set in: Source Serif 4 · Inter · JetBrains Mono
+  Built with: Astro
+  Hosted on: Cloudflare Pages
+  Last update: 2026/05
+
+/* THANKS */
+  To Article I of the United States Constitution.
+  To readers who hold both sides to the same standard.

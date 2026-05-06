@@ -1,0 +1,14 @@
+---
+export interface Props {
+  outlet: string;
+  tags: string[];
+}
+
+const { outlet, tags } = Astro.props;
+const display = tags.slice(0, 3);
+---
+<div class="card-meta-bottom">
+  <span class="source">Source: {outlet}</span>
+  <span class="dot"></span>
+  {display.map((t) => <span class="tag">{t.replace(/\s+/g, '')}</span>)}
+</div>

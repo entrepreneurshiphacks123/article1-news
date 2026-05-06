@@ -1,0 +1,163 @@
+---
+// Vanilla-JS islands for swipeable carousels and read state.
+// Loaded once per page that uses any of these components.
+---
+
+<script is:inline>
+(function () {
+  // ── Read-state store (localStorage) ───────────────────
+  const READ_KEY = 'a1.read.v1';
+  const loadRead = () => {
+    try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); }
+    catch { return new Set(); }
+  };
+  const saveRead = (set) => localStorage.setItem(READ_KEY, JSON.stringify([...set]));
+
+  let read = loadRead();
+  const subscribers = [];
+  const subscribe = (fn) => subscribers.push(fn);
+  const notify = () => subscribers.forEach((fn) => fn(read));
+  const markRead = (id) => { const n = new Set(read); n.add(id); read = n; saveRead(read); notify(); };
+  const markUnread = (id) => { const n = new Set(read); n.delete(id); read = n; saveRead(read); notify(); };
+  const reset = () => { read = new Set(); saveRead(read); notify(); };
+  window.A1ReadState = { get: () => read, markRead, markUnread, reset, subscribe };
+
+  // Apply read styling to feed cards
+  const applyReadStyling = () => {
+    document.querySelectorAll('[data-post-card]').forEach((el) => {
+      const id = Number(el.getAttribute('data-post-id'));
+      const isRead = read.has(id);
+      el.classList.toggle('is-read', isRead);
+      const flag = el.querySelector('[data-read-flag]');
+      const dot = el.querySelector('[data-read-dot]');
+      if (flag) flag.hidden = !isRead;
+      if (dot) dot.hidden = !isRead;
+    });
+  };
+  subscribe(applyReadStyling);
+
+  // ── Generic horizontal swiper ─────────────────────────
+  function attachSwiper(viewport, opts) {
+    const track = opts.track || viewport.querySelector('.carousel-track, .ts-track');
+    if (!track) return;
+    const total = opts.total ?? track.children.length;
+    let idx = 0;
+    const drag = { active: false, startX: 0, dx: 0, w: 0 };
+
+    const setIdx = (i) => {
+      idx = Math.max(0, Math.min(total - 1, i));
+      track.style.transition = 'transform 0.32s cubic-bezier(.2,.8,.2,1)';
+      track.style.transform = `translateX(${-idx * track.offsetWidth}px)`;
+      opts.onChange && opts.onChange(idx);
+    };
+
+    const onDown = (e) => {
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      drag.active = true; drag.startX = x; drag.dx = 0; drag.w = track.offsetWidth;
+      track.style.transition = 'none';
+    };
+    const onMove = (e) => {
+      if (!drag.active) return;
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      drag.dx = x - drag.startX;
+      track.style.transform = `translateX(${-idx * drag.w + drag.dx}px)`;
+    };
+    const onUp = () => {
+      if (!drag.active) return;
+      const { dx } = drag;
+      drag.active = false;
+      let next = idx;
+      if (Math.abs(dx) > 50) next = dx < 0 ? Math.min(total - 1, idx + 1) : Math.max(0, idx - 1);
+      setIdx(next);
+    };
+
+    viewport.addEventListener('mousedown', onDown);
+    viewport.addEventListener('mousemove', onMove);
+    viewport.addEventListener('mouseup', onUp);
+    viewport.addEventListener('mouseleave', onUp);
+    viewport.addEventListener('touchstart', onDown, { passive: true });
+    viewport.addEventListener('touchmove', onMove, { passive: true });
+    viewport.addEventListener('touchend', onUp);
+    window.addEventListener('resize', () => setIdx(idx));
+
+    // Initial position
+    requestAnimationFrame(() => setIdx(0));
+    return { setIdx, getIdx: () => idx };
+  }
+
+  // ── Carousel cards ────────────────────────────────────
+  document.querySelectorAll('[data-carousel]').forEach((vp) => {
+    const total = Number(vp.getAttribute('data-total')) || 0;
+    const card = vp.closest('article');
+    const dotsWrap = card?.querySelector('[data-carousel-dots]');
+    const dots = dotsWrap ? dotsWrap.querySelectorAll('.dot') : [];
+    const ctrl = attachSwiper(vp, {
+      total,
+      onChange: (i) => {
+        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+      },
+    });
+    dots.forEach((d, i) => {
+      d.addEventListener('click', (e) => { e.preventDefault(); ctrl?.setIdx(i); });
+    });
+  });
+
+  // ── Top Stories rail ──────────────────────────────────
+  const tsRoot = document.querySelector('[data-top-stories]');
+  const tsEmpty = document.querySelector('[data-ts-empty]');
+  if (tsRoot) {
+    const viewport = tsRoot.querySelector('[data-ts-viewport]');
+    const track = tsRoot.querySelector('[data-ts-track]');
+    const slides = Array.from(track.children);
+    const dots = tsRoot.querySelectorAll('[data-ts-dot]');
+    const pos = tsRoot.querySelector('[data-ts-pos]');
+    let visibleCount = slides.length;
+
+    const refreshFromRead = () => {
+      slides.forEach((s) => {
+        const id = Number(s.getAttribute('data-post-id'));
+        s.style.display = read.has(id) ? 'none' : '';
+      });
+      const visibleSlides = slides.filter((s) => s.style.display !== 'none');
+      visibleCount = visibleSlides.length;
+      if (visibleCount === 0) {
+        tsRoot.style.display = 'none';
+        if (tsEmpty) tsEmpty.hidden = false;
+      } else {
+        tsRoot.style.display = '';
+        if (tsEmpty) tsEmpty.hidden = true;
+      }
+      if (pos) pos.textContent = `1 / ${visibleCount}`;
+    };
+    refreshFromRead();
+    subscribe(refreshFromRead);
+
+    const ctrl = attachSwiper(viewport, {
+      track,
+      total: slides.length,
+      onChange: (i) => {
+        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+        if (pos) pos.textContent = `${i + 1} / ${visibleCount}`;
+      },
+    });
+    dots.forEach((d, i) => {
+      d.addEventListener('click', (e) => { e.preventDefault(); ctrl?.setIdx(i); });
+    });
+    tsRoot.querySelectorAll('[data-ts-mark-read]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = Number(btn.getAttribute('data-post-id'));
+        markRead(id);
+      });
+    });
+  }
+  if (tsEmpty) {
+    const resetBtn = tsEmpty.querySelector('[data-ts-reset]');
+    resetBtn?.addEventListener('click', () => reset());
+  }
+
+  // Initial styling pass
+  applyReadStyling();
+})();
+</script>

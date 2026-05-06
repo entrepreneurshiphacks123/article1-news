@@ -1,0 +1,177 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MetaTop from '../../components/MetaTop.astro';
+import MetaBottom from '../../components/MetaBottom.astro';
+import SearchOverlay from '../../components/SearchOverlay.astro';
+import { fmtAbsolute } from '../../lib/topics';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const all = await getCollection('posts');
+const related = all
+  .filter((p) => p.slug !== post.slug && p.data.tags.some((t) => post.data.tags.includes(t)))
+  .slice(0, 3);
+
+const slideLabels = ['Hook', 'Context', 'The pattern', 'Why it matters', 'What to watch', 'Sources', ''];
+const isCarousel = post.data.type === 'carousel';
+const slidesCount = (post.data.slides ?? []).length;
+const citations = post.data.citations ?? [];
+const absDate = fmtAbsolute(post.data.date);
+---
+<Base
+  title={`${post.data.headline} — Article I`}
+  description={post.data.body ?? `${post.data.headline} — Article I coverage with sources.`}
+  ogType="article"
+>
+  <div style="background: var(--parchment); min-height: 100%;">
+    <Header active="All" />
+
+    <div class="detail-wrap">
+      <a class="detail-back" href="/">← Back to the Feed</a>
+
+      <div class="detail-meta-top">
+        <span class={'format-tag' + (isCarousel ? ' carousel' : '')}>
+          {isCarousel ? `Carousel · ${slidesCount} slides` : 'Brief'}
+        </span>
+        <span class="dot" style="width:3px;height:3px;border-radius:999px;background:var(--ink-3)"></span>
+        <span>{absDate}</span>
+        <span class="dot" style="width:3px;height:3px;border-radius:999px;background:var(--ink-3)"></span>
+        <span>Source: {post.data.source.outlet}</span>
+      </div>
+
+      <h1 class="detail-h1">{post.data.headline}</h1>
+
+      {!isCarousel && (
+        <div class="detail-body">
+          {(post.data.body ?? '').split(/\n+/).filter(Boolean).map((p) => <p>{p}</p>)}
+        </div>
+      )}
+
+      {isCarousel && (
+        <>
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 24px;">
+            Stacked vertically below · Each slide is a beat.
+          </div>
+          {(post.data.slides ?? []).map((s, i) => {
+            if (s.kind === 'cta') {
+              return (
+                <div class="slide-block cta-block">
+                  <div class="rule-thin"></div>
+                  <span class="I-large">I</span>
+                  <p class="colophon-mast">Article I</p>
+                  <p class="colophon-line">American politics through the lens of the Constitution and the long memory.</p>
+                  <div class="rule-thin"></div>
+                  <p class="colophon-foot">article1.news · @article1news</p>
+                </div>
+              );
+            }
+            if (s.kind === 'sources') {
+              return (
+                <div class="slide-block sources-block">
+                  <div class="slide-label-clean">Sources</div>
+                  <ul class="sources-list">
+                    {citations.length > 0 ? (
+                      citations.map((c) => (
+                        <li>
+                          {c.url
+                            ? <a href={c.url} target="_blank" rel="noopener">{c.outlet}{c.note ? ` — ${c.note}` : ''}</a>
+                            : <span>{c.outlet}{c.note ? ` — ${c.note}` : ''}</span>
+                          }
+                          {c.date && <span class="src-meta">{c.date}</span>}
+                        </li>
+                      ))
+                    ) : (
+                      <li>{post.data.source.outlet}{post.data.source.url && (
+                        <>
+                          {' — '}<a href={post.data.source.url} target="_blank" rel="noopener">link</a>
+                        </>
+                      )}</li>
+                    )}
+                  </ul>
+                </div>
+              );
+            }
+            const isHook = s.kind === 'hook';
+            return (
+              <div class={'slide-block' + (isHook ? ' hook-block' : '')}>
+                <div class="slide-label-clean">{slideLabels[i] || ''}</div>
+                <p class="slide-text">{s.body}</p>
+              </div>
+            );
+          })}
+        </>
+      )}
+
+      <div class="detail-rule"></div>
+
+      <div class="share-row">
+        <span style="margin-right: 6px;">Share:</span>
+        <a class="share-btn" href={`https://x.com/intent/tweet?text=${encodeURIComponent(post.data.headline)}&url=${encodeURIComponent('https://article1.news/posts/' + post.slug)}`} target="_blank" rel="noopener">X</a>
+        <a class="share-btn" href={`https://threads.net/intent/post?text=${encodeURIComponent(post.data.headline + ' https://article1.news/posts/' + post.slug)}`} target="_blank" rel="noopener">Threads</a>
+        <button class="share-btn" type="button" data-copy-link data-href={`https://article1.news/posts/${post.slug}`}>Copy link</button>
+      </div>
+
+      <div class="detail-rule"></div>
+
+      <div class="card-meta-bottom" style="margin-bottom: 24px;">
+        <span class="source">Source: {post.data.source.outlet}{post.data.source.url && (
+          <>
+            {' · '}<a href={post.data.source.url} target="_blank" rel="noopener" style="color: var(--navy);">link</a>
+          </>
+        )}</span>
+        <span class="dot"></span>
+        {post.data.tags.slice(0, 4).map((t) => (
+          <a class="tag" href={`/topic/${encodeURIComponent(t)}`} style="color: inherit;">{t.replace(/\s+/g, '')}</a>
+        ))}
+      </div>
+
+      {related.length > 0 && (
+        <>
+          <div class="related-h">Related</div>
+          {related.map((r) => (
+            <article class="card" style="padding-top: 16px;">
+              <MetaTop type={r.data.type} date={r.data.date} slidesCount={(r.data.slides ?? []).length} />
+              <h2 style="font-size: 22px;">
+                <a href={`/posts/${r.slug}`} style="color: inherit; text-decoration: none;">{r.data.headline}</a>
+              </h2>
+              <MetaBottom outlet={r.data.source.outlet} tags={r.data.tags} />
+            </article>
+          ))}
+        </>
+      )}
+    </div>
+
+    <Footer />
+  </div>
+
+  <SearchOverlay />
+
+  <script is:inline>
+    document.querySelectorAll('[data-copy-link]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = btn.getAttribute('data-href');
+        navigator.clipboard?.writeText(href).then(() => {
+          const original = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(() => (btn.textContent = original), 1500);
+        });
+      });
+    });
+  </script>
+</Base>

@@ -1,0 +1,19 @@
+---
+import MetaTop from './MetaTop.astro';
+import MetaBottom from './MetaBottom.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+  lede?: boolean;
+}
+
+const { post, lede = false } = Astro.props;
+const cls = 'card' + (lede ? ' lede' : '');
+---
+<article class={cls} data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
+  <MetaTop type="static" date={post.data.date} lede={lede} />
+  <h2><a href={`/posts/${post.slug}`} style="color: inherit; text-decoration: none;">{post.data.headline}</a></h2>
+  <p class="body">{post.data.body}</p>
+  <MetaBottom outlet={post.data.source.outlet} tags={post.data.tags} />
+</article>

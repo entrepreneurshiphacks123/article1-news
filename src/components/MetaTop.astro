@@ -1,0 +1,24 @@
+---
+import { fmtRelative } from '../lib/topics';
+
+export interface Props {
+  type: 'static' | 'carousel';
+  date: Date;
+  slidesCount?: number;
+  lede?: boolean;
+}
+
+const { type, date, slidesCount, lede = false } = Astro.props;
+const formatLabel = type === 'carousel' ? `Carousel · ${slidesCount} slides` : 'Brief';
+const formatClass = 'format-tag' + (type === 'carousel' ? ' carousel' : '');
+const relative = fmtRelative(date);
+---
+<div class="card-meta-top">
+  {lede && <span class="lede-flag">Lede</span>}
+  {lede && <span class="dot"></span>}
+  <span class="read-flag" data-read-flag hidden>✓ Read</span>
+  <span class="dot" data-read-dot hidden></span>
+  <span class={formatClass}>{formatLabel}</span>
+  <span class="dot"></span>
+  <span>{relative}</span>
+</div>

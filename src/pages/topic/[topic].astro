@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import StaticCard from '../../components/StaticCard.astro';
+import CarouselCard from '../../components/CarouselCard.astro';
+import Fleuron from '../../components/Fleuron.astro';
+import Carousels from '../../components/Carousels.client.astro';
+import SearchOverlay from '../../components/SearchOverlay.astro';
+import { TOPICS, postMatchesTopic } from '../../lib/topics';
+
+export async function getStaticPaths() {
+  return TOPICS.filter((t) => t.label !== 'All').map((t) => ({
+    params: { topic: encodeURIComponent(t.label) },
+    props: { topic: t },
+  }));
+}
+
+const { topic } = Astro.props;
+const allPosts = await getCollection('posts');
+const filtered = allPosts
+  .filter((p) => postMatchesTopic(p, topic))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base
+  title={`${topic.label} — Article I`}
+  description={`Article I coverage filtered by ${topic.label}.`}
+>
+  <div style="background: var(--parchment); min-height: 100%;">
+    <Header active={topic.label} />
+
+    <div class="feed">
+      <div class="feed-sep">
+        <span class="rule"></span>
+        <span class="label">{topic.label} · {filtered.length} {filtered.length === 1 ? 'post' : 'posts'}</span>
+        <span class="rule"></span>
+      </div>
+
+      {filtered.length === 0 ? (
+        <div class="ts-empty">
+          <p>No posts in this topic yet.</p>
+        </div>
+      ) : (
+        filtered.map((p, i) => {
+          const isLede = i === 0 && p.data.type === 'static';
+          const card = p.data.type === 'carousel'
+            ? <CarouselCard post={p} />
+            : <StaticCard post={p} lede={isLede} />;
+          const showFleuron = i > 0 && (i + 1) % 5 === 0 && i < filtered.length - 1;
+          return (
+            <>
+              {card}
+              {showFleuron && <Fleuron />}
+            </>
+          );
+        })
+      )}
+    </div>
+
+    <Footer />
+  </div>
+
+  <SearchOverlay />
+  <Carousels />
+</Base>

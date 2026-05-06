@@ -1,0 +1,65 @@
+---
+import BrandMark from './BrandMark.astro';
+import { TOPICS, fmtDateline } from '../lib/topics';
+
+export interface Props {
+  active?: string;
+  volume?: number;
+  issue?: number;
+  date?: Date;
+}
+
+const {
+  active = 'All',
+  volume = 1,
+  issue = 127,
+  date = new Date('2026-05-06T12:00:00-04:00'),
+} = Astro.props;
+
+const dateline = fmtDateline(date);
+const volumeRoman = ['I', 'II', 'III', 'IV', 'V'][volume - 1] ?? String(volume);
+---
+<header class="site-header">
+  <div class="top">
+    <div>
+      <a href="/" style="text-decoration: none;">
+        <BrandMark />
+      </a>
+      <div class="tagline">American politics through the lens of the Constitution and the long memory.</div>
+    </div>
+    <div class="icons">
+      <a class="icon-btn" href="/rss.xml" aria-label="RSS">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 11a9 9 0 0 1 9 9" />
+          <path d="M4 4a16 16 0 0 1 16 16" />
+          <circle cx="5" cy="19" r="1.5" fill="currentColor" />
+        </svg>
+      </a>
+      <button class="icon-btn" type="button" aria-label="Search" data-search-trigger>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="section-rule"></div>
+
+  <div class="dateline" style="padding: 10px 24px 0; max-width: none;">
+    <span>{dateline}</span>
+    <span>Vol. {volumeRoman} · No. {issue}</span>
+  </div>
+
+  <div style="padding: 0 24px;">
+    <div class="topic-pills">
+      {TOPICS.map((t) => {
+        const href = t.label === 'All' ? '/' : `/?topic=${encodeURIComponent(t.label)}`;
+        const cls = 'topic-pill' + (active === t.label ? ' active' : '');
+        return (
+          <a class={cls} href={href} data-topic={t.label}>{t.label}</a>
+        );
+      })}
+    </div>
+  </div>
+</header>
