@@ -136,6 +136,7 @@ export async function generatePost(
   selection: SelectionItem,
   feedItem: FeedItem,
   ctx: CycleContext,
+  articleText?: string | null,
 ): Promise<GeneratedPost> {
   const editorial = await getEditorial();
   const schemaText = selection.format === 'carousel'
@@ -152,19 +153,38 @@ export async function generatePost(
     ? `(For "Headline of the Day" only: this format quotes the source outlet's headline verbatim. That's the exception.)`
     : `IMPORTANT: Write our OWN headline in Article I's voice. NEVER copy or near-paraphrase the source outlet's headline below — that's lazy and off-brand. The source headline is for context only; our headline reframes the story for our reader (the Article I reader cares about constitutional / strategic / historical implications, not the outlet's framing). Different angle, different verb, different stakes.`;
 
+  const articleBlock = articleText
+    ? [
+        ``,
+        `Full article body (use this to surface concrete quotes, numbers, and named-source details — this is what lets us produce real reportage instead of summaries-of-summaries):`,
+        `--- BEGIN ARTICLE ---`,
+        articleText,
+        `--- END ARTICLE ---`,
+        ``,
+        `When the article contains direct quotes from a named figure, **surface the most newsworthy 1-2 quotes verbatim** in the body / first slide. Use the Political Wire pattern: "Said [Name]: \\"...\\"" or "[Name] told [outlet]: \\"...\\"". Lead with the quote that has the most editorial weight; if there are multiple, pick the one that lands hardest. Don't paraphrase a quote you have verbatim.`,
+        ``,
+        `When the article contains specific numbers, dates, or named institutions, prefer those over vague summaries. Receipts always.`,
+        ``,
+      ]
+    : [
+        ``,
+        `(No full article body available — the URL didn't fetch or wasn't extractable. Work from the RSS summary above. Be careful: claim only what's actually in the summary.)`,
+        ``,
+      ];
+
   const userMessage = [
     `Write a ${selection.format} post in the **${selection.voice}** voice.`,
     selection.voice === 'strategist'
       ? `Strategist register: tactical, operator's lens. Who benefits. What's the play. Concrete strategic reads. Punchy.`
       : `Historian register: long-arc context. Reads the news against 250 years of American self-government. "The last time X..." / "This pattern goes back to..."`,
     ``,
-    `Story (FOR REFERENCE ONLY — do not mirror the headline or framing):`,
+    `Story metadata (FOR REFERENCE — do not mirror the source's headline or framing):`,
     `  outlet: ${feedItem.outlet}`,
     `  source headline: ${feedItem.title}`,
     `  url: ${feedItem.url}`,
     `  published: ${feedItem.publishedAt.toISOString()}`,
-    `  summary: ${feedItem.summary}`,
-    ``,
+    `  RSS summary: ${feedItem.summary}`,
+    ...articleBlock,
     sourceHeadlineNotice,
     ``,
     `Tags suggested by selector: ${selection.topic_tags?.join(', ') ?? '(none)'}`,

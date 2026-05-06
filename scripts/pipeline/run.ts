@@ -9,6 +9,7 @@ import { aggregate } from './aggregate.js';
 import { filterUnseen, markProcessed } from './dedupe.js';
 import { selectStories } from './select.js';
 import { generatePost } from './generate.js';
+import { fetchArticle } from './fetch-article.js';
 import { writePostMarkdown, nextId } from './write-markdown.js';
 import { getRemainingBudget, isHalted, DAILY_CAP_USD } from './budget.js';
 import type { CycleContext } from './types.js';
@@ -112,8 +113,17 @@ async function main() {
       continue;
     }
     try {
+      // Fetch full article body for selected stories — quote/numbers/headline
+      // formats benefit from the source detail; static + carousel even more so.
+      console.log(`[fetch] ${item.url.slice(0, 90)}`);
+      const article = await fetchArticle(item.url);
+      if (article) {
+        console.log(`[fetch]   → ${article.length} chars extracted${article.byline ? ` · by ${article.byline}` : ''}`);
+      } else {
+        console.log(`[fetch]   ✗ extraction failed; proceeding with RSS summary only`);
+      }
       console.log(`[generate] Writing ${sel.format} for: ${item.title.slice(0, 80)}…`);
-      const post = await generatePost(client, sel, item, ctx);
+      const post = await generatePost(client, sel, item, ctx, article?.text ?? null);
       const filePath = await writePostMarkdown({
         draftMode: DRAFT,
         feedItem: item,
