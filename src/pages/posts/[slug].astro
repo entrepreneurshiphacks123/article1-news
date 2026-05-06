@@ -52,11 +52,37 @@ const formatLabel = isCarousel
   ? 'Cartoon of the Day'
   : 'Brief';
 const formatClass = isCarousel ? 'carousel' : isQuote ? 'quote' : isNumbers ? 'numbers' : isHeadlineCard ? 'headline-fmt' : isCartoon ? 'cartoon-fmt' : '';
+
+// JSON-LD Article schema for post detail. Helps Google + AI crawlers understand it as journalism.
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': isCartoon ? 'Article' : 'NewsArticle',
+  headline: post.data.headline,
+  datePublished: post.data.date.toISOString(),
+  dateModified: post.data.date.toISOString(),
+  author: { '@id': 'https://article1.news#organization' },
+  publisher: { '@id': 'https://article1.news#organization' },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(`/posts/${post.slug}`, Astro.site).toString(),
+  },
+  articleSection: post.data.tags?.[0] ?? 'Politics',
+  keywords: post.data.tags?.join(', '),
+  description: (post.data.body ?? post.data.headline ?? '').slice(0, 280),
+  isAccessibleForFree: true,
+  url: new URL(`/posts/${post.slug}`, Astro.site).toString(),
+  ...(isCartoon && post.data.cartoon
+    ? {
+        image: new URL(post.data.cartoon.image_url, Astro.site).toString(),
+      }
+    : {}),
+};
 ---
 <Base
   title={`${post.data.headline} — Article I`}
   description={post.data.body ?? `${post.data.headline} — Article I coverage with sources.`}
   ogType="article"
+  jsonLd={articleSchema}
 >
   <div style="background: var(--parchment); min-height: 100%;">
     <Header active="All" />

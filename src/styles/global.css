@@ -477,7 +477,7 @@ a:hover { color: var(--navy); text-decoration-color: var(--navy); }
 /* ── Card ───────────────────────────────────────────────── */
 .card {
   position: relative;
-  padding: 20px 0 18px;
+  padding: 26px 0 24px;
   border-bottom: 1px solid var(--hairline);
 }
 .card:last-child { border-bottom: 0; }
@@ -491,7 +491,7 @@ a:hover { color: var(--navy); text-decoration-color: var(--navy); }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-3);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 .card-meta-top .dot {
   width: 3px; height: 3px; border-radius: 999px; background: var(--ink-3);
@@ -508,8 +508,8 @@ a:hover { color: var(--navy); text-decoration-color: var(--navy); }
   font-family: var(--serif);
   font-weight: 700;
   font-size: 25px;
-  line-height: 1.18;
-  margin: 0 0 10px;
+  line-height: 1.2;
+  margin: 0 0 14px;
   color: var(--ink);
   letter-spacing: -0.005em;
   text-wrap: balance;
@@ -517,11 +517,14 @@ a:hover { color: var(--navy); text-decoration-color: var(--navy); }
 
 .card .body {
   font-family: var(--sans);
-  font-size: 16.5px;
-  line-height: 1.55;
+  font-size: 17px;
+  line-height: 1.65;
   color: var(--ink);
-  margin: 0 0 14px;
+  margin: 0 0 16px;
+  max-width: 60ch;  /* ~60 characters per line — the readability sweet spot */
 }
+.card .body p { margin: 0 0 12px; }
+.card .body p:last-child { margin-bottom: 0; }
 
 .card-meta-bottom {
   display: flex;
@@ -533,6 +536,7 @@ a:hover { color: var(--navy); text-decoration-color: var(--navy); }
   text-transform: uppercase;
   color: var(--ink-3);
   flex-wrap: wrap;
+  margin-top: 4px;
 }
 .card-meta-bottom .source {
   color: var(--ink-2);
@@ -544,8 +548,8 @@ a:hover { color: var(--navy); text-decoration-color: var(--navy); }
 .card-meta-bottom .tag::before { content: "#"; opacity: 0.5; }
 
 /* ── Lede card ─────────────────────────────────────────── */
-.card.lede h2 { font-size: 34px; line-height: 1.1; letter-spacing: -0.012em; margin-bottom: 12px; }
-.card.lede .body { font-size: 17.5px; line-height: 1.55; }
+.card.lede h2 { font-size: 34px; line-height: 1.1; letter-spacing: -0.012em; margin-bottom: 14px; }
+.card.lede .body { font-size: 18px; line-height: 1.6; }
 .lede-flag {
   background: var(--red);
   color: var(--parchment);
