@@ -29,7 +29,7 @@ function staticPostSchemaText(): string {
   return `For static posts, return:
 {
   "type": "static",
-  "headline": "<≤12 words, no questions, no 'BREAKING:'>",
+  "headline": "<≤12 words. ARTICLE I'S OWN framing — concrete subject + active verb. Read for what's implied: who benefits, what shifts, what pattern this fits. Examples of good Article I headlines: 'Vance's 2028 Is Tied to Trump's Approval. That's a Problem.' / 'Trump Buries Indiana Republicans Who Wouldn't Redistrict for Him.' / 'DOJ Drops the Andy Ogles Probe. Evidence to Be Destroyed.' Notice these are NOT the source outlets' headlines — they're our reframings. Do not write 'Vance Visits Iowa' or anything that sounds like a wire-service summary. No questions, no 'BREAKING:'.>",
   "body": "<2-4 sentence LEDE that appears on the card. Sentence 1 = what happened (with a number or quote). Sentence 2-3 = strategist or historian framing. This is the hook — it doesn't carry the full argument.>",
   "article_md": "<300-700 word LONGFORM MARKDOWN article that appears on the detail page. This is where the actual argument lives — receipts, sources, historical/structural context, implications. Use markdown: paragraphs separated by blank lines, [inline links](url) to sources where you can, blockquotes (>) for pull quotes, ## for section headings if it helps. NEVER make a claim in the lede that isn't backed up here. NEVER write the article with the lede repeated; the lede is a hook, the article picks up from there.>",
   "tags": ["<from taxonomy>", "<2-4 tags>"],
@@ -148,18 +148,24 @@ export async function generatePost(
     ? headlinePostSchemaText()
     : staticPostSchemaText();
 
+  const sourceHeadlineNotice = selection.format === 'headline'
+    ? `(For "Headline of the Day" only: this format quotes the source outlet's headline verbatim. That's the exception.)`
+    : `IMPORTANT: Write our OWN headline in Article I's voice. NEVER copy or near-paraphrase the source outlet's headline below — that's lazy and off-brand. The source headline is for context only; our headline reframes the story for our reader (the Article I reader cares about constitutional / strategic / historical implications, not the outlet's framing). Different angle, different verb, different stakes.`;
+
   const userMessage = [
     `Write a ${selection.format} post in the **${selection.voice}** voice.`,
     selection.voice === 'strategist'
       ? `Strategist register: tactical, operator's lens. Who benefits. What's the play. Concrete strategic reads. Punchy.`
       : `Historian register: long-arc context. Reads the news against 250 years of American self-government. "The last time X..." / "This pattern goes back to..."`,
     ``,
-    `Story:`,
+    `Story (FOR REFERENCE ONLY — do not mirror the headline or framing):`,
     `  outlet: ${feedItem.outlet}`,
-    `  headline: ${feedItem.title}`,
+    `  source headline: ${feedItem.title}`,
     `  url: ${feedItem.url}`,
     `  published: ${feedItem.publishedAt.toISOString()}`,
     `  summary: ${feedItem.summary}`,
+    ``,
+    sourceHeadlineNotice,
     ``,
     `Tags suggested by selector: ${selection.topic_tags?.join(', ') ?? '(none)'}`,
     `Race level: ${selection.race_level}`,
