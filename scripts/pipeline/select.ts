@@ -33,8 +33,7 @@ This means: don't be too literary. The selector's earlier failure mode was treat
 - Article I powers (war, appropriations, oversight, impeachment, redistricting)
 - Constitutional / rule-of-law / institutional integrity stories
 - Money in politics (Citizens United, billionaire spending, lobbying)
-- Antisemitism (left or right) with concrete receipts
-- Israel / Netanyahu coalition / settlement policy / judicial overreach
+- **Antisemitism (left or right) with concrete receipts.** This is an editorial STANDARD, not a primary topic. We're pro-Jewish, and we call out antisemitism by name regardless of which side commits it. When such a story breaks, score it up.
 - Long-arc historical pattern stories
 - Race-level shifts (special elections, primary upsets, redistricting outcomes)
 - Stories with ≥3 independent sources reporting (= big story → analysis depth)
@@ -61,6 +60,7 @@ This means: don't be too literary. The selector's earlier failure mode was treat
 - Celebrity gossip even when politicians involved
 - Medical conditions, food preferences, social media micro-reactions
 - Internal campaign polls / partisan-funded polls without credible context
+- **Israeli domestic politics that don't have US implications.** Israel-the-country is NOT a primary Article I topic. Cover when: (a) it's an antisemitism story, (b) it's about US-Israel policy with concrete US political implications (aid votes, AIPAC/DMFI activity, US politicians' positioning), or (c) Netanyahu specifically acts in a way that matters for US foreign policy. Skip pure Knesset coverage, settlement-expansion routines, generic Israel-Hamas updates without a US angle. Same rule applies to UK/Canada/EU domestic politics — only US-relevant.
 
 # Format routing
 
@@ -127,8 +127,10 @@ Include ALL items in selections (with decision: "skip" or "select"). Be ruthless
 const TOPIC_TAXONOMY = [
   'Constitution', 'ArticleI', 'Citizens United', 'Long Memory', 'Supreme Court',
   'Economy', 'Affordability', 'Polling',
-  'Foreign Policy', 'Iran', 'Israel', 'Netanyahu', 'Ukraine', 'Russia', 'NATO', 'China', 'Latin America',
-  'Antisemitism',
+  'Foreign Policy', 'Iran', 'Ukraine', 'Russia', 'NATO', 'China', 'Latin America',
+  // Israel/Netanyahu retained as tags (rare use, only when US-relevant);
+  // Antisemitism is the editorial standard, used freely.
+  'Israel', 'Netanyahu', 'Antisemitism',
   '2026 Midterms', '2028',
   'Redistricting', 'Voting Rights', 'Rule of Law', 'DOJ', 'FBI', 'Executive', 'Appropriations',
   'Public Health', 'Pandemic Prep', 'CDC', 'NIH', 'FDA', 'HHS', 'RFK Jr', 'Outbreak',

@@ -64,9 +64,12 @@ export const SOURCES: Source[] = [
   { name: 'NPR Health', url: 'https://feeds.npr.org/1128/rss.xml', tier: 'public-health', weight: 4 },
   { name: 'CIDRAP News', url: 'https://www.cidrap.umn.edu/news-perspective/feed', tier: 'public-health', weight: 4, notes: 'Center for Infectious Disease Research and Policy — outbreaks, biosecurity.' },
 
-  // ── Foreign policy / Israel ──────────────────────────────────────────
+  // ── Foreign policy ───────────────────────────────────────────────────
+  // Note: Times of Israel + Jewish Insider were dropped 2026-05-07 — they
+  // surface Israeli domestic news that isn't Article I material. We still
+  // cover antisemitism (any source) and US-Israel policy (any major US
+  // outlet does). Yair Rosenberg stays because he writes broadly about
+  // US politics + antisemitism, not Israeli domestic affairs.
   { name: 'War on the Rocks', url: 'https://warontherocks.com/feed/', tier: 'foreign-policy', weight: 4 },
-  { name: 'Times of Israel', url: 'https://www.timesofisrael.com/feed/', tier: 'foreign-policy', weight: 4 },
-  { name: 'Yair Rosenberg', url: 'https://yairrosenberg.substack.com/feed', tier: 'foreign-policy', weight: 4 },
-  { name: 'Jewish Insider', url: 'https://jewishinsider.com/feed/', tier: 'foreign-policy', weight: 3 },
+  { name: 'Yair Rosenberg', url: 'https://yairrosenberg.substack.com/feed', tier: 'foreign-policy', weight: 3 },
 ];
