@@ -113,26 +113,18 @@ async function main() {
       continue;
     }
     try {
-      // Fetch full article ONLY when we're going analysis-depth. Wire-depth
-      // statics are 1-2 paragraph fact-driven briefs; the RSS summary is
-      // sufficient and fetching is wasted cost (jsdom + Readability + the
-      // larger generator input).
-      const needFetch =
-        sel.depth === 'analysis' ||
-        sel.format === 'carousel' ||
-        sel.format === 'quote' ||
-        sel.format === 'numbers';
-      let article: Awaited<ReturnType<typeof fetchArticle>> = null;
-      if (needFetch) {
-        console.log(`[fetch] ${item.url.slice(0, 90)}`);
-        article = await fetchArticle(item.url);
-        if (article) {
-          console.log(`[fetch]   → ${article.length} chars extracted${article.byline ? ` · by ${article.byline}` : ''}`);
-        } else {
-          console.log(`[fetch]   ✗ extraction failed; proceeding with RSS summary only`);
-        }
+      // Always fetch the source article, regardless of depth. The marginal
+      // cost (~$0.007 extra per wire post) is worth it: every post needs to
+      // be substantive enough to make the reader the most-informed person
+      // in the room. Skipping the fetch on wire-depth was costing us quotes,
+      // specific names, numbers, and dates — the receipts that make a brief
+      // useful instead of just paraphrase-of-summary.
+      console.log(`[fetch] ${item.url.slice(0, 90)}`);
+      const article = await fetchArticle(item.url);
+      if (article) {
+        console.log(`[fetch]   → ${article.length} chars extracted${article.byline ? ` · by ${article.byline}` : ''}`);
       } else {
-        console.log(`[fetch] skipped (wire depth)`);
+        console.log(`[fetch]   ✗ extraction failed; proceeding with RSS summary only`);
       }
       const depthLabel = sel.depth ?? 'analysis';
       console.log(`[generate] Writing ${sel.format}/${depthLabel}: ${item.title.slice(0, 80)}…`);

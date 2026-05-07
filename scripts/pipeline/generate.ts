@@ -33,19 +33,21 @@ function staticPostSchemaText(depth: 'wire' | 'analysis'): string {
 {
   "type": "static",
   "headline": "${headlineRule}",
-  "body": "<1-2 SHORT paragraphs in Political Wire style. Para 1 = what happened with attribution ('..., the Wall Street Journal reports.'). Para 2 = either a verbatim direct quote ('Said [Name]: \"...\"') OR a single-sentence strategist/historian framing. Total length 50-110 words. Tight. The wire post stands on facts and tight framing — NO longform article.>",
+  "body": "<2-3 SHORT paragraphs in Political Wire style. 100-180 words total. EVERY wire post must contain AT LEAST ONE of: (a) a verbatim direct quote with named speaker ('Said [Name]: \"...\"'), (b) a specific number / vote count / poll result / dollar figure / date with the named source, or (c) a named secondary actor with their position. Pattern: Para 1 = what happened (with outlet attribution). Para 2 = a quote OR specific detail from the source article. Para 3 = optional second quote OR a single-sentence strategist/historian framing. North star: a reader who reads ONLY this post should walk away knowing the news, the receipts, and the strategic shape — enough to be the most informed person in the room about this story.>",
   "tags": ["<from taxonomy, 2-3 tags>"],
   "hashtags": ["<1-3 brand-style hashtags, no spaces, no #>"],
   "race_level": "national" | "state" | "local" | "none",
   "citations": [{ "outlet": "...", "url": "...", "date": "..." }]
 }
 
-DO NOT include "article_md" — wire posts don't get a longform body. The body IS the post.
+DO NOT include "article_md" — wire posts don't get a separate longform article body. The substance lives in the body itself.
 
-Wire post discipline:
-- Receipts: every claim ties to a source. Never invent quotes/numbers/dates.
-- One sharp framing sentence is enough — don't pad with multiple paragraphs of analysis. Save that for analysis-depth.
-- If the story doesn't fit in 1-2 short paragraphs, it probably wanted analysis depth instead.`;
+Wire post discipline (these are NON-NEGOTIABLE):
+- Receipts: every claim ties to the source article. Never invent quotes/numbers/dates.
+- At least one specific detail (quote, number, named actor, date) — paraphrase alone isn't enough.
+- Voice still ours (strategist or historian register), but the framing is ONE sentence; the rest is reportage.
+- If the source article had no quotes, no specifics, and no named secondary actors, the story probably wasn't worth selecting at wire depth — escalate to analysis or skip.
+- 100-180 words. Shorter is too thin to inform; longer wants analysis depth.`;
   }
 
   return `For ANALYSIS-DEPTH static posts, return:
@@ -143,6 +145,12 @@ function carouselPostSchemaText(): string {
 }`;
 }
 
+const NORTH_STAR = `# NORTH STAR
+
+The reader's goal: **make Article I their only news source AND become the most informed person in the room.** Every post is judged against that bar. Vague paraphrase fails. Specifics — names, numbers, quotes, dates, voting records, district demographics, polling crosstabs — pass.
+
+If you find yourself writing a sentence like "the pattern goes back to 1948" without naming WHAT the pattern is or what 1948 reference you mean, stop and either pull the specifics from the article or cut the sentence.`;
+
 const NEVER_RULES = `# NEVER
 - Cheap dunks, gotchas, "ratio" bait
 - ALL CAPS HEADLINES, excessive punctuation
@@ -151,7 +159,8 @@ const NEVER_RULES = `# NEVER
 - "This is OUTRAGEOUS" / telling readers how to feel — show the facts, conclusion is implicit
 - Hedging on Trump's autocratic behavior — be plain
 - Hedging on antisemitism — name it
-- Inventing facts not in the source. If a number, quote, or date isn't in the source, don't put it in the post.`;
+- Inventing facts not in the source. If a number, quote, or date isn't in the source, don't put it in the post.
+- Vague gestures at history without specifics ("the pattern goes back to 1948" with no named pattern or named precedent) — these read as filler.`;
 
 export async function generatePost(
   client: Anthropic,
@@ -216,18 +225,21 @@ export async function generatePost(
     ``,
     schemaText,
     ``,
+    NORTH_STAR,
+    ``,
     NEVER_RULES,
     ``,
     `Return strict JSON only. No commentary, no markdown fences.`,
   ].join('\n');
 
-  // Wire-depth statics are tight (~150-200 output tokens). Analysis-depth statics
-  // include a 300-700 word longform article on top of the lede (~2200 tokens).
+  // Wire-depth statics now target 100-180 words with quotes/specifics
+  // (~280-400 output tokens). Analysis-depth statics include a 300-700 word
+  // longform article on top of the lede (~2200 tokens).
   const maxTokens = selection.format === 'carousel' ? 2500
     : selection.format === 'quote' ? 600
     : selection.format === 'numbers' ? 600
     : selection.format === 'headline' ? 500
-    : depth === 'wire' ? 600
+    : depth === 'wire' ? 900
     : 2200;
 
   const resp = await client.messages.create({

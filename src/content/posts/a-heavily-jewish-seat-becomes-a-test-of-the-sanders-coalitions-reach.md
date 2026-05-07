@@ -16,14 +16,11 @@ hashtags:
   - NY2026
   - DemPrimary
 race_level: national
-body: >-
-  Our Revolution, the advocacy group born from Bernie Sanders's 2016
-  presidential campaign and sharply critical of Israel, has endorsed New York
-  Assemblymember Alex Bores in the Democratic primary to succeed Rep. Jerry
-  Nadler in a heavily Jewish Manhattan district, Politico first reported. The
-  pattern goes back at least to 1948: national progressive movements have
-  repeatedly treated safely Democratic urban districts as laboratories for
-  ideological repositioning, betting that a loyal base will absorb the shift.
-  Whether Manhattan's Jewish electorate does so here is the actual test.
+body: |
+  Our Revolution — the advocacy group born from Bernie Sanders's 2016 campaign and unsparing toward the Israel lobby — endorsed New York Assemblymember Alex Bores on Wednesday in the Democratic primary to succeed Rep. Jerry Nadler in a Manhattan district where Jewish voters are a decisive bloc, *Politico* first reported.
+
+  The endorsement is awkward on its own terms. Bores is a Palantir alum whose wife works in Microsoft's AI division — not a natural fit for the Sanders coalition's Big-Tech skepticism. He's also competing in a five-way primary against Jack Schlossberg (the Kennedy-family influencer), George Conway (the anti-Trump conservative turned Democrat), and former state senator Micah Lasher; Parkland activist Cameron Kasky dropped out earlier this spring.
+
+  The strategic question Our Revolution is testing: can a Sanders-aligned vehicle deliver in a seat where AIPAC and DMFI typically post their largest primary margins? The candidate forum scheduled at Stephen Wise Free Synagogue — a major Reform congregation — will be the early read.
 ---
 
