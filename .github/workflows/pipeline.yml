@@ -1,12 +1,15 @@
 name: Article I Pipeline
 
-# Runs every 30 min, 24/7. Selector quality threshold floats by hour;
-# generator halts when daily budget cap is hit.
+# Triggered every 30 min by the Cloudflare Worker at
+# https://article1-cron.entrepreneurshiphacks.workers.dev (source in
+# ../cron-worker/). GHA's own scheduled-trigger was silently dropping
+# 4+ runs in 2-hour windows during peak load — Cloudflare cron triggers
+# don't have that issue. The pipeline still runs HERE on GHA for the
+# heavy lifting; only the scheduling moved.
+#
+# workflow_dispatch is kept so we can still trigger manually from the
+# GitHub UI or CLI when needed.
 on:
-  schedule:
-    # Off-hour minutes (15 / 45) to dodge GitHub Actions' on-the-hour load,
-    # which routinely delays or drops scheduled runs that target :00 / :30.
-    - cron: '15,45 * * * *'
   workflow_dispatch:
     inputs:
       dry:
