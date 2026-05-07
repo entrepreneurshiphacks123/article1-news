@@ -4,7 +4,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import type { FeedItem, CycleContext, SelectorOutput } from './types.js';
-import { SelectorOutput as SelectorOutputSchema } from './types.js';
+import { SelectorOutput as SelectorOutputSchema, SelectionItem } from './types.js';
 import { computeCost, recordSpend, type ModelId } from './budget.js';
 
 const MODEL: ModelId = 'claude-haiku-4-5';
@@ -190,19 +190,35 @@ export async function selectStories(
   if (!textBlock || textBlock.type !== 'text') throw new Error('Selector returned no text');
   const raw = textBlock.text.trim().replace(/^```json\s*/, '').replace(/```\s*$/, '');
 
-  let parsed: ReturnType<typeof SelectorOutputSchema.parse>;
+  // Two-stage parsing: get the raw JSON object, then individually parse each
+  // selection item. If a single item is malformed, drop it and continue —
+  // we never crash the whole cycle over one bad selection.
+  let rawObj: any;
   try {
-    parsed = SelectorOutputSchema.parse(JSON.parse(raw));
+    rawObj = JSON.parse(raw);
   } catch (err) {
-    // Save the bad output for inspection
     const fs = await import('fs/promises');
     const path = await import('path');
     const debugPath = path.resolve(process.cwd(), 'state', 'last-selector-error.json');
     await fs.writeFile(debugPath, raw);
-    throw new Error(
-      `Selector JSON parse failed: ${(err as Error).message}\n` +
-      `Raw output saved to ${debugPath}`,
-    );
+    throw new Error(`Selector returned non-JSON: ${(err as Error).message}\nRaw saved to ${debugPath}`);
+  }
+
+  const log = typeof rawObj?.log === 'string' ? rawObj.log : '';
+  const rawSelections: unknown[] = Array.isArray(rawObj?.selections) ? rawObj.selections : [];
+
+  const parsed = { selections: [] as ReturnType<typeof SelectorOutputSchema.parse>['selections'], log };
+  let dropped = 0;
+  for (const raw of rawSelections) {
+    const result = SelectionItem.safeParse(raw);
+    if (result.success) {
+      parsed.selections.push(result.data);
+    } else {
+      dropped++;
+    }
+  }
+  if (dropped > 0) {
+    console.warn(`[select] dropped ${dropped} malformed selection(s) — they were unparseable even with .catch() fallbacks`);
   }
   // Apply threshold filter + max-selections cap on top of model's decision (defense in depth)
   parsed.selections = parsed.selections.filter(
