@@ -1,7 +1,7 @@
 // Article I — RSS source list. Tuned per Steven's spec May 6, 2026.
 // Drop individual-state feeds; keep all-state coverage (Ballotpedia, StateScoop).
 
-export type SourceTier = 'strategic' | 'historian' | 'hard-news' | 'polling' | 'state-local' | 'foreign-policy';
+export type SourceTier = 'strategic' | 'historian' | 'hard-news' | 'polling' | 'state-local' | 'foreign-policy' | 'public-health';
 
 export interface Source {
   name: string;
@@ -53,6 +53,16 @@ export const SOURCES: Source[] = [
   // ── State / local — all-state coverage only (no individual states) ───
   { name: 'Ballotpedia News', url: 'https://news.ballotpedia.org/feed/', tier: 'state-local', weight: 4 },
   { name: 'StateScoop', url: 'https://statescoop.com/feed/', tier: 'state-local', weight: 3 },
+
+  // ── Public health / pandemic prep / CDC-NIH-FDA-HHS ──────────────────
+  // Article I-relevant: appropriations (Article I §9), executive overreach
+  // (RFK Jr. dismantling agencies), Congressional surrender of oversight,
+  // institutional capacity. Outbreaks (hantavirus, measles) intersect with
+  // policy capacity directly.
+  { name: 'STAT News', url: 'https://www.statnews.com/feed/', tier: 'public-health', weight: 5 },
+  { name: 'KFF Health News', url: 'https://kffhealthnews.org/feed/', tier: 'public-health', weight: 5 },
+  { name: 'NPR Health', url: 'https://feeds.npr.org/1128/rss.xml', tier: 'public-health', weight: 4 },
+  { name: 'CIDRAP News', url: 'https://www.cidrap.umn.edu/news-perspective/feed', tier: 'public-health', weight: 4, notes: 'Center for Infectious Disease Research and Policy — outbreaks, biosecurity.' },
 
   // ── Foreign policy / Israel ──────────────────────────────────────────
   { name: 'War on the Rocks', url: 'https://warontherocks.com/feed/', tier: 'foreign-policy', weight: 4 },

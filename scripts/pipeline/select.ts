@@ -43,6 +43,7 @@ This means: don't be too literary. The selector's earlier failure mode was treat
 - **Polling that shows STRUCTURAL shifts** — age limits for lawmakers, generic ballot, enthusiasm gaps, support for institutional reform, support for term limits, public trust in courts/Congress, congressional approval. Single-point movements are horse race; persistent gaps and big public-opinion patterns are not. (Pollster credibility check below.)
 - **2028 candidate moves** — Beshear running, Harris on DNC autopsy, Vance Iowa visits, Newsom positioning, etc. Specific candidate news is legitimate coverage.
 - **Daily economy** — gas prices, jet fuel, affordability, cost of living, inflation, labor data, jobs reports. These shape midterm dynamics, which is core Article I material.
+- **Public health & pandemic preparedness** — CDC / NIH / FDA / HHS staffing changes, RFK Jr.'s actions, vaccine policy shifts, outbreak coverage (hantavirus, measles, avian flu), agency budget cuts, pandemic-prep capacity. ALL of this is Article I material: appropriations (Article I §9), executive overreach, Congressional surrender of oversight. An outbreak story IS a policy-capacity story. The bot has been wrongly skipping these.
 - **Broader foreign policy** — China geopolitics, Ukraine war updates, Latin America diplomacy, NATO realignments. Not just Iran/Israel.
 - **Wire process briefs** — "Trump wants new Air Force One," "X to host Y," "Senator says Z" — fast brief format. Skip if pure fluff (medical conditions, food preferences, social media reactions); cover if there's a structural or policy implication.
 
@@ -129,7 +130,8 @@ const TOPIC_TAXONOMY = [
   'Foreign Policy', 'Iran', 'Israel', 'Netanyahu', 'Ukraine', 'Russia', 'NATO', 'China', 'Latin America',
   'Antisemitism',
   '2026 Midterms', '2028',
-  'Redistricting', 'Voting Rights', 'Rule of Law', 'DOJ', 'FBI', 'FDA', 'Executive', 'Appropriations',
+  'Redistricting', 'Voting Rights', 'Rule of Law', 'DOJ', 'FBI', 'Executive', 'Appropriations',
+  'Public Health', 'Pandemic Prep', 'CDC', 'NIH', 'FDA', 'HHS', 'RFK Jr', 'Outbreak',
   'GOP', 'Democrats',
 ];
 
