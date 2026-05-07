@@ -25,25 +25,47 @@ async function getEditorial(): Promise<string> {
   return editorialCache;
 }
 
-function staticPostSchemaText(): string {
-  return `For static posts, return:
+function staticPostSchemaText(depth: 'wire' | 'analysis'): string {
+  const headlineRule = `<≤12 words. ARTICLE I'S OWN framing — concrete subject + active verb. Read for what's implied: who benefits, what shifts, what pattern this fits. Examples of good Article I headlines: 'Vance's 2028 Is Tied to Trump's Approval. That's a Problem.' / 'Trump Buries Indiana Republicans Who Wouldn't Redistrict for Him.' / 'DOJ Drops the Andy Ogles Probe. Evidence to Be Destroyed.' These are NOT source outlets' headlines — they're our reframings. Do not write 'Vance Visits Iowa' or anything that sounds like a wire-service summary. No questions, no 'BREAKING:'.>`;
+
+  if (depth === 'wire') {
+    return `For WIRE-DEPTH static posts, return:
 {
   "type": "static",
-  "headline": "<≤12 words. ARTICLE I'S OWN framing — concrete subject + active verb. Read for what's implied: who benefits, what shifts, what pattern this fits. Examples of good Article I headlines: 'Vance's 2028 Is Tied to Trump's Approval. That's a Problem.' / 'Trump Buries Indiana Republicans Who Wouldn't Redistrict for Him.' / 'DOJ Drops the Andy Ogles Probe. Evidence to Be Destroyed.' Notice these are NOT the source outlets' headlines — they're our reframings. Do not write 'Vance Visits Iowa' or anything that sounds like a wire-service summary. No questions, no 'BREAKING:'.>",
-  "body": "<Card-visible LEDE in **Political Wire short-paragraph style**: 2-4 SHORT paragraphs separated by blank lines (\\n\\n). Each paragraph is 1-2 sentences max. Pattern: Para 1 = what happened, with attribution ('..., the Wall Street Journal reports.'). Para 2 = a verbatim direct quote on its own line if available: 'Said [Name]: \"...\"'. Para 3 = optional second quote ('He added: \"...\"') OR our strategist/historian framing. Use blank lines between paragraphs — do NOT write one wall of prose. The lede is the hook; the full argument lives in article_md.>",
-  "article_md": "<300-700 word LONGFORM MARKDOWN article that appears on the detail page. This is where the actual argument lives — receipts, sources, historical/structural context, implications. Use markdown: paragraphs separated by blank lines, [inline links](url) to sources where you can, blockquotes (>) for pull quotes, ## for section headings if it helps. NEVER make a claim in the lede that isn't backed up here. NEVER write the article with the lede repeated; the lede is a hook, the article picks up from there.>",
-  "tags": ["<from taxonomy>", "<2-4 tags>"],
+  "headline": "${headlineRule}",
+  "body": "<1-2 SHORT paragraphs in Political Wire style. Para 1 = what happened with attribution ('..., the Wall Street Journal reports.'). Para 2 = either a verbatim direct quote ('Said [Name]: \"...\"') OR a single-sentence strategist/historian framing. Total length 50-110 words. Tight. The wire post stands on facts and tight framing — NO longform article.>",
+  "tags": ["<from taxonomy, 2-3 tags>"],
+  "hashtags": ["<1-3 brand-style hashtags, no spaces, no #>"],
+  "race_level": "national" | "state" | "local" | "none",
+  "citations": [{ "outlet": "...", "url": "...", "date": "..." }]
+}
+
+DO NOT include "article_md" — wire posts don't get a longform body. The body IS the post.
+
+Wire post discipline:
+- Receipts: every claim ties to a source. Never invent quotes/numbers/dates.
+- One sharp framing sentence is enough — don't pad with multiple paragraphs of analysis. Save that for analysis-depth.
+- If the story doesn't fit in 1-2 short paragraphs, it probably wanted analysis depth instead.`;
+  }
+
+  return `For ANALYSIS-DEPTH static posts, return:
+{
+  "type": "static",
+  "headline": "${headlineRule}",
+  "body": "<Card-visible LEDE in Political Wire short-paragraph style: 2-3 SHORT paragraphs separated by blank lines (\\n\\n). Each paragraph 1-2 sentences. Pattern: Para 1 = what happened with outlet attribution. Para 2 = verbatim quote on its own line if available ('Said [Name]: \"...\"'). Para 3 = optional second quote OR strategist/historian framing. Don't write one wall of prose. The lede is the hook; the full argument lives in article_md.>",
+  "article_md": "<300-700 word LONGFORM MARKDOWN article that appears on the detail page. This is where the actual argument lives — receipts, sources, historical/structural context, implications. Use markdown: paragraphs, [inline links](url), blockquotes (>), ## section headings. NEVER make a claim in the lede that isn't backed up here. NEVER repeat the lede in the article — the lede is a hook, the article picks up from there.>",
+  "tags": ["<from taxonomy, 2-4 tags>"],
   "hashtags": ["<2-3 brand-style hashtags, no spaces, no #>"],
   "race_level": "national" | "state" | "local" | "none",
   "citations": [{ "outlet": "...", "url": "...", "date": "..." }]
 }
 
-Longform article rules (very important):
-- Receipts discipline: every claim ties to a source above or to a well-known public fact a reader can verify. Never invent quotes, votes, polls, or statistics. If a source paraphrases, use the source's paraphrase verbatim.
-- Voice: same as the lede — strategist (Goddard register) or historian (HCR register), as instructed. Don't switch.
-- Symmetric-criticism principle applies fully: when calling out an actor, hold them to the same standard you'd apply to the other side.
-- Length: 300-700 words. Tight. Don't pad. End when the argument lands.
-- Structure: hook → context (what happened, with sources) → pattern or stakes (the structural read) → what to watch.
+Longform article rules:
+- Receipts discipline: every claim ties to a source or well-known public fact. Never invent quotes/numbers/dates.
+- Voice: same as the lede (strategist or historian). Don't switch.
+- Symmetric-criticism: hold any actor to the same standard you'd apply to the other side.
+- Length: 300-700 words. Tight. End when the argument lands.
+- Structure: hook → context → pattern/stakes → what to watch.
 - Never a "What this means for [demographic]" finishing line. End with a concrete observation.`;
 }
 
@@ -139,6 +161,7 @@ export async function generatePost(
   articleText?: string | null,
 ): Promise<GeneratedPost> {
   const editorial = await getEditorial();
+  const depth = selection.depth ?? 'analysis';
   const schemaText = selection.format === 'carousel'
     ? carouselPostSchemaText()
     : selection.format === 'quote'
@@ -147,7 +170,7 @@ export async function generatePost(
     ? numbersPostSchemaText()
     : selection.format === 'headline'
     ? headlinePostSchemaText()
-    : staticPostSchemaText();
+    : staticPostSchemaText(depth);
 
   const sourceHeadlineNotice = selection.format === 'headline'
     ? `(For "Headline of the Day" only: this format quotes the source outlet's headline verbatim. That's the exception.)`
@@ -198,11 +221,14 @@ export async function generatePost(
     `Return strict JSON only. No commentary, no markdown fences.`,
   ].join('\n');
 
+  // Wire-depth statics are tight (~150-200 output tokens). Analysis-depth statics
+  // include a 300-700 word longform article on top of the lede (~2200 tokens).
   const maxTokens = selection.format === 'carousel' ? 2500
     : selection.format === 'quote' ? 600
     : selection.format === 'numbers' ? 600
     : selection.format === 'headline' ? 500
-    : 2200;  // static brief now includes 300-700 word article_md
+    : depth === 'wire' ? 600
+    : 2200;
 
   const resp = await client.messages.create({
     model: MODEL,

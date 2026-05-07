@@ -16,14 +16,22 @@ export interface FeedItem {
   hash: string;              // url-hash for dedupe
 }
 
-// What the selector returns per cycle
+// What the selector returns per cycle.
+// Almost all fields are optional / defaulted so a slightly-malformed model
+// response doesn't crash the whole pipeline (one bad item shouldn't kill
+// the cycle — that took down a run on May 6 when `reason` came back undefined).
 export const SelectionItem = z.object({
   itemHash: z.string(),
   decision: z.enum(['skip', 'select']),
-  score: z.number().min(0).max(100),
-  reason: z.string(),
+  score: z.number().min(0).max(100).default(0),
+  reason: z.string().default(''),
   voice: z.enum(['strategist', 'historian']).optional(),
   format: z.enum(['static', 'carousel', 'quote', 'numbers', 'headline']).optional(),
+  // Depth determines whether the generator does a full article fetch +
+  // longform article body ("analysis") or a fast wire-style brief ("wire").
+  // Wire posts are ~5x cheaper and let us match Political Wire's coverage
+  // breadth without exceeding the daily Anthropic cap.
+  depth: z.enum(['wire', 'analysis']).default('analysis'),
   race_level: z.enum(['national', 'state', 'local', 'none']).optional(),
   topic_tags: z.array(z.string()).optional(),
 });
