@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --parchment: #FAFAF7;
+    --parchment-2: #F5F4EE;
+    --ink: #1A1A1A;
+    --ink-2: #4A4A47;
+    --ink-3: #76736C;
+    --navy: #0A2540;
+    --red: #9B1C1C;
+    --hairline: #D4D2CD;
+    --serif: 'Source Serif 4', 'Lora', 'Iowan Old Style', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--parchment);
+    font-family: var(--serif);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    padding: 56px 80px;
+  }
+  .top-rule {
+    width: 100%;
+    height: 4px;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .bottom-rule {
+    width: 100%;
+    height: 4px;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .brand-mark {
+    font-family: var(--serif);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    display: inline-flex;
+    align-items: baseline;
+    color: var(--ink);
+    font-size: 180px;
+  }
+  .brand-mark .word { letter-spacing: 0.02em; }
+  .brand-mark .roman {
+    color: var(--red);
+    font-style: italic;
+    margin-left: 0.08em;
+    position: relative;
+    top: 0.06em;
+    font-size: 260px;
+    font-feature-settings: "smcp" off;
+  }
+  .deck {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.35;
+    color: var(--ink-2);
+    max-width: 880px;
+    margin-top: 22px;
+    text-wrap: balance;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-top: 1px solid var(--hairline);
+    padding-top: 20px;
+  }
+  .footer .domain { color: var(--ink-2); font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="top-rule"></div>
+  <div class="center">
+    <span class="brand-mark"><span class="word">Article</span><span class="roman">I</span></span>
+    <p class="deck">American politics through the lens of the Constitution and the long memory.</p>
+  </div>
+  <div class="bottom-rule"></div>
+</body>
+</html>
