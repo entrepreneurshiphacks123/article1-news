@@ -69,7 +69,7 @@ Pick the format that best fits the story:
 - **static** (single brief): the default. Most posts. Voice/depth determines length.
 - **carousel** (5-8 slides, structural unpacking): ≥3 sources covering it OR maps to historical pattern OR has institutional implications worth depth. ~5-15% of posts.
 - **quote** (Quote of the Day): the source contains a substantive direct quote (3-5 sentences) from a public figure that lands powerfully on its own. The quote IS the post. ~5-10% of posts.
-- **numbers** (Numbers of the Day): a single striking statistic that anchors the story. ~3-8% of posts.
+- **numbers** (Numbers of the Day): a single striking statistic that anchors the story. **Aggressively prefer this format when the headline contains a single dollar/percent/year-count figure that IS the story.** Examples: "$4.7 billion already" / "$7 billion oil-price bets" / "$100M each from six donors" / "46-year high" / "87% reject" / "30 states cannot handle". When you see a stat like that in a headline, the answer is almost always 'numbers', not 'static'. ~5-12% of posts.
 - **headline** (Headline of the Day): another outlet's framing is itself the news — pure curation. Rare. ~2-5% of posts.
 
 # Depth routing — wire vs analysis

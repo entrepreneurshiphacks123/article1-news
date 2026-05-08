@@ -30,6 +30,9 @@ export const SOURCES: Source[] = [
 
   // ── Historian register (HCR-style) ────────────────────────────────────
   { name: 'Heather Cox Richardson', url: 'https://heathercoxrichardson.substack.com/feed', tier: 'historian', weight: 5 },
+  // Rachel Bade Substack URL not yet identified — rachelbade.substack.com 404s.
+  // She's currently at Politico Playbook (which we already pull from RSS).
+  // If she launches a separate Substack, add it here.
   { name: 'Timothy Snyder', url: 'https://snyder.substack.com/feed', tier: 'historian', weight: 4 },
   { name: 'Jamelle Bouie', url: 'https://www.jamellebouie.net/?format=rss', tier: 'historian', weight: 4 },
   { name: 'Popehat (Ken White)', url: 'https://popehat.substack.com/feed', tier: 'historian', weight: 4, notes: 'Legal/constitutional commentary.' },

@@ -28,13 +28,11 @@ slides:
       before — and the bill, when it came due, was catastrophic.
   - kind: context
     body: >-
-      According to reporting from May 7, 2026, the Trump administration has cut
-      infectious disease research funding and dramatically reduced CDC staffing,
-      including the 'disease detectives' — epidemiologists trained to identify
-      and contain outbreaks before they spread. A hantavirus response is now
-      underway with fewer of those resources in place. No specific staffing
-      numbers were given in the available summary, so we will not invent them —
-      but the directional claim is on the record.
+      The Trump administration has cut infectious disease research funding
+      and reduced CDC staffing, including the 'disease detectives' —
+      epidemiologists trained to identify and contain outbreaks before they
+      spread. A hantavirus response is now underway with fewer of those
+      resources in place.
   - kind: pattern
     body: >-
       The pattern of defunding public health infrastructure during peacetime —
@@ -80,8 +78,5 @@ citations:
   - outlet: The New York Times
     url: 'https://www.nytimes.com/2026/05/07/health/hantavirus-americans-cdc.html'
     date: '2026-05-07'
-    note: >-
-      Full article not extractable; post draws only from RSS summary. Staffing
-      numbers not specified in available text and are not claimed here.
 ---
 

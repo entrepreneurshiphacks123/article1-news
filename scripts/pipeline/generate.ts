@@ -160,7 +160,9 @@ const NEVER_RULES = `# NEVER
 - Hedging on Trump's autocratic behavior — be plain
 - Hedging on antisemitism — name it
 - Inventing facts not in the source. If a number, quote, or date isn't in the source, don't put it in the post.
-- Vague gestures at history without specifics ("the pattern goes back to 1948" with no named pattern or named precedent) — these read as filler.`;
+- Vague gestures at history without specifics ("the pattern goes back to 1948" with no named pattern or named precedent) — these read as filler.
+- **NEVER tell the reader the article wasn't extractable, was paywalled, you couldn't access it, or you're working from a summary.** This is internal pipeline state and has no place in the post body. Write what you know in our voice and stop. If the source detail is thin, the post is shorter — that's it.
+- **NEVER pad to hit a length target.** A 1-sentence brief that lands beats a 4-sentence brief with filler. If you only have a fact + a frame, write a fact + a frame and stop.`;
 
 export async function generatePost(
   client: Anthropic,
@@ -200,7 +202,7 @@ export async function generatePost(
       ]
     : [
         ``,
-        `(No full article body available — the URL didn't fetch or wasn't extractable. Work from the RSS summary above. Be careful: claim only what's actually in the summary.)`,
+        `(Internal: full article text isn't available this cycle. Work from the RSS summary. **DO NOT mention this in the post body.** Just write what you know in our voice — if the detail is thin, the post is shorter. Never tell the reader you couldn't access the article.)`,
         ``,
       ];
 
