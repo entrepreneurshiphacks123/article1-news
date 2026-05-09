@@ -1,4 +1,16 @@
 ---
+// The Day's Big Stories — horizontal news ticker.
+//
+// Scrolls right-to-left at constant speed. Each item is a numbered headline
+// chip with a format tag (Brief / 5 slides / Quote / Numbers / Cartoon).
+// Pauses on hover/focus. Clickable headlines deep-link to the post.
+//
+// Implementation: CSS keyframe animation on a track that contains the items
+// twice in a row. Translating -50% loops seamlessly because the second copy
+// lands exactly where the first started. Animation duration is tied to
+// content length via an inline --ticker-duration style; ~6s per item is a
+// comfortable reading pace.
+
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
@@ -6,43 +18,238 @@ export interface Props {
 }
 
 const { posts } = Astro.props;
+const SECONDS_PER_ITEM = 6;
+const durationSec = Math.max(20, posts.length * SECONDS_PER_ITEM);
+
+function fmtLabel(post: CollectionEntry<'posts'>): string {
+  const t = post.data.type;
+  if (t === 'carousel') return `${(post.data.slides ?? []).length} slides`;
+  if (t === 'quote') return 'Quote';
+  if (t === 'numbers') return 'Numbers';
+  if (t === 'headline') return 'Headline';
+  if (t === 'cartoon') return 'Cartoon';
+  return 'Brief';
+}
+function fmtClass(post: CollectionEntry<'posts'>): string {
+  return 'ticker-fmt ticker-fmt-' + post.data.type;
+}
 ---
-<section class="top-stories" data-top-stories>
-  <div class="top-stories-head">
-    <div class="rule-l"></div>
-    <div class="kicker">The Day's Big Stories</div>
-    <div class="rule-l"></div>
-    <div class="ts-pos" data-ts-pos>1 / {posts.length}</div>
+<section class="ticker" data-top-stories aria-label="The day's big stories">
+  <div class="ticker-head">
+    <span class="ticker-kicker">The Day's Big Stories</span>
+    <span class="ticker-rail"></span>
   </div>
 
-  <div class="ts-viewport" data-ts-viewport>
-    <div class="ts-track" data-ts-track>
-      {posts.map((p, i) => (
-        <article class="ts-slide" data-ts-slide data-post-id={p.data.id}>
-          <div class="ts-meta">
-            <span class="ts-num">{String(i + 1).padStart(2, '0')}</span>
-            <span class={'ts-fmt' + (p.data.type === 'carousel' ? ' carousel' : '')}>
-              {p.data.type === 'carousel' ? `${(p.data.slides ?? []).length} slides` : 'Brief'}
-            </span>
-            <span class="ts-src">{p.data.source.outlet}</span>
-          </div>
-          <h3 class="ts-headline">
-            <a href={`/posts/${p.slug}`} style="color: inherit; text-decoration: none;">{p.data.headline}</a>
-          </h3>
-          <button class="ts-mark-read" type="button" data-ts-mark-read data-post-id={p.data.id}>Mark read &amp; hide</button>
-        </article>
+  <div class="ticker-viewport" data-ticker-viewport>
+    <div
+      class="ticker-track"
+      data-ticker-track
+      style={`--ticker-duration: ${durationSec}s;`}
+    >
+      {/* Render items TWICE so the -50% translate keyframe loops seamlessly. */}
+      {[0, 1].map((copy) => (
+        <div class="ticker-group" aria-hidden={copy === 1 ? 'true' : undefined}>
+          {posts.map((p, i) => (
+            <a
+              class="ticker-item"
+              href={`/posts/${p.slug}`}
+              data-post-id={p.data.id}
+              data-ticker-item
+            >
+              <span class="ticker-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class={fmtClass(p)}>{fmtLabel(p)}</span>
+              <span class="ticker-headline">{p.data.headline}</span>
+              <span class="ticker-sep" aria-hidden="true">●</span>
+            </a>
+          ))}
+        </div>
       ))}
     </div>
   </div>
-
-  <div class="ts-dots" data-ts-dots>
-    {posts.map((_, i) => (
-      <button class={'ts-dot' + (i === 0 ? ' active' : '')} data-ts-dot data-index={i} aria-label={`Story ${i + 1}`}></button>
-    ))}
-  </div>
 </section>
 
-<div class="ts-empty" data-ts-empty hidden>
+<div class="ticker-empty" data-ts-empty hidden>
   <p>You've read all the day's big stories.</p>
-  <button class="ts-reset" data-ts-reset>Reset read history</button>
+  <button class="ticker-reset" data-ts-reset>Reset read history</button>
 </div>
+
+<style>
+  .ticker {
+    margin: 8px 0 18px;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background: var(--parchment);
+  }
+  .ticker-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px 8px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .ticker-kicker {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .ticker-rail {
+    flex: 1;
+    height: 1px;
+    background: var(--ink);
+    opacity: 0.85;
+  }
+
+  .ticker-viewport {
+    position: relative;
+    overflow: hidden;
+    /* Soft fade at both edges so headlines don't appear/disappear hard */
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 40px,
+      #000 calc(100% - 40px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 40px,
+      #000 calc(100% - 40px),
+      transparent 100%
+    );
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll var(--ticker-duration, 90s) linear infinite;
+    will-change: transform;
+  }
+  .ticker-track:hover,
+  .ticker-track:focus-within {
+    animation-play-state: paused;
+  }
+  /* Pause on tap on touch devices — :active is mouse only on most touch
+     stacks but works well enough as a fallback; users can also stop the
+     loop by tapping a headline (which navigates away). */
+  .ticker-track:active {
+    animation-play-state: paused;
+  }
+  .ticker-group {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 14px 0;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+    transition: color 0.12s;
+  }
+  .ticker-item:hover .ticker-headline {
+    color: var(--navy);
+  }
+  .ticker-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--red);
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 0;
+    margin-left: 16px;
+  }
+  .ticker-fmt {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 3px 6px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    color: var(--ink-2);
+    line-height: 1;
+  }
+  .ticker-fmt-carousel { color: var(--red); }
+  .ticker-fmt-quote    { color: var(--red); }
+  .ticker-fmt-numbers  { color: var(--navy); }
+  .ticker-fmt-headline { color: var(--ink); }
+  .ticker-fmt-cartoon  { color: var(--navy); }
+  .ticker-headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .ticker-sep {
+    color: var(--ink-3);
+    font-size: 8px;
+    margin: 0 14px 0 18px;
+    line-height: 1;
+    transform: translateY(-2px);
+  }
+
+  /* Hide read posts (toggled via [data-read="true"]) */
+  .ticker-item[data-read='true'] {
+    display: none;
+  }
+
+  @keyframes ticker-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+
+  /* Empty state */
+  .ticker-empty {
+    text-align: center;
+    padding: 16px 0 6px;
+    margin: 0 0 16px;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background: var(--parchment);
+  }
+  .ticker-empty p {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-2);
+    font-size: 14px;
+    margin: 0 0 8px;
+  }
+  .ticker-reset {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  .ticker-reset:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* Reduced motion: stop the scroll, let the user scroll horizontally */
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+      animation: none;
+    }
+    .ticker-viewport {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .ticker-headline { font-size: 17px; }
+  }
+</style>

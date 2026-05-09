@@ -102,55 +102,38 @@
     });
   });
 
-  // ── Top Stories rail ──────────────────────────────────
+  // ── Top Stories ticker ────────────────────────────────
+  // The ticker is a CSS-driven horizontal marquee. JS only handles the
+  // read-state filter (hide items the user has already opened) and the
+  // reset button on the empty state.
   const tsRoot = document.querySelector('[data-top-stories]');
   const tsEmpty = document.querySelector('[data-ts-empty]');
   if (tsRoot) {
-    const viewport = tsRoot.querySelector('[data-ts-viewport]');
-    const track = tsRoot.querySelector('[data-ts-track]');
-    const slides = Array.from(track.children);
-    const dots = tsRoot.querySelectorAll('[data-ts-dot]');
-    const pos = tsRoot.querySelector('[data-ts-pos]');
-    let visibleCount = slides.length;
-
+    const items = tsRoot.querySelectorAll('[data-ticker-item]');
     const refreshFromRead = () => {
-      slides.forEach((s) => {
-        const id = Number(s.getAttribute('data-post-id'));
-        s.style.display = read.has(id) ? 'none' : '';
+      let visible = 0;
+      items.forEach((el) => {
+        const id = Number(el.getAttribute('data-post-id'));
+        const isRead = read.has(id);
+        if (isRead) {
+          el.setAttribute('data-read', 'true');
+        } else {
+          el.removeAttribute('data-read');
+          visible++;
+        }
       });
-      const visibleSlides = slides.filter((s) => s.style.display !== 'none');
-      visibleCount = visibleSlides.length;
-      if (visibleCount === 0) {
+      // We render the items twice for the seamless loop, so divide by 2.
+      const uniqueVisible = visible / 2;
+      if (uniqueVisible === 0) {
         tsRoot.style.display = 'none';
         if (tsEmpty) tsEmpty.hidden = false;
       } else {
         tsRoot.style.display = '';
         if (tsEmpty) tsEmpty.hidden = true;
       }
-      if (pos) pos.textContent = `1 / ${visibleCount}`;
     };
     refreshFromRead();
     subscribe(refreshFromRead);
-
-    const ctrl = attachSwiper(viewport, {
-      track,
-      total: slides.length,
-      onChange: (i) => {
-        dots.forEach((d, j) => d.classList.toggle('active', j === i));
-        if (pos) pos.textContent = `${i + 1} / ${visibleCount}`;
-      },
-    });
-    dots.forEach((d, i) => {
-      d.addEventListener('click', (e) => { e.preventDefault(); ctrl?.setIdx(i); });
-    });
-    tsRoot.querySelectorAll('[data-ts-mark-read]').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const id = Number(btn.getAttribute('data-post-id'));
-        markRead(id);
-      });
-    });
   }
   if (tsEmpty) {
     const resetBtn = tsEmpty.querySelector('[data-ts-reset]');
