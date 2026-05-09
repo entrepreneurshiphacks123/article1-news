@@ -1,5 +1,11 @@
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#FAFAF7"></rect>
-  <text x="32" y="50" font-family="&#39;Source Serif 4&#39;, Georgia, serif" font-size="56" font-weight="700" font-style="italic" fill="#9B1C1C" text-anchor="middle">I</text>
+  <!-- Article I favicon. Path-based italic serif "I" so the shape is
+       identical at every render size and on every platform — no webfont
+       dependency in browser-tab context. Parchment background with the
+       brand-red Roman numeral. -->
+  <rect width="64" height="64" fill="#FAFAF7"/>
+  <path
+    d="M 14 12 L 54 12 L 54 16 L 37 16 L 31 48 L 48 48 L 48 52 L 8 52 L 8 48 L 25 48 L 31 16 L 14 16 Z"
+    fill="#9B1C1C"
+  />
 </svg>

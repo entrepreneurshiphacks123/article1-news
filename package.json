@@ -14,7 +14,8 @@
     "pipeline:dry": "tsx scripts/pipeline/run.ts --dry",
     "pipeline:check": "tsx scripts/pipeline/check-feeds.ts",
     "og:stories": "tsx scripts/og-stories/render.ts",
-    "og:stories:all": "tsx scripts/og-stories/render.ts --all"
+    "og:stories:all": "tsx scripts/og-stories/render.ts --all",
+    "icons": "tsx scripts/icons/render.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.0",
