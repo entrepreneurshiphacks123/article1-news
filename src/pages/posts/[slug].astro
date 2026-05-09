@@ -7,6 +7,7 @@ import Footer from '../../components/Footer.astro';
 import MetaTop from '../../components/MetaTop.astro';
 import MetaBottom from '../../components/MetaBottom.astro';
 import SearchOverlay from '../../components/SearchOverlay.astro';
+import ShareIconButton from '../../components/ShareIconButton.astro';
 import { fmtAbsolute } from '../../lib/topics';
 
 export async function getStaticPaths() {
@@ -83,6 +84,9 @@ const articleSchema = {
   description={post.data.body ?? `${post.data.headline} — Article I coverage with sources.`}
   ogType="article"
   jsonLd={articleSchema}
+  ogImage={`https://article1.news/og-stories/${post.slug}.png`}
+  ogImageWidth={1080}
+  ogImageHeight={1920}
 >
   <div style="background: var(--parchment); min-height: 100%;">
     <Header active="All" />
@@ -96,6 +100,13 @@ const articleSchema = {
         <span>{absDate}</span>
         <span class="dot" style="width:3px;height:3px;border-radius:999px;background:var(--ink-3)"></span>
         <span>Source: {post.data.source.outlet}</span>
+        <span class="dot" style="width:3px;height:3px;border-radius:999px;background:var(--ink-3)"></span>
+        <ShareIconButton
+          slug={post.slug}
+          headline={post.data.headline}
+          excerpt={post.data.body ?? (post.data.slides?.[0]?.body ?? '')}
+          hashtags={post.data.hashtags ?? []}
+        />
       </div>
 
       <h1 class="detail-h1">{post.data.headline}</h1>
@@ -227,15 +238,6 @@ const articleSchema = {
 
       <div class="detail-rule"></div>
 
-      <div class="share-row">
-        <span style="margin-right: 6px;">Share:</span>
-        <a class="share-btn" href={`https://x.com/intent/tweet?text=${encodeURIComponent(post.data.headline)}&url=${encodeURIComponent('https://article1.news/posts/' + post.slug)}`} target="_blank" rel="noopener">X</a>
-        <a class="share-btn" href={`https://threads.net/intent/post?text=${encodeURIComponent(post.data.headline + ' https://article1.news/posts/' + post.slug)}`} target="_blank" rel="noopener">Threads</a>
-        <button class="share-btn" type="button" data-copy-link data-href={`https://article1.news/posts/${post.slug}`}>Copy link</button>
-      </div>
-
-      <div class="detail-rule"></div>
-
       <div class="card-meta-bottom" style="margin-bottom: 24px;">
         <span class="source">Source: {post.data.source.outlet}{post.data.source.url && (
           <>
@@ -253,7 +255,15 @@ const articleSchema = {
           <div class="related-h">Related</div>
           {related.map((r) => (
             <article class="card" style="padding-top: 16px;">
-              <MetaTop type={r.data.type} date={r.data.date} slidesCount={(r.data.slides ?? []).length} />
+              <MetaTop
+                type={r.data.type}
+                date={r.data.date}
+                slidesCount={(r.data.slides ?? []).length}
+                slug={r.slug}
+                headline={r.data.headline}
+                excerpt={r.data.body}
+                hashtags={r.data.hashtags}
+              />
               <h2 style="font-size: 22px;">
                 <a href={`/posts/${r.slug}`} style="color: inherit; text-decoration: none;">{r.data.headline}</a>
               </h2>
@@ -268,18 +278,4 @@ const articleSchema = {
   </div>
 
   <SearchOverlay />
-
-  <script is:inline>
-    document.querySelectorAll('[data-copy-link]').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const href = btn.getAttribute('data-href');
-        navigator.clipboard?.writeText(href).then(() => {
-          const original = btn.textContent;
-          btn.textContent = 'Copied';
-          setTimeout(() => (btn.textContent = original), 1500);
-        });
-      });
-    });
-  </script>
 </Base>

@@ -1,0 +1,183 @@
+---
+// Minimal share button — single icon, sits inline in card meta-top rows
+// next to the relative-time text. Three-tier behavior:
+//
+//   1. Mobile + Web Share API + the per-post Story PNG exists → native share
+//      sheet receives a File, user picks Instagram → "Add to Story". 3 taps.
+//   2. Mobile but PNG missing (older posts pre-renderer) → text-only share.
+//   3. Desktop → copy link to clipboard with a toast. (Instagram has no
+//      programmatic post API; a modal here would just frustrate.)
+//
+// One global click handler is registered (window.__article1ShareInit) so
+// having N buttons on a feed page costs one listener, not N.
+
+export interface Props {
+  slug: string;
+  headline: string;
+  /** Body text or excerpt — used for non-IG share targets that accept text. */
+  excerpt?: string;
+  hashtags?: string[];
+}
+
+const { slug, headline, excerpt = '', hashtags = [] } = Astro.props;
+const url = `https://article1.news/posts/${slug}`;
+const storyImageUrl = `https://article1.news/og-stories/${slug}.png`;
+const tagsText =
+  hashtags.length > 0
+    ? '\n\n' + hashtags.map((h) => `#${h.replace(/^#/, '')}`).join(' ')
+    : '';
+const shareText = (excerpt ? `${headline}\n\n${excerpt}` : headline) + tagsText;
+---
+<button
+  class="share-icon-btn"
+  type="button"
+  aria-label={`Share: ${headline}`}
+  data-share-trigger
+  data-share-slug={slug}
+  data-share-url={url}
+  data-share-image={storyImageUrl}
+  data-share-text={shareText}
+  data-share-headline={headline}
+>
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7" />
+    <polyline points="16 6 12 2 8 6" />
+    <line x1="12" y1="2" x2="12" y2="15" />
+  </svg>
+</button>
+
+<style>
+  /* Sized to sit inline with the 12px mono meta-top text. */
+  .share-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin: 0 0 0 -2px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 4px;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: color 0.12s, background 0.12s, transform 0.12s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .share-icon-btn:hover,
+  .share-icon-btn:focus-visible {
+    color: var(--navy);
+    background: rgba(26, 26, 26, 0.04);
+    outline: none;
+  }
+  .share-icon-btn:active {
+    transform: scale(0.92);
+  }
+  .share-icon-btn.is-sharing {
+    color: var(--navy);
+  }
+</style>
+
+<script is:inline>
+  if (!window.__article1ShareInit) {
+    window.__article1ShareInit = true;
+
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const canShare = typeof navigator.share === 'function';
+    const canShareFile = typeof navigator.canShare === 'function' && canShare;
+
+    function showToast(msg) {
+      let el = document.getElementById('share-toast-el');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'share-toast-el';
+        el.className = 'share-toast';
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.classList.remove('share-toast-show');
+      // Force a reflow so re-adding the class re-triggers the transition
+      // when the user mashes share buttons in quick succession.
+      void el.offsetWidth;
+      el.classList.add('share-toast-show');
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove('share-toast-show'), 1700);
+    }
+
+    document.addEventListener('click', async (e) => {
+      const btn = e.target && e.target.closest && e.target.closest('[data-share-trigger]');
+      if (!btn) return;
+      e.preventDefault();
+      const url = btn.getAttribute('data-share-url') || '';
+      const imageUrl = btn.getAttribute('data-share-image') || '';
+      const headline = btn.getAttribute('data-share-headline') || '';
+      const text = btn.getAttribute('data-share-text') || '';
+      const slug = btn.getAttribute('data-share-slug') || '';
+
+      btn.classList.add('is-sharing');
+      try {
+        // Mobile path: try file share first (the PNG exists for posts the
+        // bot has rendered), fall through to text share if it doesn't.
+        if (isMobile && canShareFile) {
+          try {
+            const resp = await fetch(imageUrl, { cache: 'no-store' });
+            if (resp.ok) {
+              const blob = await resp.blob();
+              const file = new File([blob], `article1-${slug}.png`, { type: 'image/png' });
+              const data = { files: [file], title: 'Article I', text: `${headline}\n\n${url}` };
+              if (navigator.canShare(data)) {
+                await navigator.share(data);
+                return;
+              }
+            }
+          } catch {
+            // fall through
+          }
+        }
+        if (canShare) {
+          try {
+            await navigator.share({ title: headline, text, url });
+            return;
+          } catch {
+            // user cancelled or share failed — fall through to clipboard
+          }
+        }
+        // Desktop or no Web Share: copy URL with toast.
+        try {
+          await navigator.clipboard.writeText(url);
+          showToast('Link copied');
+        } catch {
+          window.prompt('Copy this URL', url);
+        }
+      } finally {
+        btn.classList.remove('is-sharing');
+      }
+    });
+  }
+</script>
+
+<style is:global>
+  /* Toast (global so the singleton element styles correctly anywhere). */
+  .share-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translate(-50%, 12px);
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 1300;
+  }
+  .share-toast-show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+</style>

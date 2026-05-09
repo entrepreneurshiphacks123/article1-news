@@ -59,6 +59,23 @@ jobs:
             npm run pipeline
           fi
 
+      - name: Render Instagram-Story images for any new posts
+        if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
+        run: |
+          # Install Chrome on the runner. ubuntu-latest doesn't ship with
+          # Chrome; setup-chrome is fast and cached.
+          if ! command -v google-chrome >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo apt-get install -y -qq /tmp/chrome.deb
+          fi
+          # --since=4h matches the pipeline's RSS lookback window — we render
+          # PNGs only for posts created in this cycle. We deliberately do NOT
+          # backfill historical posts (200+ would blow past the 12-min step
+          # timeout); the share button gracefully falls back to text-only
+          # share when an image is missing.
+          npm run og:stories -- --since=4h
+
       - name: Commit and push (if anything changed)
         run: |
           git config user.name "article1-bot"

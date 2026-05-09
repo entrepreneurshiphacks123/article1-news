@@ -19,7 +19,15 @@ const paragraphs = (post.data.body ?? '')
   .filter(Boolean);
 ---
 <article class={cls} data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
-  <MetaTop type="static" date={post.data.date} lede={lede} />
+  <MetaTop
+    type="static"
+    date={post.data.date}
+    lede={lede}
+    slug={post.slug}
+    headline={post.data.headline}
+    excerpt={post.data.body}
+    hashtags={post.data.hashtags}
+  />
   <h2><a href={`/posts/${post.slug}`} style="color: inherit; text-decoration: none;">{post.data.headline}</a></h2>
   <div class="body">
     {paragraphs.map((p) => <p>{p}</p>)}

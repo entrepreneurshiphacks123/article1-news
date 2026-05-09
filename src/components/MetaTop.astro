@@ -1,14 +1,29 @@
 ---
 import { fmtRelative } from '../lib/topics';
+import ShareIconButton from './ShareIconButton.astro';
 
 export interface Props {
   type: 'static' | 'carousel';
   date: Date;
   slidesCount?: number;
   lede?: boolean;
+  /** When provided, render an inline share icon at the end of the row. */
+  slug?: string;
+  headline?: string;
+  excerpt?: string;
+  hashtags?: string[];
 }
 
-const { type, date, slidesCount, lede = false } = Astro.props;
+const {
+  type,
+  date,
+  slidesCount,
+  lede = false,
+  slug,
+  headline,
+  excerpt,
+  hashtags,
+} = Astro.props;
 const formatLabel = type === 'carousel' ? `${slidesCount} slides` : 'Brief';
 const formatClass = 'format-tag' + (type === 'carousel' ? ' carousel' : '');
 const relative = fmtRelative(date);
@@ -21,4 +36,10 @@ const relative = fmtRelative(date);
   <span class={formatClass}>{formatLabel}</span>
   <span class="dot"></span>
   <span>{relative}</span>
+  {slug && headline && (
+    <>
+      <span class="dot"></span>
+      <ShareIconButton slug={slug} headline={headline} excerpt={excerpt} hashtags={hashtags} />
+    </>
+  )}
 </div>

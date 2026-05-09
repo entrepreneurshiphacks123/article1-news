@@ -13,7 +13,15 @@ const total = slides.length;
 const citations = post.data.citations ?? [];
 ---
 <article class="card carousel-card" data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
-  <MetaTop type="carousel" date={post.data.date} slidesCount={total} />
+  <MetaTop
+    type="carousel"
+    date={post.data.date}
+    slidesCount={total}
+    slug={post.slug}
+    headline={post.data.headline}
+    excerpt={(post.data.slides ?? [])[0]?.body}
+    hashtags={post.data.hashtags}
+  />
 
   <h2 style="margin-bottom: 18px;">
     <a href={`/posts/${post.slug}`} style="color: inherit; text-decoration: none;">{post.data.headline}</a>

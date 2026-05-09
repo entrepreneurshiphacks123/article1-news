@@ -12,7 +12,9 @@
     "astro": "astro",
     "pipeline": "tsx scripts/pipeline/run.ts",
     "pipeline:dry": "tsx scripts/pipeline/run.ts --dry",
-    "pipeline:check": "tsx scripts/pipeline/check-feeds.ts"
+    "pipeline:check": "tsx scripts/pipeline/check-feeds.ts",
+    "og:stories": "tsx scripts/og-stories/render.ts",
+    "og:stories:all": "tsx scripts/og-stories/render.ts --all"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.0",

@@ -1,5 +1,6 @@
 ---
 import MetaBottom from './MetaBottom.astro';
+import ShareIconButton from './ShareIconButton.astro';
 import { fmtRelative } from '../lib/topics';
 import type { CollectionEntry } from 'astro:content';
 
@@ -10,12 +11,15 @@ export interface Props {
 const { post } = Astro.props;
 const n = post.data.numbers;
 const relative = fmtRelative(post.data.date);
+const shareExcerpt = n ? `${n.value}${n.unit ? ' ' + n.unit : ''} — ${n.body ?? ''}` : undefined;
 ---
 <article class="card numbers-card" data-post-card data-post-id={post.data.id} data-post-slug={post.slug}>
   <div class="card-meta-top">
     <span class="format-tag numbers">Numbers of the Day</span>
     <span class="dot"></span>
     <span>{relative}</span>
+    <span class="dot"></span>
+    <ShareIconButton slug={post.slug} headline={post.data.headline} excerpt={shareExcerpt} hashtags={post.data.hashtags} />
   </div>
 
   {n && (

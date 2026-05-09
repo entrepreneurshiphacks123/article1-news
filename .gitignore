@@ -10,3 +10,5 @@ dist/
 # not by local dev runs. Local state stays ignored.
 state/last-selector-error.json
 src/content/drafts/
+.og-stories-render/
+.og-chrome-scratch/
