@@ -4583,5 +4583,20 @@
     "url": "https://www.cbsnews.com/video/050826-cbs-evening-news/",
     "firstSeen": "2026-05-09T01:45:29.657Z",
     "outlet": "CBS News Politics"
+  },
+  "3fe9b674a4bd93ce": {
+    "url": "https://thehill.com/homenews/administration/5870737-trump-hopes-russia-ukraine-ceasefire-extension/",
+    "firstSeen": "2026-05-09T02:45:24.031Z",
+    "outlet": "The Hill"
+  },
+  "4eac04b87b860e3d": {
+    "url": "https://www.bloomberg.com/news/articles/2026-05-09/vietnam-expands-south-china-sea-outposts-as-beijing-widens-lead",
+    "firstSeen": "2026-05-09T02:45:24.031Z",
+    "outlet": "Bloomberg Politics"
+  },
+  "0410e9d60328b037": {
+    "url": "https://www.nytimes.com/2026/05/08/us/politics/trump-pentagon-boat-strike.html",
+    "firstSeen": "2026-05-09T02:45:24.031Z",
+    "outlet": "NYT Politics"
   }
 }
