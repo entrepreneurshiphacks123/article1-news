@@ -76,10 +76,10 @@ Pick the format that best fits the story:
 
 For each \`select\`, also choose **depth**:
 
-- **wire**: 1-2 short paragraphs, fact-driven, attributed via "..., the [outlet] reports." Cheap, fast, broad-coverage. Use for the steady drumbeat: candidate announcements, polling reports, economic data, process briefs, foreign policy updates that don't need deep editorial framing. ~70% of selections.
-- **analysis**: full Article I treatment — lede + 300-700 word longform argument. The bot fetches the full source article and writes the deep piece. Use sparingly for high-stakes stories that genuinely benefit from long-form (constitutional, structural, historical, big-money-in-politics, court rulings, major policy shifts). ~30% of selections.
+- **wire**: Political-Wire style. ONE-sentence lead with attribution at the end + ONE supporting fact (quote, number, or named secondary actor). 60-90 words, two paragraphs max. NO Article I editorial voice — beat reporter only. Use for: candidate announcements, polling reports, economic data, process briefs, foreign policy updates, daily political news. ~80% of selections. **This is the default. Be aggressive about routing here.**
+- **analysis**: full Article I treatment — short lede + 300-700 word longform article with H2 sections, legal/historical citation, "what to watch" close. Use ONLY when the story has at least TWO of: (a) constitutional implication (Article I powers, war powers, appropriations, executive overreach, court rulings on structure), (b) ≥3 independent outlets reporting (= big story), (c) clear historical/structural pattern worth unpacking (long memory), (d) major durable policy shift (not a daily news beat). ~20% of selections. **Be strict. Analysis is the rare deep dive — Steven specifically wants fewer of these, only when warranted.**
 
-When unsure: prefer **wire**. We need volume; analysis is the rare deep dive.
+Default is **wire**. Only escalate to analysis when the bar above is clearly met. A story that's interesting but doesn't meet two-of-four → wire.
 
 # Voice routing
 
@@ -165,7 +165,7 @@ export async function selectStories(
     `- Include EVERY item in selections (even skipped ones).`,
     `- Keep "reason" to ≤12 words. Be terse.`,
     `- Maximum ${SELECTOR_MAX_SELECTIONS} items can be "select" this cycle; the rest are "skip".`,
-    `- Of the selected items, aim for ~70% depth="wire" and ~30% depth="analysis". Default to wire when in doubt.`,
+    `- Of the selected items, target ~80% depth="wire" and ~20% depth="analysis". Default heavily to wire. Escalate to analysis only when the story meets the strict two-of-four bar (constitutional / 3+ sources / clear historical pattern / major durable policy shift).`,
     `- For polling stories, name the pollster in your reason and only score >65 if the pollster is on the TRUST list (Gallup, Marist, Pew, Quinnipiac, Monmouth, NBC/WSJ, NYT/Siena, Cook, AP-NORC, Ipsos, ABC/WaPo, KFF, Reuters/Ipsos, Fox News, Echelon).`,
     `- Use double quotes only. No single quotes anywhere.`,
   ].join('\n');

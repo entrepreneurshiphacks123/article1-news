@@ -26,34 +26,39 @@ async function getEditorial(): Promise<string> {
 }
 
 function staticPostSchemaText(depth: 'wire' | 'analysis'): string {
-  const headlineRule = `<≤12 words. ARTICLE I'S OWN framing — concrete subject + active verb. Read for what's implied: who benefits, what shifts, what pattern this fits. Examples of good Article I headlines: 'Vance's 2028 Is Tied to Trump's Approval. That's a Problem.' / 'Trump Buries Indiana Republicans Who Wouldn't Redistrict for Him.' / 'DOJ Drops the Andy Ogles Probe. Evidence to Be Destroyed.' These are NOT source outlets' headlines — they're our reframings. Do not write 'Vance Visits Iowa' or anything that sounds like a wire-service summary. No questions, no 'BREAKING:'.>`;
+  const wireHeadlineRule = `<≤10 words. NEUTRAL subject + verb + object. Flat statement of fact. The take lives in the body, NEVER in the headline. BANNED: editorial verbs ('purges,' 'fractures,' 'hits,' 'forces,' 'buries,' 'torches,' 'bets,' 'squeezes'), em dashes, two-clause headlines ('X. That's a Y.'), question marks, 'BREAKING:'. USE: 'expands,' 'proposes,' 'announces,' 'rejects,' 'wins,' 'loses,' 'targets,' 'sends,' 'tells,' 'says,' 'visits,' 'fires,' 'orders,' 'signs.' Good wire headlines: 'Vance Visits Iowa Ahead of 2028' / 'Indiana GOP Senators Lose Primaries After Redistricting Vote' / 'DOJ Closes Andy Ogles Probe' / 'Trump Proposes H-1B Wage Floor Increase.' Yes, this reads like a wire-service summary — that's the point.>`;
+
+  const analysisHeadlineRule = `<≤12 words. ARTICLE I'S OWN framing — concrete subject + active verb that signals the take. Editorial verbs OK. Em dashes OK. Two-clause headlines OK. The take in the headline is the moat. Examples: 'Vance's 2028 Is Tied to Trump's Approval. That's a Problem.' / 'Trump Buries Indiana Republicans Who Wouldn't Redistrict for Him.' / 'DOJ Drops the Andy Ogles Probe. Evidence to Be Destroyed.' These are NOT source outlets' headlines — they're our reframings. No questions, no 'BREAKING:'.>`;
 
   if (depth === 'wire') {
     return `For WIRE-DEPTH static posts, return:
 {
   "type": "static",
-  "headline": "${headlineRule}",
-  "body": "<2-3 SHORT paragraphs in Political Wire style. 100-180 words total. EVERY wire post must contain AT LEAST ONE of: (a) a verbatim direct quote with named speaker ('Said [Name]: \"...\"'), (b) a specific number / vote count / poll result / dollar figure / date with the named source, or (c) a named secondary actor with their position. Pattern: Para 1 = what happened (with outlet attribution). Para 2 = a quote OR specific detail from the source article. Para 3 = optional second quote OR a single-sentence strategist/historian framing. North star: a reader who reads ONLY this post should walk away knowing the news, the receipts, and the strategic shape — enough to be the most informed person in the room about this story.>",
+  "headline": "${wireHeadlineRule}",
+  "body": "<TWO paragraphs max. 60-90 words total. Para 1: ONE sentence. Format — '[Actor] [neutral verb] [object/consequence], according to [outlet].' Attribution at the END. Para 2: ONE additional fact — a verbatim direct quote with named speaker ('Said [Name]: \"...\"'), a specific number/vote/dollar figure with named source, OR a named secondary actor's position. That's it. NO third paragraph.>",
   "tags": ["<from taxonomy, 2-3 tags>"],
   "hashtags": ["<1-3 brand-style hashtags, no spaces, no #>"],
   "race_level": "national" | "state" | "local" | "none",
   "citations": [{ "outlet": "...", "url": "...", "date": "..." }]
 }
 
-DO NOT include "article_md" — wire posts don't get a separate longform article body. The substance lives in the body itself.
+DO NOT include "article_md" — wire posts don't get a separate longform article body.
 
-Wire post discipline (these are NON-NEGOTIABLE):
-- Receipts: every claim ties to the source article. Never invent quotes/numbers/dates.
-- At least one specific detail (quote, number, named actor, date) — paraphrase alone isn't enough.
-- Voice still ours (strategist or historian register), but the framing is ONE sentence; the rest is reportage.
-- If the source article had no quotes, no specifics, and no named secondary actors, the story probably wasn't worth selecting at wire depth — escalate to analysis or skip.
-- 100-180 words. Shorter is too thin to inform; longer wants analysis depth.`;
+WIRE VOICE — beat reporter, NOT editorialist. NON-NEGOTIABLE:
+- NO inline mid-sentence attribution. WRONG: "...military assets, per The Bulwark (May 8), and the U.S..." RIGHT: "...military assets, according to The Bulwark." Attribution lives at the END of the sentence.
+- NO date stamps in the body. WRONG: "...sent letters Thursday..." or "(May 8)". The post has its own timestamp.
+- BANNED PHRASES: "the strategic read," "the play here," "the operational contradiction," "the fracture matters," "doing a lot of work," "isn't spin for X — it's spin for Y," "shelf-stable," "paper trail," "what to watch," "why it matters." These are Article I voice — save them for analysis posts.
+- NO em-dash editorial reframes. WRONG: "Active combat at sea — and the administration is calling it a ceasefire." RIGHT: "The administration called it a ceasefire."
+- NO three-act structure (fact → strategic read → what to watch). Just: news + one supporting detail. Stop.
+- Receipts always: every claim ties to the source. Never invent quotes/numbers/dates.
+- 60-90 words. Hard cap. If you're at 100+ words rewriting, you've slipped into analysis voice — cut.
+- If the source has no quote, no number, no named secondary actor, the post is one paragraph. Don't pad.`;
   }
 
   return `For ANALYSIS-DEPTH static posts, return:
 {
   "type": "static",
-  "headline": "${headlineRule}",
+  "headline": "${analysisHeadlineRule}",
   "body": "<Card-visible LEDE in Political Wire short-paragraph style: 2-3 SHORT paragraphs separated by blank lines (\\n\\n). Each paragraph 1-2 sentences. Pattern: Para 1 = what happened with outlet attribution. Para 2 = verbatim quote on its own line if available ('Said [Name]: \"...\"'). Para 3 = optional second quote OR strategist/historian framing. Don't write one wall of prose. The lede is the hook; the full argument lives in article_md.>",
   "article_md": "<300-700 word LONGFORM MARKDOWN article that appears on the detail page. This is where the actual argument lives — receipts, sources, historical/structural context, implications. Use markdown: paragraphs, [inline links](url), blockquotes (>), ## section headings. NEVER make a claim in the lede that isn't backed up here. NEVER repeat the lede in the article — the lede is a hook, the article picks up from there.>",
   "tags": ["<from taxonomy, 2-4 tags>"],
@@ -206,11 +211,16 @@ export async function generatePost(
         ``,
       ];
 
-  const userMessage = [
-    `Write a ${selection.format} post in the **${selection.voice}** voice.`,
-    selection.voice === 'strategist'
+  const isWireStatic = selection.format === 'static' && depth === 'wire';
+  const voiceDirective = isWireStatic
+    ? `BEAT REPORTER VOICE. Not strategist, not historian. Plain reportage in Political Wire style: who did what, attribution at the end, one supporting fact. The selector's "voice" tag (${selection.voice}) does NOT apply to wire posts — IGNORE it. Article I voice is reserved for analysis-depth posts and longform articles. On wire, you are a wire-service beat reporter.`
+    : selection.voice === 'strategist'
       ? `Strategist register: tactical, operator's lens. Who benefits. What's the play. Concrete strategic reads. Punchy.`
-      : `Historian register: long-arc context. Reads the news against 250 years of American self-government. "The last time X..." / "This pattern goes back to..."`,
+      : `Historian register: long-arc context. Reads the news against 250 years of American self-government. "The last time X..." / "This pattern goes back to..."`;
+
+  const userMessage = [
+    `Write a ${selection.format} post${isWireStatic ? ' (WIRE depth — Political Wire style, beat reporter)' : ` in the **${selection.voice}** voice`}.`,
+    voiceDirective,
     ``,
     `Story metadata (FOR REFERENCE — do not mirror the source's headline or framing):`,
     `  outlet: ${feedItem.outlet}`,
@@ -234,14 +244,14 @@ export async function generatePost(
     `Return strict JSON only. No commentary, no markdown fences.`,
   ].join('\n');
 
-  // Wire-depth statics now target 100-180 words with quotes/specifics
-  // (~280-400 output tokens). Analysis-depth statics include a 300-700 word
-  // longform article on top of the lede (~2200 tokens).
+  // Wire-depth statics target 60-90 words with one supporting fact (~150 tokens body).
+  // Cap at 500 to physically prevent the model from drifting into analysis-length wire posts.
+  // Analysis-depth statics include a 300-700 word longform article on top of the lede (~2200 tokens).
   const maxTokens = selection.format === 'carousel' ? 2500
     : selection.format === 'quote' ? 600
     : selection.format === 'numbers' ? 600
     : selection.format === 'headline' ? 500
-    : depth === 'wire' ? 900
+    : depth === 'wire' ? 500
     : 2200;
 
   const resp = await client.messages.create({
