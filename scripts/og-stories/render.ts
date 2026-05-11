@@ -99,8 +99,11 @@ function pickHeadlineSizeClass(headline: string): string {
 function firstSentence(text: string, maxChars = 240): string {
   if (!text) return '';
   const cleaned = text.replace(/\s+/g, ' ').trim();
-  // Try to break at sentence end
-  const m = cleaned.match(/^.{40,}?[.!?]/);
+  // Try to break at sentence end. Require the punctuation to be followed
+  // by whitespace OR end-of-string — otherwise decimal numbers like
+  // "$4.52" and abbreviations like "U.S." get treated as sentence breaks
+  // and truncate the excerpt at the period.
+  const m = cleaned.match(/^.{40,}?[.!?](?=\s|$)/);
   const out = m ? m[0] : cleaned.slice(0, maxChars);
   return out.length > maxChars ? out.slice(0, maxChars).replace(/\s+\S*$/, '') + '…' : out;
 }

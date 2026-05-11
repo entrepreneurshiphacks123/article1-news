@@ -1,0 +1,51 @@
+---
+// Short URL → canonical post URL redirect.
+//
+// IG Stories can't carry programmatic link stickers (Meta Graph API
+// doesn't expose that). We bake article1.news/p/<id> into the Story
+// image footer instead; users type it in. That's a SHORT URL, not the
+// full slug — slugs run 40-60 chars and won't fit on the Story.
+//
+// This route renders a meta-refresh + JS-replace redirect to the
+// canonical /posts/<slug>/ page. Astro static SSG → CF Pages serves
+// it as a regular HTML file.
+
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts
+    .filter((p) => p.data.id != null)
+    .map((post) => ({
+      params: { id: String(post.data.id) },
+      props: { slug: post.slug, headline: post.data.headline },
+    }));
+}
+
+interface Props {
+  slug: string;
+  headline: string;
+}
+
+const { slug, headline } = Astro.props;
+const target = `/posts/${slug}/`;
+const canonical = `https://article1.news${target}`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content={`0; url=${target}`}>
+<link rel="canonical" href={canonical}>
+<title>{headline} — Article I</title>
+<meta name="robots" content="noindex,follow">
+<style>
+  body { font-family: Georgia, serif; max-width: 540px; margin: 64px auto; padding: 0 20px; color: #1A1A1A; background: #FAFAF7; }
+  a { color: #9B1C1C; }
+</style>
+</head>
+<body>
+<script is:inline set:html={`location.replace(${JSON.stringify(target)});`}></script>
+<p>Redirecting to <a href={target}>{headline}</a>…</p>
+</body>
+</html>

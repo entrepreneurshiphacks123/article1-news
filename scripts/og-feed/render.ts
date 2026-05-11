@@ -97,7 +97,9 @@ function pickHeadlineSizeClass(headline: string): string {
 function firstSentence(text: string, maxChars = 220): string {
   if (!text) return '';
   const cleaned = text.replace(/\s+/g, ' ').trim();
-  const m = cleaned.match(/^.{40,}?[.!?]/);
+  // Period must be followed by whitespace or end — avoids breaking at
+  // decimal numbers ("$4.52") and abbreviations ("U.S.").
+  const m = cleaned.match(/^.{40,}?[.!?](?=\s|$)/);
   const out = m ? m[0] : cleaned.slice(0, maxChars);
   return out.length > maxChars ? out.slice(0, maxChars).replace(/\s+\S*$/, '') + '…' : out;
 }

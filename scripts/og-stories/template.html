@@ -214,9 +214,46 @@
     text-transform: none;
     color: var(--ink-2);
   }
+
+  /* "LINK IN BIO" sticker — IG Stories can't carry a programmatic link
+     sticker via the Graph API, and this is the closest brand-safe stand-in:
+     a paper-sticker-styled callout that visually reads as a tap target.
+     Absolutely positioned, slightly rotated, with a drop shadow so it
+     hovers above the page instead of looking baked-in. */
+  .link-in-bio-sticker {
+    position: absolute;
+    bottom: 320px;
+    right: 96px;
+    background: var(--parchment);
+    border: 6px solid var(--red);
+    border-radius: 10px;
+    padding: 22px 34px;
+    font-family: var(--mono);
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    transform: rotate(-3.5deg);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+    white-space: nowrap;
+    z-index: 2;
+  }
+  .link-in-bio-sticker .arrow {
+    color: var(--red);
+    margin-right: 14px;
+    display: inline-block;
+    transform: translateY(-2px);
+  }
 </style>
 </head>
 <body>
+  <!-- "LINK IN BIO" sticker — visual stand-in for the link-sticker we
+       can't add via the IG Graph API. -->
+  <div class="link-in-bio-sticker">
+    <span class="arrow">↗</span>LINK IN BIO
+  </div>
+
   <!-- The renderer fills these with template literals based on post format. -->
   <header>
     <div class="top-rule"></div>

@@ -23,7 +23,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 
-import { postThread, buildThreadsText, type ThreadsConfig } from './threads.js';
+import {
+  postThread,
+  postThreadReply,
+  buildThreadsText,
+  buildThreadsReply,
+  type ThreadsConfig,
+} from './threads.js';
 import {
   postFeedImage,
   postFeedCarousel,
@@ -84,6 +90,7 @@ interface PostFront {
 
 interface PostState {
   threads?: string;
+  threads_reply?: string;
   ig_feed?: string;
   ig_story?: string;
   posted_at?: string;
@@ -160,7 +167,7 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
 
   const url = `${CDN_BASE}/posts/${slug}`;
 
-  // 1. Threads (text-only)
+  // 1. Threads (text-only main post — URL goes in a reply below)
   if (!s.threads) {
     try {
       const text = buildThreadsText({
@@ -179,6 +186,25 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
     } catch (err) {
       console.error(`    ✗ threads failed: ${(err as Error).message}`);
       recordError(s, 'threads', err);
+    }
+  }
+
+  // 1b. Threads REPLY with the article URL. Posts under the main thread
+  // so the headline+excerpt reads clean in the feed, with the read-more
+  // link as the first comment.
+  if (s.threads && !s.threads_reply) {
+    try {
+      const replyText = buildThreadsReply({ slug });
+      console.log(`  → threads reply with URL`);
+      if (DRY) {
+        console.log(`    [dry] reply: ${replyText}`);
+      } else {
+        s.threads_reply = await postThreadReply(lazyThreads(), s.threads, replyText);
+        console.log(`    ✓ threads reply id=${s.threads_reply}`);
+      }
+    } catch (err) {
+      console.error(`    ✗ threads reply failed: ${(err as Error).message}`);
+      recordError(s, 'threads_reply', err);
     }
   }
 
