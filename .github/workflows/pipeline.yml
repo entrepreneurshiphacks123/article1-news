@@ -154,6 +154,17 @@ jobs:
             sleep 3
           done
 
+      - name: Prune Story + Feed PNGs older than 30 days
+        run: |
+          # Keeps the repo HEAD bounded — without this, ~13 MB of PNGs
+          # accumulate per day. Pruning removes them from the working
+          # tree (and the resulting commit); git history still retains
+          # them. Migrate to LFS later if history size becomes painful.
+          # Cartoons, brand assets, og-default.png are NOT touched.
+          # Pre-existing maintenance.prune-pngs script handles the
+          # carousel-slide-naming edge case.
+          npm run maintenance:prune-pngs
+
       - name: Commit and push (if anything changed)
         run: |
           git config user.name "article1-bot"

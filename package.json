@@ -18,7 +18,8 @@
     "og:feed": "tsx scripts/og-feed/render.ts",
     "og:feed:all": "tsx scripts/og-feed/render.ts --all",
     "icons": "tsx scripts/icons/render.ts",
-    "social:cross-post": "tsx scripts/social/cross-post.ts"
+    "social:cross-post": "tsx scripts/social/cross-post.ts",
+    "maintenance:prune-pngs": "tsx scripts/maintenance/prune-old-pngs.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.0",
