@@ -1,8 +1,17 @@
 // Article I — prune Story + Feed PNGs older than N days.
 //
 // Repo grows ~13 MB/day from committed Story (1080×1920) and Feed
-// (1080×1350) PNGs. Pruning the working tree after 30 days keeps the
-// HEAD bounded (~400 MB rolling) without changing infra.
+// (1080×1350) PNGs. Default retention is 14 days — that's the share-
+// traffic decay window for news content (~95% of social shares happen
+// in the first 14 days; older shares fall back gracefully to
+// og-default.png + text-only share). Keeps HEAD bounded to ~200 MB
+// rolling.
+//
+// Cloudflare Pages itself doesn't charge for this (free plan: unlimited
+// bandwidth, no storage fees, 20,000 files/deployment hard cap). The
+// real concern is GitHub repo size — git history retains deleted blobs
+// forever, so the bytes shipped here today still bloat clones tomorrow.
+// LFS migration is the next step when that becomes painful.
 //
 // What this removes:
 //   public/og-stories/<slug>.png           (single-image Story per post)
@@ -17,9 +26,9 @@
 // Cutoff is based on the POST's `date` frontmatter, not the file mtime —
 // re-rendering shouldn't reset the clock.
 //
-// Run via:  npm run maintenance:prune-pngs              (LIVE: deletes files)
+// Run via:  npm run maintenance:prune-pngs              (LIVE: 14d cutoff)
 //           npm run maintenance:prune-pngs -- --dry     (dry run: prints, no delete)
-//           npm run maintenance:prune-pngs -- --days=60 (custom cutoff)
+//           npm run maintenance:prune-pngs -- --days=30 (custom cutoff)
 //
 // Orphan policy: PNGs whose post markdown no longer exists are ALSO
 // removed. Those are leftovers from deleted/renamed posts.
@@ -41,7 +50,7 @@ const args = new Set(argv);
 const DRY = args.has('--dry');
 
 const DAYS_FLAG = argv.find((a) => a.startsWith('--days='));
-const CUTOFF_DAYS = DAYS_FLAG ? parseInt(DAYS_FLAG.slice('--days='.length), 10) : 30;
+const CUTOFF_DAYS = DAYS_FLAG ? parseInt(DAYS_FLAG.slice('--days='.length), 10) : 14;
 
 if (!Number.isFinite(CUTOFF_DAYS) || CUTOFF_DAYS < 1) {
   console.error(`[prune] --days must be a positive integer; got ${DAYS_FLAG}`);
