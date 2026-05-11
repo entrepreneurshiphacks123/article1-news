@@ -57,6 +57,13 @@ const SINCE_MS: number | null = SINCE_FLAG
     })()
   : null;
 
+// --slug=<slug> — target exactly one post by slug. Used for manual test
+// runs and the GHA workflow's smoke-test path. Bypasses the --since
+// filter and the "already-posted" state check (so it can re-publish a
+// platform that failed earlier).
+const SLUG_FLAG = argv.find((a) => a.startsWith('--slug='));
+const TARGET_SLUG: string | null = SLUG_FLAG ? SLUG_FLAG.slice('--slug='.length).trim() : null;
+
 type FormatType = 'static' | 'carousel' | 'quote' | 'numbers' | 'headline' | 'cartoon';
 
 interface PostFront {
@@ -261,20 +268,28 @@ async function main() {
   let skipped = 0;
   for (const f of files) {
     const slug = f.replace(/\.md$/, '');
+
+    // --slug=X filter: skip everything that isn't the target.
+    if (TARGET_SLUG !== null && slug !== TARGET_SLUG) continue;
+
     const raw = await fs.readFile(path.join(POSTS_DIR, f), 'utf8');
     const fm = matter(raw);
     const post = fm.data as PostFront;
     if (!post?.headline) continue;
 
-    if (cutoff !== null) {
+    // --since filter applies only when no --slug given.
+    if (TARGET_SLUG === null && cutoff !== null) {
       const ms = new Date(post.date as unknown as string).getTime();
       if (!Number.isFinite(ms) || ms < cutoff) continue;
     }
 
-    const existing = state[slug];
-    if (existing && existing.threads && existing.ig_feed && existing.ig_story) {
-      skipped++;
-      continue;
+    // --slug bypasses the already-posted check so we can re-fire a platform.
+    if (TARGET_SLUG === null) {
+      const existing = state[slug];
+      if (existing && existing.threads && existing.ig_feed && existing.ig_story) {
+        skipped++;
+        continue;
+      }
     }
 
     console.log(`\n[social] ${slug}`);
