@@ -59,22 +59,100 @@ jobs:
             npm run pipeline
           fi
 
-      - name: Render Instagram-Story images for any new posts
+      - name: Install Chrome (cached on subsequent runs)
         if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
         run: |
-          # Install Chrome on the runner. ubuntu-latest doesn't ship with
-          # Chrome; setup-chrome is fast and cached.
           if ! command -v google-chrome >/dev/null 2>&1; then
             sudo apt-get update -qq
             wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
             sudo apt-get install -y -qq /tmp/chrome.deb
           fi
-          # --since=4h matches the pipeline's RSS lookback window — we render
-          # PNGs only for posts created in this cycle. We deliberately do NOT
-          # backfill historical posts (200+ would blow past the 12-min step
-          # timeout); the share button gracefully falls back to text-only
-          # share when an image is missing.
+
+      - name: Render Instagram-Story images (1080x1920) for any new posts
+        if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
+        run: |
+          # --since=4h matches the pipeline's RSS lookback window — only the
+          # cycle's new posts. No historical backfill.
           npm run og:stories -- --since=4h
+
+      - name: Render IG Feed images (1080x1350, multi-image for carousels)
+        if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
+        run: |
+          npm run og:feed -- --since=4h
+
+      - name: Commit posts + images BEFORE social cross-post
+        run: |
+          # The Meta Graph API requires image_url to be publicly reachable.
+          # That means we MUST push posts + PNGs to main BEFORE the social
+          # cross-post step runs, so Cloudflare Pages has time to deploy them
+          # to article1.news/og-feed/<slug>.png. The cross-poster then reads
+          # from the public CDN.
+          git config user.name "article1-bot"
+          git config user.email "bot@article1.news"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit before cross-post."
+          else
+            NEW_POSTS=$(git diff --cached --name-only --diff-filter=A | grep -c "src/content/posts/" || true)
+            DRAFTS=$(git diff --cached --name-only --diff-filter=A | grep -c "src/content/drafts/" || true)
+            MSG="[bot] $NEW_POSTS posts, $DRAFTS drafts ($(date -u +%Y-%m-%dT%H:%M))"
+            git -c commit.gpgsign=false commit -m "$MSG"
+            for attempt in 1 2 3; do
+              if git -c rebase.autoStash=true pull --rebase origin main; then
+                if git push; then
+                  echo "Push succeeded on attempt $attempt."
+                  break
+                fi
+              fi
+              echo "Attempt $attempt failed, retrying in 3s..."
+              sleep 3
+            done
+          fi
+
+      - name: Wait for Cloudflare Pages to deploy new images
+        if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
+        run: |
+          # CF Pages auto-deploys on push; typical TTM is 30-90s. We wait
+          # a bounded amount so the cross-poster doesn't try to fetch
+          # images that haven't been published yet. The Meta API will fail
+          # cleanly if the image isn't reachable; the next cycle retries.
+          sleep 90
+
+      - name: Cross-post to Threads + Instagram
+        if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
+        env:
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+          META_IG_USER_ID:        ${{ secrets.META_IG_USER_ID }}
+          META_THREADS_USER_ID:   ${{ secrets.META_THREADS_USER_ID }}
+          META_THREADS_ACCESS_TOKEN: ${{ secrets.META_THREADS_ACCESS_TOKEN }}
+        run: |
+          # If the required secrets aren't set yet, skip rather than fail
+          # the whole pipeline. Useful during initial token onboarding.
+          if [ -z "$META_PAGE_ACCESS_TOKEN" ] || [ -z "$META_IG_USER_ID" ]; then
+            echo "Meta tokens not yet configured — skipping social cross-post."
+            exit 0
+          fi
+          npm run social:cross-post -- --since=4h
+
+      - name: Commit social-state (after cross-post)
+        run: |
+          # Re-stage and commit state/social-posted.json so the next cycle
+          # knows which slugs have already been cross-posted.
+          git add state/social-posted.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No social-state changes."
+            exit 0
+          fi
+          git -c commit.gpgsign=false commit -m "[bot] social-state $(date -u +%Y-%m-%dT%H:%M)"
+          for attempt in 1 2 3; do
+            if git -c rebase.autoStash=true pull --rebase origin main; then
+              if git push; then
+                echo "Social-state push succeeded on attempt $attempt."
+                exit 0
+              fi
+            fi
+            sleep 3
+          done
 
       - name: Commit and push (if anything changed)
         run: |
