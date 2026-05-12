@@ -106,16 +106,6 @@
     "errors": [
       {
         "platform": "ig_story",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A0FO_g30xl4vw2HB47cwLaj\"}}",
-        "at": "2026-05-12T05:55:39.667Z"
-      },
-      {
-        "platform": "ig_feed",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AXSf8snSaSIAnViXmOVdsT1\"}}",
-        "at": "2026-05-12T05:55:47.675Z"
-      },
-      {
-        "platform": "ig_story",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AkUuRgPgnaZBvio0HXYJdKu\"}}",
         "at": "2026-05-12T06:53:33.578Z"
       },
@@ -133,6 +123,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AK5iCo0ZkLGimBmf1kv8N4e\"}}",
         "at": "2026-05-12T07:23:00.598Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A9Hc611sL-fw8nln4ubVOUe\"}}",
+        "at": "2026-05-12T07:52:26.863Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AnZI9AXvwv03fUYXuYvyyml\"}}",
+        "at": "2026-05-12T07:52:34.553Z"
       }
     ],
     "posted_at": "2026-05-12T05:55:47.675Z"
@@ -204,6 +204,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AC95KuJNC7TLE_QNJIb8vrF\"}}",
         "at": "2026-05-12T07:22:30.683Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AG_TUjtnXRJA-IoQ4-VYhTE\"}}",
+        "at": "2026-05-12T07:52:02.734Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AP6MZrQu7yUjBh7COhcm0S9\"}}",
+        "at": "2026-05-12T07:52:08.429Z"
       }
     ],
     "posted_at": "2026-05-12T06:52:54.420Z"
@@ -231,6 +241,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AvKIvZvh3k0RfLGYSKhR5-m\"}}",
         "at": "2026-05-12T07:22:46.354Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A1Y8hQOIe4wsK0TVu2k3Pt5\"}}",
+        "at": "2026-05-12T07:52:15.970Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A-p9CCEkmDGEx3whA5YoUKI\"}}",
+        "at": "2026-05-12T07:52:21.550Z"
       }
     ],
     "posted_at": "2026-05-12T06:53:27.660Z"
@@ -248,6 +268,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AznQesQzAB2BVenCfVLA9CI\"}}",
         "at": "2026-05-12T07:23:31.922Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AFnCAjPhdJSfYI2Jbx8b5iD\"}}",
+        "at": "2026-05-12T07:52:40.257Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AhI6ACXpWmz98YZjxKSF4q8\"}}",
+        "at": "2026-05-12T07:52:45.997Z"
       }
     ],
     "posted_at": "2026-05-12T07:23:31.922Z"
