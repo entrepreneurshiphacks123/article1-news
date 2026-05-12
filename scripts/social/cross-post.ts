@@ -147,6 +147,22 @@ function storyImageUrl(slug: string): string {
   return `${CDN_BASE}/og-stories/${slug}.png`;
 }
 
+// Kill switch — set SOCIAL_IG_DISABLED=1 to skip both IG Story and IG Feed
+// posts. Threads + Threads reply still fire. Used to back off when IG
+// rate-limits us (the 24h media-publish quota recovers slowly).
+const IG_DISABLED = process.env.SOCIAL_IG_DISABLED === '1';
+
+// IG rate-limit detection — once we see code-9 subcode-2207042 / 2207069
+// in a cycle, every subsequent IG call also fails the same way. Setting
+// this flag short-circuits the rest of the IG calls for the cycle so we
+// don't burn workflow time hammering the API.
+let igRateLimited = false;
+
+function looksLikeIgRateLimit(err: unknown): boolean {
+  const m = err instanceof Error ? err.message : String(err);
+  return m.includes('2207042') || m.includes('2207069') || m.includes('Media publish limit') || m.includes('Media creation limit');
+}
+
 async function postOne(slug: string, post: PostFront, state: SocialState): Promise<void> {
   const s: PostState = state[slug] ?? {};
   state[slug] = s;
@@ -209,7 +225,7 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
   }
 
   // 2. IG Story (1080x1920 Story PNG)
-  if (!s.ig_story) {
+  if (!s.ig_story && !IG_DISABLED && !igRateLimited) {
     try {
       const imageUrl = storyImageUrl(slug);
       console.log(`  → ig story: ${imageUrl}`);
@@ -222,11 +238,19 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
     } catch (err) {
       console.error(`    ✗ ig story failed: ${(err as Error).message}`);
       recordError(s, 'ig_story', err);
+      if (looksLikeIgRateLimit(err)) {
+        igRateLimited = true;
+        console.error(`    ⚠ IG RATE LIMITED — skipping all remaining IG calls this cycle`);
+      }
     }
+  } else if (IG_DISABLED || igRateLimited) {
+    // Don't fall back to retrying every cycle when IG is intentionally off or
+    // throttled. Mark a soft-skip in state so we don't accumulate error logs.
+    if (!s.ig_story) console.log(`  ○ ig story: skipped (${IG_DISABLED ? 'IG_DISABLED' : 'rate-limited'})`);
   }
 
   // 3. IG Feed (single or carousel, with first comment)
-  if (!s.ig_feed) {
+  if (!s.ig_feed && !IG_DISABLED && !igRateLimited) {
     try {
       const imageUrls = feedImageUrls(slug, post);
       const caption = buildFeedCaption({
@@ -258,7 +282,6 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
           const commentId = await commentOnMedia(ig, s.ig_feed, firstComment);
           console.log(`    ✓ ig first-comment id=${commentId}`);
         } catch (commentErr) {
-          // Don't fail the whole post if the comment fails — the media is up.
           console.error(`    ⚠ ig first-comment failed (post still up): ${(commentErr as Error).message}`);
           recordError(s, 'ig_first_comment', commentErr);
         }
@@ -266,7 +289,13 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
     } catch (err) {
       console.error(`    ✗ ig feed failed: ${(err as Error).message}`);
       recordError(s, 'ig_feed', err);
+      if (looksLikeIgRateLimit(err)) {
+        igRateLimited = true;
+        console.error(`    ⚠ IG RATE LIMITED — skipping all remaining IG calls this cycle`);
+      }
     }
+  } else if (IG_DISABLED || igRateLimited) {
+    if (!s.ig_feed) console.log(`  ○ ig feed:  skipped (${IG_DISABLED ? 'IG_DISABLED' : 'rate-limited'})`);
   }
 
   if (s.threads || s.ig_feed || s.ig_story) {

@@ -31,7 +31,13 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    # Bumped from 12 → 20: the full pipeline (generation + 2 renderers +
+    # CF Pages wait + cross-post + commits) approaches 10-12 min on slow
+    # cycles. At 12 min a single slow API call would tip past timeout and
+    # CANCEL the run mid-step — which means the social-state commit never
+    # lands, and the next cycle re-publishes everything. That's how we
+    # ended up with each IG post hitting 4-6x on 5/11.
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -109,14 +115,31 @@ jobs:
             done
           fi
 
-      - name: Wait for Cloudflare Pages to deploy new images
+      - name: Wait for Cloudflare Pages to serve the newest Feed PNG
         if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
         run: |
-          # CF Pages auto-deploys on push; typical TTM is 30-90s. We wait
-          # a bounded amount so the cross-poster doesn't try to fetch
-          # images that haven't been published yet. The Meta API will fail
-          # cleanly if the image isn't reachable; the next cycle retries.
-          sleep 90
+          # CF Pages auto-deploys on push; replaces the old hardcoded 90s
+          # sleep. Polls the CDN for the freshest committed Feed PNG (or
+          # Story PNG if no Feed PNG exists this cycle). Exits as soon as
+          # CF serves it. Caps at 3 minutes total so a stalled deploy
+          # can't block the cycle indefinitely.
+          newest_png=$(git diff HEAD~1 HEAD --name-only --diff-filter=A 2>/dev/null \
+                       | grep -E "^public/og-(feed|stories)/.+\.png$" \
+                       | head -1 | sed "s|^public/||")
+          if [ -z "$newest_png" ]; then
+            echo "No new PNGs in last commit; skipping CDN wait."
+            exit 0
+          fi
+          echo "Waiting for https://article1.news/${newest_png} to deploy..."
+          for i in $(seq 1 18); do
+            code=$(curl -sI "https://article1.news/${newest_png}" -o /dev/null -w '%{http_code}')
+            if [ "$code" = "200" ]; then
+              echo "CDN ready after ${i}0s."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "CDN still serving 404 after 3min; cross-poster may hit image_url errors."
 
       - name: Cross-post to Threads + Instagram
         if: ${{ inputs.dry != 'true' && inputs.draft != 'true' }}
@@ -125,12 +148,17 @@ jobs:
           META_IG_USER_ID:        ${{ secrets.META_IG_USER_ID }}
           META_THREADS_USER_ID:   ${{ secrets.META_THREADS_USER_ID }}
           META_THREADS_ACCESS_TOKEN: ${{ secrets.META_THREADS_ACCESS_TOKEN }}
+          # IG kill switch — set repo variable SOCIAL_IG_DISABLED=1 to
+          # back IG off while keeping Threads firing. Used when IG's 24h
+          # rate limit needs to recover, or when investigating duplicates.
+          SOCIAL_IG_DISABLED: ${{ vars.SOCIAL_IG_DISABLED }}
         run: |
-          # If the required secrets aren't set yet, skip rather than fail
-          # the whole pipeline. Useful during initial token onboarding.
           if [ -z "$META_PAGE_ACCESS_TOKEN" ] || [ -z "$META_IG_USER_ID" ]; then
             echo "Meta tokens not yet configured — skipping social cross-post."
             exit 0
+          fi
+          if [ "$SOCIAL_IG_DISABLED" = "1" ]; then
+            echo "SOCIAL_IG_DISABLED=1 — IG calls will be skipped, Threads runs normally."
           fi
           npm run social:cross-post -- --since=4h
 
