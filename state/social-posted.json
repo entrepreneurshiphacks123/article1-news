@@ -258,6 +258,11 @@
         "platform": "ig_story",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AilVZhGxFMiLFUNUmS67Y49\"}}",
         "at": "2026-05-12T17:51:46.068Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AEdjseHo8KmUrsv0St3uxEn\"}}",
+        "at": "2026-05-12T18:51:33.863Z"
       }
     ],
     "posted_at": "2026-05-12T16:52:14.271Z"
@@ -293,6 +298,11 @@
         "platform": "threads",
         "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"A24uUnYagrC95Yl7lkuUToJ\"}}",
         "at": "2026-05-12T17:51:54.660Z"
+      },
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"A2SObhMnwWiYMP957fiGvOA\"}}",
+        "at": "2026-05-12T18:51:40.190Z"
       }
     ]
   },
@@ -307,6 +317,11 @@
         "platform": "threads",
         "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"Ae1bel9KuwZOx7RrnYVF7xt\"}}",
         "at": "2026-05-12T17:52:03.351Z"
+      },
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AWDEBEizy5LrjCrzBEw7XSG\"}}",
+        "at": "2026-05-12T18:51:52.278Z"
       }
     ]
   },
@@ -316,6 +331,11 @@
         "platform": "threads",
         "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AQtfUzhz4emrNWXvIMWCDG0\"}}",
         "at": "2026-05-12T17:52:11.058Z"
+      },
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AteVOYXOU6H3qXKwU7Xf1LU\"}}",
+        "at": "2026-05-12T18:51:57.771Z"
       }
     ]
   },
@@ -325,6 +345,11 @@
         "platform": "threads",
         "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AFk5UPfvCJv-HgIzkcDYr1t\"}}",
         "at": "2026-05-12T17:52:19.695Z"
+      },
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AJCPLvdTDIdD5DafsRAHMHL\"}}",
+        "at": "2026-05-12T18:52:20.612Z"
       }
     ]
   },
@@ -334,6 +359,56 @@
         "platform": "threads",
         "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AuIAk7tyAJFiXG_T3vM4G9F\"}}",
         "at": "2026-05-12T17:52:27.128Z"
+      },
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"Ao8E4fTeDFtacJ8LigUvhtw\"}}",
+        "at": "2026-05-12T18:52:26.454Z"
+      }
+    ]
+  },
+  "dollar12-trillion-for-a-shield-that-still-fails": {
+    "errors": [
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"A7bgXjrDqk24rGeKYHTQ6-q\"}}",
+        "at": "2026-05-12T18:51:46.606Z"
+      }
+    ]
+  },
+  "fda-commissioner-makary-resigns-amid-e-cigarette-policy-dispute": {
+    "errors": [
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AtOFpu5061m-mXS_JJDaf0t\"}}",
+        "at": "2026-05-12T18:52:03.738Z"
+      }
+    ]
+  },
+  "hawley-proposes-suspending-federal-gas-tax-amid-iran-conflict": {
+    "errors": [
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AfPwAgqLH2k7e2zrlKxQemU\"}}",
+        "at": "2026-05-12T18:52:09.329Z"
+      }
+    ]
+  },
+  "iran-war-costs-push-us-inflation-to-multi-year-high": {
+    "errors": [
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AXfXAoO6C987HvjqbPj0Mk0\"}}",
+        "at": "2026-05-12T18:52:14.754Z"
+      }
+    ]
+  },
+  "trump-and-xi-meet-with-iran-war-narrowing-summit-agenda": {
+    "errors": [
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AJkMjhViohOY7aPzMvWbapX\"}}",
+        "at": "2026-05-12T18:52:32.006Z"
       }
     ]
   }
