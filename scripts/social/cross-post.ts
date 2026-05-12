@@ -152,6 +152,26 @@ function storyImageUrl(slug: string): string {
 // rate-limits us (the 24h media-publish quota recovers slowly).
 const IG_DISABLED = process.env.SOCIAL_IG_DISABLED === '1';
 
+/**
+ * IG curation rule: Meta's Content Publishing API caps at ~25 posts/24h
+ * per IG Business Account. The bot writes 50+ posts/day × 2 IG surfaces
+ * (Story + Feed) = 100+ calls/day. We'd hit the cap inside 6 hours.
+ *
+ * Cross-post to IG ONLY when the post is "premium":
+ *   - Non-static formats: carousel / quote / numbers / headline / cartoon
+ *     (these are the editorial set-pieces we want on the grid)
+ *   - Static AND has a longform markdown body (analysis depth, 300+ words)
+ *
+ * Wire briefs (static + empty markdown body) — the high-volume PW-style
+ * posts — go to Threads only. They're discovery-fuel, not grid-content.
+ *
+ * Expected IG volume: ~10-15 posts/day, well under the 25 cap.
+ */
+function isPremiumForIg(post: PostFront, markdownBody: string): boolean {
+  if (post.type !== 'static') return true;
+  return markdownBody.trim().length > 100;  // analysis posts have hundreds-of-chars longform; wire has ~0
+}
+
 // IG rate-limit detection — once we see code-9 subcode-2207042 / 2207069
 // in a cycle, every subsequent IG call also fails the same way. Setting
 // this flag short-circuits the rest of the IG calls for the cycle so we
@@ -163,9 +183,11 @@ function looksLikeIgRateLimit(err: unknown): boolean {
   return m.includes('2207042') || m.includes('2207069') || m.includes('Media publish limit') || m.includes('Media creation limit');
 }
 
-async function postOne(slug: string, post: PostFront, state: SocialState): Promise<void> {
+async function postOne(slug: string, post: PostFront, markdownBody: string, state: SocialState): Promise<void> {
   const s: PostState = state[slug] ?? {};
   state[slug] = s;
+
+  const igEligible = isPremiumForIg(post, markdownBody);
 
   // Lazily build configs only when needed so we can run --dry without tokens.
   const lazyThreads = (): ThreadsConfig => {
@@ -224,8 +246,8 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
     }
   }
 
-  // 2. IG Story (1080x1920 Story PNG)
-  if (!s.ig_story && !IG_DISABLED && !igRateLimited) {
+  // 2. IG Story (1080x1920 Story PNG) — only for premium content
+  if (!s.ig_story && !IG_DISABLED && !igRateLimited && igEligible) {
     try {
       const imageUrl = storyImageUrl(slug);
       console.log(`  → ig story: ${imageUrl}`);
@@ -243,14 +265,17 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
         console.error(`    ⚠ IG RATE LIMITED — skipping all remaining IG calls this cycle`);
       }
     }
-  } else if (IG_DISABLED || igRateLimited) {
-    // Don't fall back to retrying every cycle when IG is intentionally off or
-    // throttled. Mark a soft-skip in state so we don't accumulate error logs.
-    if (!s.ig_story) console.log(`  ○ ig story: skipped (${IG_DISABLED ? 'IG_DISABLED' : 'rate-limited'})`);
+  } else if (!s.ig_story) {
+    // Soft-skip — log the reason so the audit trail is clean.
+    const reason = !igEligible ? 'wire (Threads only)'
+      : IG_DISABLED ? 'IG_DISABLED'
+      : igRateLimited ? 'rate-limited'
+      : 'already-posted';
+    console.log(`  ○ ig story: skipped (${reason})`);
   }
 
-  // 3. IG Feed (single or carousel, with first comment)
-  if (!s.ig_feed && !IG_DISABLED && !igRateLimited) {
+  // 3. IG Feed (single or carousel, with first comment) — only premium
+  if (!s.ig_feed && !IG_DISABLED && !igRateLimited && igEligible) {
     try {
       const imageUrls = feedImageUrls(slug, post);
       const caption = buildFeedCaption({
@@ -294,8 +319,12 @@ async function postOne(slug: string, post: PostFront, state: SocialState): Promi
         console.error(`    ⚠ IG RATE LIMITED — skipping all remaining IG calls this cycle`);
       }
     }
-  } else if (IG_DISABLED || igRateLimited) {
-    if (!s.ig_feed) console.log(`  ○ ig feed:  skipped (${IG_DISABLED ? 'IG_DISABLED' : 'rate-limited'})`);
+  } else if (!s.ig_feed) {
+    const reason = !igEligible ? 'wire (Threads only)'
+      : IG_DISABLED ? 'IG_DISABLED'
+      : igRateLimited ? 'rate-limited'
+      : 'already-posted';
+    console.log(`  ○ ig feed:  skipped (${reason})`);
   }
 
   if (s.threads || s.ig_feed || s.ig_story) {
@@ -339,16 +368,21 @@ async function main() {
     }
 
     // --slug bypasses the already-posted check so we can re-fire a platform.
+    // Wire posts only need Threads + reply done to count as complete (IG
+    // isn't applicable per the curation rule), so the check is more nuanced.
     if (TARGET_SLUG === null) {
       const existing = state[slug];
-      if (existing && existing.threads && existing.ig_feed && existing.ig_story) {
+      const threadsDone = !!existing?.threads && !!existing?.threads_reply;
+      const igNeeded = isPremiumForIg(post, fm.content);
+      const igDone = !igNeeded || (!!existing?.ig_feed && !!existing?.ig_story);
+      if (existing && threadsDone && igDone) {
         skipped++;
         continue;
       }
     }
 
     console.log(`\n[social] ${slug}`);
-    await postOne(slug, post, state);
+    await postOne(slug, post, fm.content, state);
     processed++;
     // Save state incrementally so partial successes survive a crash mid-batch.
     if (!DRY) await saveState(state);
