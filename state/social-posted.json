@@ -665,7 +665,9 @@
     ],
     "ig_story": "18084228950232730",
     "ig_feed": "18079420853631860",
-    "posted_at": "2026-05-12T23:22:45.049Z"
+    "posted_at": "2026-05-12T23:22:45.049Z",
+    "threads": "18089933159251659",
+    "threads_reply": "18320638381260551"
   },
   "jho-low-requests-presidential-pardon-for-1mdb-fraud-charges": {
     "threads": "18340970941170418",
@@ -686,5 +688,32 @@
     "threads": "18088579163348699",
     "threads_reply": "18072770216303926",
     "posted_at": "2026-05-12T23:23:59.785Z"
+  },
+  "arcadia-mayor-resigns-after-pleading-guilty-to-foreign-agent-charge": {
+    "threads": "18389087569094737",
+    "threads_reply": "18056484800724596",
+    "posted_at": "2026-05-12T23:52:53.899Z"
+  },
+  "democrats-propose-windfall-tax-on-oil-profits-over-dollar75-barrel": {
+    "threads": "17911361610200304",
+    "threads_reply": "18020861174664913",
+    "posted_at": "2026-05-12T23:53:35.523Z"
+  },
+  "iran-shock-hands-republicans-a-38percent-problem-to-dodge": {
+    "threads": "18046983371772356",
+    "threads_reply": "17947556166000620",
+    "ig_story": "18012376826902990",
+    "ig_feed": "18586989202027769",
+    "posted_at": "2026-05-12T23:54:21.744Z"
+  },
+  "trump-rejects-course-change-as-iran-war-lifts-consumer-prices": {
+    "threads": "18117599638776305",
+    "threads_reply": "18358952623234114",
+    "posted_at": "2026-05-12T23:54:43.164Z"
+  },
+  "trump-travels-to-beijing-for-summit-with-xi-jinping": {
+    "threads": "18119804935658738",
+    "threads_reply": "18096798161127592",
+    "posted_at": "2026-05-12T23:55:05.598Z"
   }
 }
