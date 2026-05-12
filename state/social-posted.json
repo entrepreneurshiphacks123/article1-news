@@ -654,5 +654,37 @@
     "threads": "17967403257061646",
     "threads_reply": "18059400221717431",
     "posted_at": "2026-05-12T22:53:58.717Z"
+  },
+  "comey-names-the-pattern-doj-as-instrument-of-retribution": {
+    "errors": [
+      {
+        "platform": "threads",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Calls to this api have exceeded the rate limit.\",\"type\":\"OAuthException\",\"code\":613,\"error_subcode\":4279002,\"is_transient\":false,\"error_user_title\":\"Threads API Rate Limit Exceeded\",\"error_user_msg\":\"You have exceeded your allowed allotment of posts on Threads.\",\"fbtrace_id\":\"AtNzS_myUaJqaxnokLmT6Ro\"}}",
+        "at": "2026-05-12T23:22:04.554Z"
+      }
+    ],
+    "ig_story": "18084228950232730",
+    "ig_feed": "18079420853631860",
+    "posted_at": "2026-05-12T23:22:45.049Z"
+  },
+  "jho-low-requests-presidential-pardon-for-1mdb-fraud-charges": {
+    "threads": "18340970941170418",
+    "threads_reply": "17964807936074729",
+    "posted_at": "2026-05-12T23:23:04.877Z"
+  },
+  "kennedy-loses-cdc-surgeon-general-and-fda-allies-in-weeks": {
+    "threads": "18123894979624131",
+    "threads_reply": "18091650260337426",
+    "posted_at": "2026-05-12T23:23:22.444Z"
+  },
+  "trump-and-xi-plan-direct-talks-on-artificial-intelligence": {
+    "threads": "18097131215149468",
+    "threads_reply": "18103782391974455",
+    "posted_at": "2026-05-12T23:23:41.001Z"
+  },
+  "white-house-names-david-venturella-interim-ice-director": {
+    "threads": "18088579163348699",
+    "threads_reply": "18072770216303926",
+    "posted_at": "2026-05-12T23:23:59.785Z"
   }
 }
