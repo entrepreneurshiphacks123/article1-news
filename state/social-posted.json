@@ -4,5 +4,141 @@
     "ig_story": "17849734521694406",
     "ig_feed": "18593751412016655",
     "posted_at": "2026-05-11T17:31:34.702Z"
+  },
+  "alabama-black-lawmakers-oppose-republican-redistricting-push": {
+    "threads": "18096253187134383",
+    "threads_reply": "18124385836557816",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A11BZ8sjW5Z4b_bf-aWwsi-\"}}",
+        "at": "2026-05-12T05:52:26.730Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"Aj7rwlhCoSDQ_nZ6O0V9We_\"}}",
+        "at": "2026-05-12T05:52:33.971Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:52:33.971Z"
+  },
+  "doj-subpoenas-wall-street-journal-over-iran-deliberations-article": {
+    "threads": "18214369990329380",
+    "threads_reply": "18587803492058472",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AtCfVfiieO0uLE5btUzPeg4\"}}",
+        "at": "2026-05-12T05:53:04.069Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"Aj7thTNoz7pNqNMSFKAgltq\"}}",
+        "at": "2026-05-12T05:53:10.824Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:53:10.824Z"
+  },
+  "the-court-redraws-the-map-what-the-voting-rights-ruling-changes": {
+    "threads": "17875211778668427",
+    "threads_reply": "18136928836531094",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AGtgF4rKRQ-ZLMHcNWkKuUm\"}}",
+        "at": "2026-05-12T05:53:38.389Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AviZaDAm2ferOsyfVP_9PQZ\"}}",
+        "at": "2026-05-12T05:54:08.458Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:54:08.458Z"
+  },
+  "three-democrats-compete-for-pelosis-san-francisco-seat": {
+    "threads": "17972403612022461",
+    "threads_reply": "18091757858244106",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"ADTioSoFIyME7YgBjc4jPSX\"}}",
+        "at": "2026-05-12T05:54:30.086Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A9WrH4Z0T4PeZbo583wEMsX\"}}",
+        "at": "2026-05-12T05:54:37.427Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:54:37.427Z"
+  },
+  "trump-and-xi-schedule-thursday-trade-and-iran-talks": {
+    "threads": "18044493512786434",
+    "threads_reply": "17998229981764454",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A0MSu2adWbsMMyLrj-wwis-\"}}",
+        "at": "2026-05-12T05:55:01.580Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AuFoIOAmgG18XZa4ydOvYYf\"}}",
+        "at": "2026-05-12T05:55:14.998Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:55:14.999Z"
+  },
+  "trump-rejects-iran-peace-offer-warns-ceasefire-failing": {
+    "threads": "18017439401844197",
+    "threads_reply": "18063813437414300",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A0FO_g30xl4vw2HB47cwLaj\"}}",
+        "at": "2026-05-12T05:55:39.667Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AXSf8snSaSIAnViXmOVdsT1\"}}",
+        "at": "2026-05-12T05:55:47.675Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:55:47.675Z"
+  },
+  "trump-urges-south-carolina-republicans-to-redraw-congressional-map": {
+    "threads": "18355803547213941",
+    "threads_reply": "17949753300010081",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"ABXn8CKeDoCWJ1IAKSNA-dY\"}}",
+        "at": "2026-05-12T05:56:11.811Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AAy-93Y_xISWdW0VjfUGlTi\"}}",
+        "at": "2026-05-12T05:56:19.581Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:56:19.581Z"
+  },
+  "trump-visits-beijing-for-summit-with-xi-on-trade-and-iran": {
+    "threads": "18401653195150237",
+    "threads_reply": "18087265460617483",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"Acr1yZ6X1Qnr8mgJAEhLRdx\"}}",
+        "at": "2026-05-12T05:56:42.058Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AZZRPgTzbY_A2FP-aws2ii4\"}}",
+        "at": "2026-05-12T05:56:51.356Z"
+      }
+    ],
+    "posted_at": "2026-05-12T05:56:51.356Z"
   }
 }
