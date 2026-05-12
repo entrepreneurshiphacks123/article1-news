@@ -298,16 +298,6 @@
     "errors": [
       {
         "platform": "ig_story",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AZ_lRw3F2W-9A3vSIED00ke\"}}",
-        "at": "2026-05-12T08:52:46.757Z"
-      },
-      {
-        "platform": "ig_feed",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AR79QRn44_tlL5AyUOHXZAN\"}}",
-        "at": "2026-05-12T08:52:53.330Z"
-      },
-      {
-        "platform": "ig_story",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AD-8ky-1l82_rdlWskePveb\"}}",
         "at": "2026-05-12T09:22:46.160Z"
       },
@@ -325,6 +315,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"ADMWn5kYCBlClpGivgSjIW0\"}}",
         "at": "2026-05-12T11:22:44.735Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"Ah10AWP4Yrw8OZUUh5ImaLa\"}}",
+        "at": "2026-05-12T12:22:37.047Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AlAgWgfjNzse9UaE6jBYapg\"}}",
+        "at": "2026-05-12T12:22:37.458Z"
       }
     ],
     "posted_at": "2026-05-12T08:52:53.330Z"
@@ -333,16 +333,6 @@
     "threads": "17917157622363055",
     "threads_reply": "18064431002406371",
     "errors": [
-      {
-        "platform": "ig_story",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AegJ1SDDwMs-yk_2ytf-_f6\"}}",
-        "at": "2026-05-12T08:53:33.185Z"
-      },
-      {
-        "platform": "ig_feed",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AOs6SaBN9rLdIPysEDjnf8k\"}}",
-        "at": "2026-05-12T08:53:39.370Z"
-      },
       {
         "platform": "ig_story",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AnBDc8y6caLX45bE84All8G\"}}",
@@ -362,6 +352,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AyW07e0JaTSCRJKJAwYJN3H\"}}",
         "at": "2026-05-12T11:23:36.179Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A5YWwOVFEFXeykYNBmrQeRt\"}}",
+        "at": "2026-05-12T12:22:43.151Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AYQGVF1GMzrfurDQmyosMCt\"}}",
+        "at": "2026-05-12T12:22:43.525Z"
       }
     ],
     "posted_at": "2026-05-12T08:53:39.370Z"
@@ -370,16 +370,6 @@
     "threads": "18012014906703953",
     "threads_reply": "18586537624060225",
     "errors": [
-      {
-        "platform": "ig_story",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AbNDYIHAqVHuXYD4ix9KiPo\"}}",
-        "at": "2026-05-12T08:54:11.427Z"
-      },
-      {
-        "platform": "ig_feed",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AYUGA6sCJUS1YHkQm8AVTF0\"}}",
-        "at": "2026-05-12T08:54:17.458Z"
-      },
       {
         "platform": "ig_story",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"ABAkMkIlcOCMxf48Clpbto5\"}}",
@@ -399,6 +389,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AmMT6KtOSrJHp1pFg9VmONV\"}}",
         "at": "2026-05-12T11:23:37.217Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AWGK9HjpKA1KMUs5sq4v0c6\"}}",
+        "at": "2026-05-12T12:22:43.863Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AleOTTeDI2KRBX4CBp3P6_f\"}}",
+        "at": "2026-05-12T12:22:44.267Z"
       }
     ],
     "posted_at": "2026-05-12T08:54:17.458Z"
@@ -407,16 +407,6 @@
     "threads": "18447956401112923",
     "threads_reply": "17918190717358106",
     "errors": [
-      {
-        "platform": "ig_story",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"A-pUpEz1L12K5sFcU83wxA_\"}}",
-        "at": "2026-05-12T08:54:45.822Z"
-      },
-      {
-        "platform": "ig_feed",
-        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207042,\"error_user_title\":\"Media publish limit exceeded\",\"error_user_msg\":\"You reached the maximum number of posts that is allowed to be published by Content Publishing API.\",\"fbtrace_id\":\"AmD8d4Hq80t3h9pTiDmZT74\"}}",
-        "at": "2026-05-12T08:54:53.425Z"
-      },
       {
         "platform": "ig_story",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AbT6jV0wN4Qa8Gfjlq4Ijbo\"}}",
@@ -436,6 +426,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AXub28Di7U_VjOq3hS6UyvX\"}}",
         "at": "2026-05-12T11:23:38.102Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AhEwrJcnzN198aW6IbJ5nxv\"}}",
+        "at": "2026-05-12T12:23:05.963Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"ABjw9dJ6OCmdHadaORYhdK3\"}}",
+        "at": "2026-05-12T12:23:06.244Z"
       }
     ],
     "posted_at": "2026-05-12T08:54:53.425Z"
@@ -500,6 +500,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AWApvma-Q5sDiLjTnRreVuo\"}}",
         "at": "2026-05-12T11:22:18.120Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A3OzOqJZx_ydiyE3pOYYt1B\"}}",
+        "at": "2026-05-12T12:22:34.849Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AZSo2Xm_qrpu08RX6KQ2sGQ\"}}",
+        "at": "2026-05-12T12:22:35.209Z"
       }
     ],
     "posted_at": "2026-05-12T09:22:23.466Z"
@@ -527,6 +537,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AfO-ax0R_cqDe74oayNjuZA\"}}",
         "at": "2026-05-12T11:22:44.039Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AoLuswlhaVyWXJ2U-C3T89U\"}}",
+        "at": "2026-05-12T12:22:36.297Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AEinE89TWdl1tjfUvxIT9nu\"}}",
+        "at": "2026-05-12T12:22:36.712Z"
       }
     ],
     "posted_at": "2026-05-12T09:22:45.798Z"
@@ -554,6 +574,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A6PgLZmYQA5HdNsrVV7GrTU\"}}",
         "at": "2026-05-12T11:23:34.270Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AHXdcqEbLql2174BMc75ldT\"}}",
+        "at": "2026-05-12T12:22:39.166Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AM8PGmy028lZqqGVEqzRHOL\"}}",
+        "at": "2026-05-12T12:22:39.576Z"
       }
     ],
     "posted_at": "2026-05-12T09:23:07.496Z"
@@ -581,6 +611,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AKlwCCQG_LauBprgAi8HWUR\"}}",
         "at": "2026-05-12T11:23:35.256Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A6Fq3a693njHnWWGQgZj56V\"}}",
+        "at": "2026-05-12T12:22:39.852Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AAOqmZ8_vfDwD1Y9wGB_cDc\"}}",
+        "at": "2026-05-12T12:22:40.242Z"
       }
     ],
     "posted_at": "2026-05-12T09:23:27.644Z"
@@ -608,6 +648,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A_K4SGVUEeC__mdvYfcTSF8\"}}",
         "at": "2026-05-12T11:23:38.958Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AXrdQJ7QHEnfT-1s9tnhGHY\"}}",
+        "at": "2026-05-12T12:23:28.897Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A09w2F9uR-Fmr-KoarNa8e9\"}}",
+        "at": "2026-05-12T12:23:29.202Z"
       }
     ],
     "posted_at": "2026-05-12T09:23:50.554Z"
@@ -625,6 +675,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AeM408Q8kuDAm80Q4pqgTVo\"}}",
         "at": "2026-05-12T11:22:43.271Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AfVECJVbX1GbZvhJpOhlw1O\"}}",
+        "at": "2026-05-12T12:22:35.600Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AnzzqVPHb7Tj-us983SJ2uU\"}}",
+        "at": "2026-05-12T12:22:35.967Z"
       }
     ],
     "posted_at": "2026-05-12T11:22:43.271Z"
@@ -642,6 +702,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AZha7_x78TBL3SDxCF1P9YL\"}}",
         "at": "2026-05-12T11:23:08.550Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AtGG9q6hNSwMLhILpB9VA2a\"}}",
+        "at": "2026-05-12T12:22:37.829Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AulY6k27IGCOZrPJZ74iM_A\"}}",
+        "at": "2026-05-12T12:22:38.194Z"
       }
     ],
     "posted_at": "2026-05-12T11:23:08.550Z"
@@ -659,6 +729,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"ABRSxAJHt4SiaU6cnXSj0Av\"}}",
         "at": "2026-05-12T11:23:33.339Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"ABXzdZG6ab9AC8wl85dvvwp\"}}",
+        "at": "2026-05-12T12:22:38.511Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AumCNbfskE1Cy8OZWlsN7z2\"}}",
+        "at": "2026-05-12T12:22:38.815Z"
       }
     ],
     "posted_at": "2026-05-12T11:23:33.339Z"
@@ -676,6 +756,16 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AuwYKD0OVJaoDPL8cHxFfRh\"}}",
         "at": "2026-05-12T11:24:02.492Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A0sMHXZ0sD4tJ8i49DGc4r2\"}}",
+        "at": "2026-05-12T12:23:51.319Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A_8g6S3kpUQ-AF8z0aW46sA\"}}",
+        "at": "2026-05-12T12:23:52.222Z"
       }
     ],
     "posted_at": "2026-05-12T11:24:02.492Z"
@@ -693,8 +783,120 @@
         "platform": "ig_feed",
         "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A8VvMXnMYcNfsqPDPXpPe9O\"}}",
         "at": "2026-05-12T11:24:25.082Z"
+      },
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AI_mZ7szBwA_af_5-f2Tkwm\"}}",
+        "at": "2026-05-12T12:24:35.279Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AiTAyIxXwOHUH_-dZaqp2Lh\"}}",
+        "at": "2026-05-12T12:24:35.723Z"
       }
     ],
     "posted_at": "2026-05-12T11:24:25.082Z"
+  },
+  "a-party-tests-whether-religious-identity-still-has-a-primary-ceiling": {
+    "threads": "17945482662011605",
+    "threads_reply": "18210907876335816",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AzYeHxdmrZ_G0g1w4FS1Ots\"}}",
+        "at": "2026-05-12T12:22:34.151Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A7_8_Z-dzx7v1Mo-fXm672Q\"}}",
+        "at": "2026-05-12T12:22:34.420Z"
+      }
+    ],
+    "posted_at": "2026-05-12T12:22:34.420Z"
+  },
+  "pentagon-requests-dollar15-trillion-for-fy2027-defense-budget": {
+    "threads": "18082085219396473",
+    "threads_reply": "18108275675306462",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"Acd_IRU5EeMCTtVsgFE2tmH\"}}",
+        "at": "2026-05-12T12:23:05.232Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"A_fGuuUHZS9YwENfZ0Vfv_O\"}}",
+        "at": "2026-05-12T12:23:05.549Z"
+      }
+    ],
+    "posted_at": "2026-05-12T12:23:05.549Z"
+  },
+  "trump-declares-iran-ceasefire-on-life-support": {
+    "threads": "18174449437405827",
+    "threads_reply": "18106331489298986",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AoOX-JzufKmZGKAiir_tsCG\"}}",
+        "at": "2026-05-12T12:23:28.298Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AThyKLCNKJp94LADmX1zVMm\"}}",
+        "at": "2026-05-12T12:23:28.602Z"
+      }
+    ],
+    "posted_at": "2026-05-12T12:23:28.602Z"
+  },
+  "trump-tells-house-to-pass-senate-housing-affordability-bill": {
+    "threads": "18201865690346892",
+    "threads_reply": "18092237747227098",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"Aw1Jv8y3q-lFOnggyLKdf6d\"}}",
+        "at": "2026-05-12T12:23:50.584Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AGpg2quM4z-yUKOGGVFz8Qf\"}}",
+        "at": "2026-05-12T12:23:50.824Z"
+      }
+    ],
+    "posted_at": "2026-05-12T12:23:50.824Z"
+  },
+  "two-thirds-of-gen-z-borrowers-are-postponing-adulthood": {
+    "threads": "18092553113582355",
+    "threads_reply": "18072569144653312",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"Aenuwq3Eve8RCJOCCC-RtNV\"}}",
+        "at": "2026-05-12T12:24:13.805Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AVYYsasCeyMGmblPgQm-lJp\"}}",
+        "at": "2026-05-12T12:24:14.171Z"
+      }
+    ],
+    "posted_at": "2026-05-12T12:24:14.171Z"
+  },
+  "us-and-china-hold-senior-level-talks-in-beijing": {
+    "threads": "18106286725946131",
+    "threads_reply": "18046744982781290",
+    "errors": [
+      {
+        "platform": "ig_story",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"AcZ_Iqd6iPuGp884IYu_IA9\"}}",
+        "at": "2026-05-12T12:24:34.574Z"
+      },
+      {
+        "platform": "ig_feed",
+        "message": "IG Graph API 400: {\"error\":{\"message\":\"User is performing too many actions\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":9,\"error_subcode\":2207069,\"error_user_title\":\"Media creation limit exceeded\",\"error_user_msg\":\"You've reached maximum number of posts that are allowed to be created by Content Publishing API. For more context, please check Instagram Graph API – content publishing developer doc.\",\"fbtrace_id\":\"ApYCZr7HNa4gQDHuD4UaxsO\"}}",
+        "at": "2026-05-12T12:24:34.963Z"
+      }
+    ],
+    "posted_at": "2026-05-12T12:24:34.963Z"
   }
 }
