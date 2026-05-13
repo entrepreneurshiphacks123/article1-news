@@ -928,5 +928,31 @@
     "threads": "17998487522939579",
     "threads_reply": "17997688550944405",
     "posted_at": "2026-05-13T12:24:46.975Z"
+  },
+  "nato-plans-gulf-state-invites-for-ankara-summit": {
+    "threads": "18103022635792793",
+    "threads_reply": "17879824413434866",
+    "posted_at": "2026-05-13T13:22:19.295Z"
+  },
+  "trump-arrives-in-beijing-for-state-visit-with-xi": {
+    "threads": "18104530522763273",
+    "errors": [
+      {
+        "platform": "threads_reply",
+        "message": "Threads API 400: {\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":4279047,\"is_transient\":false,\"error_user_title\":\"Invalid Link Attachment\",\"error_user_msg\":\"The post you're trying to publish has an invalid link attachment.\",\"fbtrace_id\":\"AK_mIf7T453EluJwgD2iisj\"}}",
+        "at": "2026-05-13T13:22:45.414Z"
+      }
+    ],
+    "posted_at": "2026-05-13T13:22:45.414Z"
+  },
+  "trump-visits-beijing-for-first-china-state-visit-since-2017": {
+    "threads": "17916984993364453",
+    "threads_reply": "18119653009733188",
+    "posted_at": "2026-05-13T13:23:08.406Z"
+  },
+  "vance-and-rubio-diverge-on-iran-war-approach": {
+    "threads": "18081782945136131",
+    "threads_reply": "17926143285312538",
+    "posted_at": "2026-05-13T13:23:31.639Z"
   }
 }
