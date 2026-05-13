@@ -943,7 +943,8 @@
         "at": "2026-05-13T13:22:45.414Z"
       }
     ],
-    "posted_at": "2026-05-13T13:22:45.414Z"
+    "posted_at": "2026-05-13T13:22:45.414Z",
+    "threads_reply": "18103309388019260"
   },
   "trump-visits-beijing-for-first-china-state-visit-since-2017": {
     "threads": "17916984993364453",
@@ -954,5 +955,37 @@
     "threads": "18081782945136131",
     "threads_reply": "17926143285312538",
     "posted_at": "2026-05-13T13:23:31.639Z"
+  },
+  "77-percent-of-americans-say-trump-raised-their-costs": {
+    "threads": "18003852101916972",
+    "threads_reply": "17861191398690298",
+    "ig_story": "18582839362038664",
+    "ig_feed": "18062458046450425",
+    "posted_at": "2026-05-13T14:52:31.995Z"
+  },
+  "fda-commissioner-resigns-after-white-house-sides-with-tobacco-industry-on-vapes": {
+    "threads": "18141024883520292",
+    "threads_reply": "18123352642629264",
+    "posted_at": "2026-05-13T14:52:55.641Z"
+  },
+  "nebraska-secretary-of-state-loses-gop-primary-to-election-skeptic": {
+    "threads": "18175679899363247",
+    "threads_reply": "18081131897398281",
+    "posted_at": "2026-05-13T14:53:18.371Z"
+  },
+  "states-begin-tracking-residents-exposed-in-cruise-ship-hantavirus-outbreak": {
+    "threads": "17947101744170870",
+    "threads_reply": "18092704175244214",
+    "posted_at": "2026-05-13T14:53:40.766Z"
+  },
+  "trump-visits-beijing-for-first-china-trip-in-a-decade": {
+    "threads": "17943373692192790",
+    "threads_reply": "18590030524059386",
+    "posted_at": "2026-05-13T14:54:18.081Z"
+  },
+  "zeldin-defends-52-percent-epa-budget-cut-before-senate-appropriations": {
+    "threads": "17868547011617896",
+    "threads_reply": "17987805374798753",
+    "posted_at": "2026-05-13T14:54:41.674Z"
   }
 }
