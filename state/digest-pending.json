@@ -1,47 +1,47 @@
 {
-  "slot": "afternoon",
+  "slot": "evening",
   "date": "2026-05-14",
   "posts": [
     {
-      "slug": "makary-leaves-fda-with-acting-commissioner-kyle-diamantas-named",
-      "headline": "Makary Leaves FDA With Acting Commissioner Kyle Diamantas Named",
-      "outlet": "STAT News",
-      "date": "2026-05-14T20:14:09.000Z"
+      "slug": "house-rejects-iran-war-powers-resolution-for-third-time",
+      "headline": "House Rejects Iran War Powers Resolution for Third Time",
+      "outlet": "CBS News Politics",
+      "date": "2026-05-14T21:05:26.000Z"
     },
     {
-      "slug": "top-us-commander-rejects-reports-of-civilian-deaths-in-iran-strikes",
-      "headline": "Top U.S. Commander Rejects Reports of Civilian Deaths in Iran Strikes",
-      "outlet": "NYT Politics",
-      "date": "2026-05-14T20:13:43.000Z"
+      "slug": "mcmaster-announces-special-session-to-redraw-congressional-maps",
+      "headline": "McMaster Announces Special Session to Redraw Congressional Maps",
+      "outlet": "NBC News Politics",
+      "date": "2026-05-14T21:00:35.000Z"
     },
     {
-      "slug": "doj-sues-yale-medical-school-over-admissions-practices",
-      "headline": "DOJ Sues Yale Medical School Over Admissions Practices",
-      "outlet": "NYT Politics",
-      "date": "2026-05-14T19:44:46.000Z"
-    },
-    {
-      "slug": "trump-visits-beijing-for-talks-with-xi-jinping",
-      "headline": "Trump Visits Beijing for Talks With Xi Jinping",
+      "slug": "maga-and-kennedy-allies-target-louisiana-senator-cassidy-in-primary",
+      "headline": "MAGA and Kennedy Allies Target Louisiana Senator Cassidy in Primary",
       "outlet": "Bloomberg Politics",
-      "date": "2026-05-14T19:36:25.000Z"
+      "date": "2026-05-14T20:30:40.000Z"
     },
     {
-      "slug": "louisiana-legislature-votes-to-redraw-black-congressional-district",
-      "headline": "Louisiana Legislature Votes to Redraw Black Congressional District",
-      "outlet": "Washington Post Politics",
-      "date": "2026-05-14T19:17:24.000Z"
+      "slug": "supreme-court-unanimously-lets-trucking-broker-lawsuit-proceed",
+      "headline": "Supreme Court Unanimously Lets Trucking Broker Lawsuit Proceed",
+      "outlet": "CBS News Politics",
+      "date": "2026-05-14T20:26:00.000Z"
+    },
+    {
+      "slug": "cdc-monitors-41-people-for-hantavirus-reports-no-us-cases",
+      "headline": "CDC Monitors 41 People for Hantavirus, Reports No U.S. Cases",
+      "outlet": "The Hill",
+      "date": "2026-05-14T20:14:43.000Z"
     }
   ],
   "feedFiles": [
-    "og-feed/digest-afternoon-2026-05-14-1.png",
-    "og-feed/digest-afternoon-2026-05-14-2.png",
-    "og-feed/digest-afternoon-2026-05-14-3.png",
-    "og-feed/digest-afternoon-2026-05-14-4.png",
-    "og-feed/digest-afternoon-2026-05-14-5.png",
-    "og-feed/digest-afternoon-2026-05-14-6.png",
-    "og-feed/digest-afternoon-2026-05-14-7.png"
+    "og-feed/digest-evening-2026-05-14-1.png",
+    "og-feed/digest-evening-2026-05-14-2.png",
+    "og-feed/digest-evening-2026-05-14-3.png",
+    "og-feed/digest-evening-2026-05-14-4.png",
+    "og-feed/digest-evening-2026-05-14-5.png",
+    "og-feed/digest-evening-2026-05-14-6.png",
+    "og-feed/digest-evening-2026-05-14-7.png"
   ],
-  "storyFile": "og-stories/digest-afternoon-2026-05-14.png",
-  "renderedAt": "2026-05-14T21:18:59.235Z"
+  "storyFile": "og-stories/digest-evening-2026-05-14.png",
+  "renderedAt": "2026-05-14T22:18:17.587Z"
 }
