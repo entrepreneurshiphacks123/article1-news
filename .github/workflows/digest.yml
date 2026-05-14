@@ -1,0 +1,148 @@
+name: Article I IG Digest
+
+# Fires at 7am / 4pm / 7pm ET for scheduled Instagram digests.
+# Two UTC crons per slot cover both DST (UTC-4) and standard time (UTC-5).
+# The ig-digest.ts script auto-detects the correct slot from ET time;
+# if the ET hour doesn't land in a known window it exits cleanly.
+#
+# Slots:
+#   Morning   7am ET → 11:00 UTC (DST) / 12:00 UTC (standard)
+#   Afternoon 4pm ET → 20:00 UTC (DST) / 21:00 UTC (standard)
+#   Evening   7pm ET → 23:00 UTC (DST) / 00:00 UTC (standard = midnight+)
+#
+# workflow_dispatch lets us manually fire with an explicit slot for testing.
+on:
+  schedule:
+    - cron: '5 11 * * *'  # 7am ET (DST)
+    - cron: '5 12 * * *'  # 7am ET (standard)
+    - cron: '5 20 * * *'  # 4pm ET (DST)
+    - cron: '5 21 * * *'  # 4pm ET (standard)
+    - cron: '5 23 * * *'  # 7pm ET (DST)
+    - cron: '5 0 * * *'   # 7pm ET (standard, midnight UTC)
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: 'morning | afternoon | evening | auto'
+        required: false
+        default: 'auto'
+      dry:
+        description: 'Dry run (renders + logs but no IG posts)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: digest
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Install Chrome
+        run: |
+          if ! command -v google-chrome >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo apt-get install -y -qq /tmp/chrome.deb
+          fi
+
+      - name: Render digest images
+        run: |
+          SLOT="${{ inputs.slot || 'auto' }}"
+          DRY_FLAG=""
+          if [ "${{ inputs.dry }}" = "true" ]; then DRY_FLAG="--dry"; fi
+          npm run social:digest -- --phase=render --slot="$SLOT" $DRY_FLAG
+
+      - name: Commit digest images
+        run: |
+          git config user.name "article1-bot"
+          git config user.email "bot@article1.news"
+          git add public/og-feed/digest-*.png public/og-stories/digest-*.png state/digest-pending.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No digest images to commit (slot may not have been in window, or no posts in window)."
+            exit 0
+          fi
+          git -c commit.gpgsign=false commit -m "[bot] digest images $(date -u +%Y-%m-%dT%H:%M)"
+          for attempt in 1 2 3; do
+            if git -c rebase.autoStash=true pull --rebase origin main; then
+              if git push; then
+                echo "Push succeeded on attempt $attempt."
+                break
+              fi
+            fi
+            echo "Attempt $attempt failed, retrying in 3s..."
+            sleep 3
+          done
+
+      - name: Wait for Cloudflare Pages to serve digest images
+        run: |
+          # Find the newest digest feed PNG just committed
+          newest_png=$(git diff HEAD~1 HEAD --name-only --diff-filter=A 2>/dev/null \
+                       | grep -E "^public/og-feed/digest-.+\.png$" \
+                       | head -1 | sed "s|^public/||")
+          if [ -z "$newest_png" ]; then
+            echo "No new digest PNGs in last commit — skipping CDN wait."
+            exit 0
+          fi
+          echo "Waiting for https://article1.news/${newest_png} to deploy..."
+          for i in $(seq 1 18); do
+            code=$(curl -sI "https://article1.news/${newest_png}" -o /dev/null -w '%{http_code}')
+            if [ "$code" = "200" ]; then
+              echo "CDN ready after ${i}0s."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "CDN still serving 404 after 3min — proceeding anyway (IG may fail if image not available)."
+
+      - name: Post digest to Instagram
+        if: ${{ inputs.dry != 'true' }}
+        env:
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+          META_IG_USER_ID:        ${{ secrets.META_IG_USER_ID }}
+        run: |
+          if [ -z "$META_PAGE_ACCESS_TOKEN" ] || [ -z "$META_IG_USER_ID" ]; then
+            echo "Meta tokens not configured — skipping."
+            exit 0
+          fi
+          SLOT="${{ inputs.slot || 'auto' }}"
+          npm run social:digest -- --phase=post --slot="$SLOT"
+
+      - name: Commit digest state
+        run: |
+          git config user.name "article1-bot"
+          git config user.email "bot@article1.news"
+          git add state/digest-posted.json state/digest-pending.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No digest state changes."
+            exit 0
+          fi
+          git -c commit.gpgsign=false commit -m "[bot] digest state $(date -u +%Y-%m-%dT%H:%M)"
+          for attempt in 1 2 3; do
+            if git -c rebase.autoStash=true pull --rebase origin main; then
+              if git push; then
+                echo "Digest state push succeeded."
+                exit 0
+              fi
+            fi
+            sleep 3
+          done

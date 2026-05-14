@@ -108,7 +108,8 @@ Return ONLY a JSON object matching this schema:
       "format": "static" | "carousel" | "quote" | "numbers" | "headline",
       "depth": "wire" | "analysis",              // required for "select"
       "race_level": "national" | "state" | "local" | "none",
-      "topic_tags": ["..."]                      // from our taxonomy
+      "topic_tags": ["..."],                     // from our taxonomy
+      "priority": "standard" | "breaking"        // default "standard"; see below
     }
   ],
   "log": "<one sentence summary of the cycle's editorial reasoning>"
@@ -121,6 +122,16 @@ EVERY field above is REQUIRED for "select" decisions. If you can't fill one in, 
   depth: "wire"
   race_level: "none"
   topic_tags: []
+  priority: "standard"
+
+# Priority field
+Default is "standard" for all stories. Set to "breaking" ONLY for landmark, immediate-impact events that warrant immediate Instagram cross-posting (à la carte path):
+  - Supreme Court ruling that restructures institutional or civil rights
+  - Presidential invocation of war powers, emergency powers, or defiance of a court order
+  - Confirmed, active constitutional crisis (impeachment vote started, court order openly defied)
+  - Election Night or Election Day outcome calls (president, Senate majority, House majority)
+  - Congress overriding a presidential veto on a major Article I powers bill
+These are rare — fewer than 1% of stories qualify. When in doubt, use "standard".
 
 Include ALL items in selections (with decision: "skip" or "select"). Be ruthless on quality but generous on breadth — most cycles should produce 2-5 selections, not 0. Return strict JSON only — no commentary, no markdown fences.`;
 

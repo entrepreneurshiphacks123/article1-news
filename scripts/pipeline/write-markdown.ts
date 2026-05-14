@@ -39,6 +39,7 @@ export interface WriteOpts {
   feedItem: FeedItem;
   post: GeneratedPost;
   id: number;
+  priority?: 'standard' | 'breaking';
 }
 
 export async function writePostMarkdown(opts: WriteOpts): Promise<string> {
@@ -61,6 +62,11 @@ export async function writePostMarkdown(opts: WriteOpts): Promise<string> {
     hashtags: opts.post.hashtags,
     race_level: opts.post.race_level,
   };
+
+  // Only write priority when it's breaking — standard is the implicit default.
+  if (opts.priority === 'breaking') {
+    fm.priority = 'breaking';
+  }
 
   if (opts.post.type === 'static') {
     fm.body = opts.post.body ?? '';

@@ -135,6 +135,7 @@ async function main() {
         post,
         itemDate: item.publishedAt,
         id,
+        priority: sel.priority === 'breaking' ? 'breaking' : undefined,
       });
       console.log(`[generate]   → wrote ${filePath}`);
       written.push(filePath);

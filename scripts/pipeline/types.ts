@@ -36,6 +36,9 @@ export const SelectionItem = z.object({
   depth: z.enum(['wire', 'analysis']).optional().catch('wire' as const),
   race_level: z.enum(['national', 'state', 'local', 'none']).optional().catch(undefined),
   topic_tags: z.array(z.string()).optional().catch(undefined),
+  // priority: breaking = landmark event warranting immediate IG cross-post
+  // (à la carte path). Standard posts go to Threads only; breaking fires IG.
+  priority: z.enum(['standard', 'breaking']).optional().catch('standard' as const),
 });
 export type SelectionItem = z.infer<typeof SelectionItem>;
 

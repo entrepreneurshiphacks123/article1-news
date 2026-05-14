@@ -86,6 +86,9 @@ interface PostFront {
   quote?: { text: string; speaker: string; speaker_title?: string };
   numbers?: { value: string; unit?: string; body: string };
   headline_card?: { text: string; outlet: string };
+  // priority: 'breaking' triggers immediate à la carte IG cross-post.
+  // All other posts go Threads-only; scheduled digests handle IG for everyone else.
+  priority?: string;
 }
 
 interface PostState {
@@ -153,23 +156,16 @@ function storyImageUrl(slug: string): string {
 const IG_DISABLED = process.env.SOCIAL_IG_DISABLED === '1';
 
 /**
- * IG curation rule: Meta's Content Publishing API caps at ~25 posts/24h
- * per IG Business Account. The bot writes 50+ posts/day × 2 IG surfaces
- * (Story + Feed) = 100+ calls/day. We'd hit the cap inside 6 hours.
+ * IG à la carte rule: IG is now posted on a SCHEDULED DIGEST cadence
+ * (7am / 4pm / 7pm ET via digest.yml). Cross-post.ts handles only the
+ * BREAKING NEWS à la carte path — posts explicitly flagged priority=breaking
+ * by the selector. Everything else goes Threads-only from this script.
  *
- * Cross-post to IG ONLY when the post is "premium":
- *   - Non-static formats: carousel / quote / numbers / headline / cartoon
- *     (these are the editorial set-pieces we want on the grid)
- *   - Static AND has a longform markdown body (analysis depth, 300+ words)
- *
- * Wire briefs (static + empty markdown body) — the high-volume PW-style
- * posts — go to Threads only. They're discovery-fuel, not grid-content.
- *
- * Expected IG volume: ~10-15 posts/day, well under the 25 cap.
+ * Breaking = Supreme Court rulings, war powers invocations, constitutional
+ * crises, election-night calls — fewer than ~1% of posts.
  */
-function isPremiumForIg(post: PostFront, markdownBody: string): boolean {
-  if (post.type !== 'static') return true;
-  return markdownBody.trim().length > 100;  // analysis posts have hundreds-of-chars longform; wire has ~0
+function isBreakingForIg(post: PostFront): boolean {
+  return post.priority === 'breaking';
 }
 
 // IG rate-limit detection — once we see code-9 subcode-2207042 / 2207069
@@ -183,11 +179,11 @@ function looksLikeIgRateLimit(err: unknown): boolean {
   return m.includes('2207042') || m.includes('2207069') || m.includes('Media publish limit') || m.includes('Media creation limit');
 }
 
-async function postOne(slug: string, post: PostFront, markdownBody: string, state: SocialState): Promise<void> {
+async function postOne(slug: string, post: PostFront, state: SocialState): Promise<void> {
   const s: PostState = state[slug] ?? {};
   state[slug] = s;
 
-  const igEligible = isPremiumForIg(post, markdownBody);
+  const igEligible = isBreakingForIg(post);
 
   // Lazily build configs only when needed so we can run --dry without tokens.
   const lazyThreads = (): ThreadsConfig => {
@@ -267,7 +263,7 @@ async function postOne(slug: string, post: PostFront, markdownBody: string, stat
     }
   } else if (!s.ig_story) {
     // Soft-skip — log the reason so the audit trail is clean.
-    const reason = !igEligible ? 'wire (Threads only)'
+    const reason = !igEligible ? 'not breaking (digest handles IG)'
       : IG_DISABLED ? 'IG_DISABLED'
       : igRateLimited ? 'rate-limited'
       : 'already-posted';
@@ -320,7 +316,7 @@ async function postOne(slug: string, post: PostFront, markdownBody: string, stat
       }
     }
   } else if (!s.ig_feed) {
-    const reason = !igEligible ? 'wire (Threads only)'
+    const reason = !igEligible ? 'not breaking (digest handles IG)'
       : IG_DISABLED ? 'IG_DISABLED'
       : igRateLimited ? 'rate-limited'
       : 'already-posted';
@@ -368,12 +364,12 @@ async function main() {
     }
 
     // --slug bypasses the already-posted check so we can re-fire a platform.
-    // Wire posts only need Threads + reply done to count as complete (IG
-    // isn't applicable per the curation rule), so the check is more nuanced.
+    // Non-breaking posts only need Threads + reply done to count as complete.
+    // Breaking posts also need ig_feed + ig_story.
     if (TARGET_SLUG === null) {
       const existing = state[slug];
       const threadsDone = !!existing?.threads && !!existing?.threads_reply;
-      const igNeeded = isPremiumForIg(post, fm.content);
+      const igNeeded = isBreakingForIg(post);
       const igDone = !igNeeded || (!!existing?.ig_feed && !!existing?.ig_story);
       if (existing && threadsDone && igDone) {
         skipped++;
@@ -382,7 +378,7 @@ async function main() {
     }
 
     console.log(`\n[social] ${slug}`);
-    await postOne(slug, post, fm.content, state);
+    await postOne(slug, post, state);
     processed++;
     // Save state incrementally so partial successes survive a crash mid-batch.
     if (!DRY) await saveState(state);

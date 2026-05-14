@@ -19,6 +19,10 @@
     "og:feed:all": "tsx scripts/og-feed/render.ts --all",
     "icons": "tsx scripts/icons/render.ts",
     "social:cross-post": "tsx scripts/social/cross-post.ts",
+    "social:digest": "tsx scripts/social/ig-digest.ts",
+    "social:digest:morning": "tsx scripts/social/ig-digest.ts --slot=morning",
+    "social:digest:afternoon": "tsx scripts/social/ig-digest.ts --slot=afternoon",
+    "social:digest:evening": "tsx scripts/social/ig-digest.ts --slot=evening",
     "maintenance:prune-pngs": "tsx scripts/maintenance/prune-old-pngs.ts"
   },
   "dependencies": {
