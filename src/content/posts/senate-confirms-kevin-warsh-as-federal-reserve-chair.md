@@ -1,25 +1,25 @@
 ---
-id: 646
+id: 712
 type: static
-date: '2026-05-13T22:17:36.000Z'
+date: '2026-05-14T11:15:57.000Z'
 headline: Senate Confirms Kevin Warsh as Federal Reserve Chair
 tags:
   - Economy
-  - Executive
   - Senate
+  - ExecutivePower
 source:
-  outlet: The Hill
+  outlet: NBC News Politics
   url: >-
-    https://thehill.com/newsletters/business-economy/5877103-trump-gets-his-new-fed-chief/
+    https://www.today.com/video/trump-nominee-kevin-warsh-confirmed-as-federal-reserve-chair-263298629659
 hashtags:
   - FederalReserve
   - KevinWarsh
-  - MonetaryPolicy
+  - ArticleI
 race_level: national
 body: >-
-  The Senate voted to confirm Kevin Warsh as the next Federal Reserve chair,
-  replacing Jerome Powell, according to The Hill. Warsh, a former Fed governor
-  and Morgan Stanley investment banker, has been a long-standing critic of the
-  post-2008 era of low interest rates.
+  The Senate confirmed Kevin Warsh as Federal Reserve chair in a mostly
+  party-line vote, replacing Jerome Powell atop the world's most powerful
+  central bank, according to NBC News. Powell plans to remain on the Fed's board
+  after his chairmanship ends.
 ---
 
