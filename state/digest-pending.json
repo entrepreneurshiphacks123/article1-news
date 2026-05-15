@@ -1,0 +1,47 @@
+{
+  "slot": "afternoon",
+  "date": "2026-05-15",
+  "posts": [
+    {
+      "slug": "china-reopens-market-to-425-us-beef-plants",
+      "headline": "China Reopens Market to 425 US Beef Plants",
+      "outlet": "Bloomberg Politics",
+      "date": "2026-05-15T18:48:50.000Z"
+    },
+    {
+      "slug": "china-and-us-find-common-ground-on-hormuz-access",
+      "headline": "China and US Find Common Ground on Hormuz Access",
+      "outlet": "Bloomberg Politics",
+      "date": "2026-05-15T18:35:46.000Z"
+    },
+    {
+      "slug": "cassidy-navigates-louisiana-primary-under-trump-targeting",
+      "headline": "Cassidy Navigates Louisiana Primary Under Trump Targeting",
+      "outlet": "NYT Politics",
+      "date": "2026-05-15T18:34:56.000Z"
+    },
+    {
+      "slug": "administration-moves-to-streamline-oil-permits-in-npr-alaska",
+      "headline": "Administration Moves to Streamline Oil Permits in NPR-Alaska",
+      "outlet": "Bloomberg Politics",
+      "date": "2026-05-15T18:34:39.000Z"
+    },
+    {
+      "slug": "kevin-warsh-takes-over-as-federal-reserve-chair",
+      "headline": "Kevin Warsh Takes Over as Federal Reserve Chair",
+      "outlet": "Bloomberg Politics",
+      "date": "2026-05-15T18:30:37.000Z"
+    }
+  ],
+  "feedFiles": [
+    "og-feed/digest-afternoon-2026-05-15-1.png",
+    "og-feed/digest-afternoon-2026-05-15-2.png",
+    "og-feed/digest-afternoon-2026-05-15-3.png",
+    "og-feed/digest-afternoon-2026-05-15-4.png",
+    "og-feed/digest-afternoon-2026-05-15-5.png",
+    "og-feed/digest-afternoon-2026-05-15-6.png",
+    "og-feed/digest-afternoon-2026-05-15-7.png"
+  ],
+  "storyFile": "og-stories/digest-afternoon-2026-05-15.png",
+  "renderedAt": "2026-05-15T21:16:33.876Z"
+}
