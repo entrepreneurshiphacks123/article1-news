@@ -1,0 +1,47 @@
+{
+  "slot": "evening",
+  "date": "2026-05-15",
+  "posts": [
+    {
+      "slug": "polis-commutes-tina-peters-sentence-sets-june-1-release",
+      "headline": "Polis Commutes Tina Peters Sentence, Sets June 1 Release",
+      "outlet": "NBC News Politics",
+      "date": "2026-05-15T21:37:44.000Z"
+    },
+    {
+      "slug": "state-department-adopts-great-replacement-framing-in-migration-policy",
+      "headline": "State Department Adopts 'Great Replacement' Framing in Migration Policy",
+      "outlet": "NPR Politics",
+      "date": "2026-05-15T21:29:00.000Z"
+    },
+    {
+      "slug": "eeoc-proposes-ending-decades-old-workplace-demographic-data-collection",
+      "headline": "EEOC Proposes Ending Decades-Old Workplace Demographic Data Collection",
+      "outlet": "Washington Post Politics",
+      "date": "2026-05-15T21:28:09.000Z"
+    },
+    {
+      "slug": "grassley-invites-four-tech-ceos-to-senate-kids-safety-hearing",
+      "headline": "Grassley Invites Four Tech CEOs to Senate Kids Safety Hearing",
+      "outlet": "The Hill",
+      "date": "2026-05-15T21:24:07.000Z"
+    },
+    {
+      "slug": "fda-drug-center-acting-director-tracy-beth-hoeg-resigns",
+      "headline": "FDA Drug Center Acting Director Tracy Beth Høeg Resigns",
+      "outlet": "STAT News",
+      "date": "2026-05-15T21:15:23.000Z"
+    }
+  ],
+  "feedFiles": [
+    "og-feed/digest-evening-2026-05-15-1.png",
+    "og-feed/digest-evening-2026-05-15-2.png",
+    "og-feed/digest-evening-2026-05-15-3.png",
+    "og-feed/digest-evening-2026-05-15-4.png",
+    "og-feed/digest-evening-2026-05-15-5.png",
+    "og-feed/digest-evening-2026-05-15-6.png",
+    "og-feed/digest-evening-2026-05-15-7.png"
+  ],
+  "storyFile": "og-stories/digest-evening-2026-05-15.png",
+  "renderedAt": "2026-05-15T22:07:23.153Z"
+}
