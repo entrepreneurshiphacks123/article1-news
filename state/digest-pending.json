@@ -1,0 +1,47 @@
+{
+  "slot": "afternoon",
+  "date": "2026-05-16",
+  "posts": [
+    {
+      "slug": "trump-labels-iran-war-coverage-treasonous-cnn-anchor-rejects-claim",
+      "headline": "Trump Labels Iran War Coverage Treasonous, CNN Anchor Rejects Claim",
+      "outlet": "The Hill",
+      "date": "2026-05-16T19:21:54.000Z"
+    },
+    {
+      "slug": "cuba-announces-full-depletion-of-oil-and-diesel-reserves",
+      "headline": "Cuba Announces Full Depletion of Oil and Diesel Reserves",
+      "outlet": "The Hill",
+      "date": "2026-05-16T18:50:00.000Z"
+    },
+    {
+      "slug": "trump-says-he-does-not-think-about-americans-financial-situation",
+      "headline": "Trump Says He Does Not Think About Americans' Financial Situation",
+      "outlet": "The Bulwark",
+      "date": "2026-05-16T17:21:35.000Z"
+    },
+    {
+      "slug": "actblue-ceo-agrees-to-testify-on-foreign-donor-vetting",
+      "headline": "ActBlue CEO Agrees to Testify on Foreign Donor Vetting",
+      "outlet": "NYT Politics",
+      "date": "2026-05-16T17:00:04.000Z"
+    },
+    {
+      "slug": "trump-targets-cassidy-on-louisiana-primary-day",
+      "headline": "Trump Targets Cassidy on Louisiana Primary Day",
+      "outlet": "The Hill",
+      "date": "2026-05-16T16:19:49.000Z"
+    }
+  ],
+  "feedFiles": [
+    "og-feed/digest-afternoon-2026-05-16-1.png",
+    "og-feed/digest-afternoon-2026-05-16-2.png",
+    "og-feed/digest-afternoon-2026-05-16-3.png",
+    "og-feed/digest-afternoon-2026-05-16-4.png",
+    "og-feed/digest-afternoon-2026-05-16-5.png",
+    "og-feed/digest-afternoon-2026-05-16-6.png",
+    "og-feed/digest-afternoon-2026-05-16-7.png"
+  ],
+  "storyFile": "og-stories/digest-afternoon-2026-05-16.png",
+  "renderedAt": "2026-05-16T21:00:24.233Z"
+}
