@@ -1,0 +1,47 @@
+{
+  "slot": "morning",
+  "date": "2026-05-16",
+  "posts": [
+    {
+      "slug": "trump-visits-beijing-amid-iran-war-and-primary-season",
+      "headline": "Trump Visits Beijing Amid Iran War and Primary Season",
+      "outlet": "NPR Politics",
+      "date": "2026-05-16T11:43:32.000Z"
+    },
+    {
+      "slug": "midwest-farmers-face-worst-financial-pressure-since-1980s-crisis",
+      "headline": "Midwest Farmers Face Worst Financial Pressure Since 1980s Crisis",
+      "outlet": "Axios Politics",
+      "date": "2026-05-16T11:30:06.000Z"
+    },
+    {
+      "slug": "major-employers-roll-back-parental-leave-and-retirement-benefits",
+      "headline": "Major Employers Roll Back Parental Leave and Retirement Benefits",
+      "outlet": "Axios Politics",
+      "date": "2026-05-16T11:00:05.000Z"
+    },
+    {
+      "slug": "former-fda-deputy-says-makary-misread-administrative-power",
+      "headline": "Former FDA Deputy Says Makary Misread Administrative Power",
+      "outlet": "STAT News",
+      "date": "2026-05-16T11:00:00.000Z"
+    },
+    {
+      "slug": "cassidy-faces-primary-challenge-after-2021-trump-conviction-vote",
+      "headline": "Cassidy Faces Primary Challenge After 2021 Trump Conviction Vote",
+      "outlet": "Washington Post Politics",
+      "date": "2026-05-16T10:00:01.000Z"
+    }
+  ],
+  "feedFiles": [
+    "og-feed/digest-morning-2026-05-16-1.png",
+    "og-feed/digest-morning-2026-05-16-2.png",
+    "og-feed/digest-morning-2026-05-16-3.png",
+    "og-feed/digest-morning-2026-05-16-4.png",
+    "og-feed/digest-morning-2026-05-16-5.png",
+    "og-feed/digest-morning-2026-05-16-6.png",
+    "og-feed/digest-morning-2026-05-16-7.png"
+  ],
+  "storyFile": "og-stories/digest-morning-2026-05-16.png",
+  "renderedAt": "2026-05-16T12:01:03.514Z"
+}
